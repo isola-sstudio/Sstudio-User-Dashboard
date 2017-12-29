@@ -31,11 +31,24 @@
     }
 
     /**
-     **This method is used to insert a new user in the database
-     *
+     **This method is used to create an admin user in the database when a
+     * user signs up
+     **@param string name, email, password, contactNumber
+     **@return bool TRUE if the user info was successfully added to database
+     * without any error. FALSE otherwise.
      */
-    function createAdminUserAccount(){
-
+    public function createAdminUserAccount($name, $email, $password, $contactNumber){
+      //build up a query string and create a user
+      $query = "INSERT INTO `thestart_upstudio`.`tss_package_subscription`(`company_name`,
+        `company_email`, `password`, `contact_number`)
+        VALUES('$name', '$email', '$password', '$contactNumber')";
+        if (Self::$serverConn -> query($query) === TRUE) {
+          # user info has been successfully inserted into database so send
+          return TRUE;
+        }else {
+          # user info could not be inserted at the moment so
+          return FALSE;
+        }
     }
 
     /**
@@ -71,8 +84,11 @@
      * This method is used to log a user out by unsetting all SESSION variables
      *
      */
-    function logAdminUserOut(){
-
+    public static function logAdminUserOut(){
+      if (isset($_SESSION['user_id']) || isset($_SESSION['email'])) {
+        # there is a session
+        session_destroy();
+      }
     }
 
     /**
@@ -95,19 +111,15 @@
         # just return FALSE since the necessary session variables are not even set
         return FALSE;
       }
-
-
-
-
-
-
-
-
-
-
-
-
     }
+
+    /**
+     **This method sends a user to the web root or whereever is defined as home
+     */
+    public static function sendAdminUserHome(){
+      header('Location: /');
+    }
+
 
     /**
      **This method is used to retrieve one or more columns about the user from
@@ -140,6 +152,48 @@
           return FALSE;
         }
     }
+
+    /**
+     **This method is used to update info for an existing user in the database.
+     **It accepts an associative array corresponding to table column name and value
+     **It needs user id, passed in
+     **@param Assoc Array $info, Int $userId
+     **@return bool TRUE if all details passed in were successfully updated in
+     *database. FALSE otherwise.
+     */
+     public function updateAdminUserInfo($info, $user_id){
+       //build up a query parts for query string from info
+       $query = "UPDATE `thestart_upstudio`.`tss_package_subscription` SET";
+       foreach ($info as $key => $value) {
+         # add key and value pair of info to $query
+         //adding each key value pair to $query
+         if (array_keys($info)[count($info) - 1] == $key) {
+           # we have the last one of the set of info passed in so no comma
+           $query .= " `$key` = '$value'";
+         }else {
+           # it is the first of a set or one of a set so add a comma
+           $query .= " `$key` = '$value',";
+         }
+       }
+       //add the final part to query
+       $query .= " WHERE `tss_package_subscription`.`id` = '$user_id'";
+
+       //perform the update
+       if ($result = Self::$serverConn->query($query)) {
+         # query execution was successful
+         if (Self::$serverConn->affected_rows == 1) {
+           # user info has been successfully inserted into database so send
+           return TRUE;
+         }else {
+             # user info was not updated most likely due to wrong id or something else
+             return FALSE;
+           }
+       }else {
+           # user info could not be inserted at the moment due to server issue
+           return FALSE;
+         }
+     }
+
 
 
 

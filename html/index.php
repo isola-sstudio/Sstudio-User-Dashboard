@@ -1,6 +1,8 @@
 <?php
   //used for the login operation
   require_once __DIR__ . '/utils/login_admin_user.php';
+  //used for the signup operation
+  require_once __DIR__ . '/utils/create_admin_user.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,10 +40,46 @@
         <div class="lg-info-panel">
             <div class="inner-panel">
                 <a href="javascript:void(0)" class="p-20 di"><img src="../plugins/images/admin-logo.png" style="width:40%;"></a>
-                <div class="lg-content">
-                    <h2>THE ULTIMATE & MULTIPURPOSE ADMIN TEMPLATE OF 2017</h2>
-                    <p class="text-muted">with this admin you can get 2000+ pages, 500+ ui component, 2000+ icons, different demos and many more... </p>
-                    <a href="#" class="btn btn-rounded btn-danger p-l-20 p-r-20"> Buy now</a>
+                <div class="lg-content" style="margin:0">
+                  <div class="form-group m-b-0">
+                      <div class="col-sm-12 text-center">
+                          <p>Don't have an account?</p>
+                      </div>
+                  </div>
+                  <div class="white-box" style="background-color:rgba(255,255,255,0.2);">
+                      <h3 class="box-title m-b-0">CREATE AN ACCOUNT</h3>
+                      <form class="form-horizontal new-lg-form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                          <div class="form-group  m-t-20">
+                              <div class="col-xs-12">
+                                  <label>Name</label>
+                                  <input class="form-control" type="text" name="name" required="" placeholder="Name">
+                              </div>
+                          </div>
+                          <div class="form-group  m-t-20">
+                              <div class="col-xs-12">
+                                  <label>Email Address</label>
+                                  <input class="form-control" type="email" name="email" required="" placeholder="you@company.com">
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <div class="col-xs-12">
+                                  <label>Password</label>
+                                  <input class="form-control" type="password" name="password" required="" placeholder="Password">
+                              </div>
+                          </div>
+                          <div class="form-group  m-t-20">
+                              <div class="col-xs-12">
+                                  <label>Contact Number</label>
+                                  <input class="form-control" type="text" name="phone" required="" placeholder="contact number">
+                              </div>
+                          </div>
+                          <div class="form-group text-center m-t-20">
+                              <div class="col-xs-12">
+                                  <button class="btn btn-rounded btn-danger p-l-20 p-r-20" type="submit" name="signup">Sign Up</button>
+                              </div>
+                          </div>
+                      </form>
+                  </div>
                 </div>
             </div>
         </div>
@@ -81,11 +119,6 @@
                                 <a href="javascript:void(0)" class="btn  btn-facebook" data-toggle="tooltip" title="Login with Facebook"> <i aria-hidden="true" class="fa fa-facebook"></i> </a>
                                 <a href="javascript:void(0)" class="btn btn-googleplus" data-toggle="tooltip" title="Login with Google"> <i aria-hidden="true" class="fa fa-google-plus"></i> </a>
                             </div>
-                        </div>
-                    </div>
-                    <div class="form-group m-b-0">
-                        <div class="col-sm-12 text-center">
-                            <p>Don't have an account? <a href="register.html" class="text-primary m-l-5"><b>Sign Up</b></a></p>
                         </div>
                     </div>
                 </form>
