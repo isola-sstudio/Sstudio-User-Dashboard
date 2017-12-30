@@ -193,13 +193,6 @@
            return FALSE;
          }
      }
-
-
-
-
   }
 
-?>
-<?php
-  $test = new AdminUser();
 ?>
