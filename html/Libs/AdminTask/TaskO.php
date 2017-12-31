@@ -58,23 +58,34 @@
      **This method is used to retrieve info about a task or number, or
      * collection of tasks from the database.
      **To get a distinct set of values, set the distinct variable to TRUE
+     **To retrieve all columns, just pass in * for $taskInfo
+     **$constraint should be passed in, in the form of an series of associative
+     * arrays inside an index array
      **@param string $reference, $referenceValue, $userInfo
      **@return Array $rowContent, Bool FALSE if there was nothing to fetch or if
      * there was server issues and the query was not successful
      */
     public function getTasksInfo($userId, $taskInfo, $limit='', $constraint='', $order='', $distinct=FALSE){
-      $query = "SELECT $taskInfo FROM `thestart_upstudio`.`admin_task` WHERE `user_id` = '$userId'";
+      $query = "SELECT `$taskInfo` FROM `thestart_upstudio`.`admin_task` WHERE `user_id` = '$userId'";
       //check if we are to select distinct values
       if ($distinct) {
         # add distinct to query string
-        $query = "SELECT DISTINCT $taskInfo FROM `thestart_upstudio`.`admin_task` WHERE `user_id` = '$userId'";
+        $query = "SELECT DISTINCT `$taskInfo` FROM `thestart_upstudio`.`admin_task` WHERE `user_id` = '$userId'";
       }
       // in a situation where we have another constraint
       if (isset($constraint) && !empty($constraint)) {
         # there is a constraint, so we add up to the query
-        $constraintKey = $constraint['key'];
-        $constraintValue = $constraint['value'];
-        $query .= " AND `$constraintKey`='$constraintValue'";
+        // $constraintKey = $constraint['key'];
+        // $constraintOperator = $constraint['operator'];
+        // $constraintValue = $constraint['value'];
+        foreach ($constraint as $constraintSet) {
+          # so we can have multiple constraints, we pass in a multidimensional array
+          $constraintSetKey = $constraintSet['key'];
+          $constraintSetOperator = $constraintSet['operator'];
+          $constraintSetValue = $constraintSet['value'];
+
+          $query .= " AND `$constraintSetKey` $constraintSetOperator '$constraintSetValue'";
+        }
       }
       // in a situation where we have an order type to follow
       if (isset($order) && !empty($order)) {
@@ -88,16 +99,24 @@
         # there is a constraint, so we add up to the query
         $query .= " LIMIT $limit";
       }
-
       if ($result = Self::$serverConn->query($query)) {
         //query successful, return the mysqli object
         if ($result->num_rows >= 1) {
           # there was in fact a result
-          while ($row = $result->fetch_assoc()) {//while there is still one
-            # while there is still something from the task info column
-            $rowContent[] = $row["$taskInfo"];//dynamically initiate an array to return
-          }
-          return $rowContent;
+          if ($taskInfo == '*') {
+            # if we were asked to bring all columns
+            while ($row = $result->fetch_assoc()) {//while there is still one
+              # while there is still something from the task info column
+              $rowContents[] = $row;//dynamically initialize an array to return
+            }
+          }else {
+              # we were asked to retrieve a particular column
+              while ($row = $result->fetch_assoc()) {//while there is still one
+                # while there is still something from the task info column
+                $rowContents[] = $row["$taskInfo"];//dynamically initialize an array to return
+              }
+            }
+           return $rowContents;
         }else {
             # there was no result
             return FALSE;
@@ -108,9 +127,87 @@
         }
     }
 
-    public function getTasks($userId, $taskInfo, $limit='', $constraint='', $order='', $distinct=FALSE){
+    /**
+     **This method is used to retrieve the most recent months from the task table
+     **@param string $userId, $monthConstraint, $limit
+     **@return Array $rowContent, Bool FALSE if there was nothing to fetch or if
+     * there was server issues and the query was not successful
+     */
+    public function getReccentTasksMonths($userId, $limit){
+      $query = "SELECT DISTINCT MONTHNAME(created) FROM `thestart_upstudio`.`admin_task` WHERE `user_id` = '$userId'";
+      //add constraints
+      $query .= " AND YEAR(created) = YEAR(CURDATE())";
+      //add order
+      $query .= " ORDER BY MONTHNAME(created) DESC";
+      //add limit
+      $query .= " LIMIT $limit";
 
+      if ($result = Self::$serverConn->query($query)) {
+        //query successful, return the mysqli object
+        if ($result->num_rows >= 1) {
+          # there was in fact a result
+          while ($row = $result->fetch_assoc()) {//while there is still one
+            # while there is still something from the created column
+            $rowContents[] = $row['MONTHNAME(created)'];//dynamically initialize an array to return
+          }
+
+          return $rowContents;
+        }else {
+            # there was no result
+            return FALSE;
+          }
+      }else {
+          # query was not successful
+          return FALSE;
+        }
     }
+
+    /**
+     **So the previous method would have certify for this situation but because
+     * of some work arounds that i could not fix.. i terribly had to resolve to
+     * this
+     **This method is used to retrieve info about reent tasks in a particular month
+     **@param string $userId, $monthConstraint, $limit
+     **@return Array $rowContent, Bool FALSE if there was nothing to fetch or if
+     * there was server issues and the query was not successful
+     */
+    public function getReccentTasks($userId, $monthConstraint, $limit=''){
+      $query = "SELECT * FROM `thestart_upstudio`.`admin_task` WHERE `user_id` = '$userId'";
+      //add constraints
+      $query .= " AND MONTHNAME(created) = '$monthConstraint' AND YEAR(created) = YEAR(CURDATE())";
+      //add order
+      $query .= " ORDER BY `created` DESC";
+
+      // in a situation where we have a limit amount
+      if (isset($limit) && !empty($limit)) {
+        # there is a constraint, so we add up to the query
+        $query .= " LIMIT $limit";
+      }
+      if ($result = Self::$serverConn->query($query)) {
+        //query successful, return the mysqli object
+        if ($result->num_rows >= 1) {
+          # there was in fact a result
+          while ($row = $result->fetch_assoc()) {//while there is still one
+            # while there is still something from the task info column
+            $rowContents[] = $row;//dynamically initialize an array to return
+          }
+
+          return $rowContents;
+        }else {
+            # there was no result
+            return FALSE;
+          }
+      }else {
+          # query was not successful
+          return FALSE;
+        }
+    }
+
+
+
+
+
+
 
 
 
@@ -168,15 +265,22 @@
   $test = new TaskO();
   // echo "bring in tasks without any additional stuffs<br>";
   // echo "<br>bring in tasks with a constraint<br>";
-//      var_dump($test->getTasksInfo(1, "MONTHNAME(created)", 5, '', array('column' => 'created', 'type'=>'DESC' ), TRUE);
-//$userId, $taskInfo, $limit='', $constraint='', $order='', $distinct=FALSE
-     // echo date('Y',$test->getTasksInfo(1, 'MONTH(created)'));
-   var_dump($test->getTasksInfo(1, 'MONTHNAME(created)', 3, '', array('column' => 'MONTHNAME(created)', 'type' => 'DESC'), TRUE));
+         // var_dump($test->getTasksInfo(1, 'created', 5, '', array('column' => 'created', 'type'=>'DESC' ), TRUE));
   // echo "<br>bring in tasks with an order<br>";
-  // var_dump($test->getTasksInfo(1, 'task_name', '', array('key' => 'status', 'value'=>'0'), array('column' => 'created', 'type'=>'DESC')));
+      // var_dump($test->getTasksInfo(1, 'task_name', '', array(array('key' => 'status', 'operator'=>'=', 'value'=>'0')), array('column' => 'created', 'type'=>'DESC')));
   // echo "<br>bring in tasks with an order and a limit<br>";
-  // var_dump($test->getTasksInfo(1, 'task_name', '3', array('key' => 'status', 'value'=>'0'), array('column' => 'created', 'type'=>'DESC')));
+       // var_dump($test->getTasksInfo(1, 'task_name', '3', array(array('key' => 'status','operator'=>'=', 'value'=>'0')), array('column' => 'created', 'type'=>'DESC')));
   // echo "<br><br><br>bring in tasks with an order and a limit<br>";
-  // var_dump($test->getTasksInfo(1, 'MONTH(created)', '3', array('key' => 'status', 'value'=>'0'), array('column' => 'created', 'type'=>'DESC')));
-
+        // var_dump($test->getTasksInfo(1, 'task_name', '3', array(array('key' => 'status','operator'=>'=', 'value'=>'0')), array('column' => 'created', 'type'=>'DESC')));
+//  var_dump($variable = $test->getReccentTasks(1, 'December', 1));
+// echo "<br>";
+// echo "<br>";echo "<br>";
+// foreach ($variable as $k => $v) {
+// //  foreach ($v as $key) {
+//     # code...
+//     echo "<br><br><br><br><br><br>";
+//     echo $v['task_name'];
+//     var_dump($v);
+//   // }
+// }
 ?>
