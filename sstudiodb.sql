@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 29, 2017 at 03:57 AM
+-- Generation Time: Dec 31, 2017 at 05:59 AM
 -- Server version: 5.7.18-1
 -- PHP Version: 7.0.20-2
 
@@ -21,6 +21,21 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `thestart_upstudio` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `thestart_upstudio`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin_task`
+--
+
+CREATE TABLE `admin_task` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `user_id` int(11) UNSIGNED NOT NULL,
+  `task_name` varchar(200) NOT NULL,
+  `task_description` text,
+  `status` char(1) NOT NULL DEFAULT '0',
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -46,6 +61,13 @@ CREATE TABLE `tss_package_subscription` (
 --
 
 --
+-- Indexes for table `admin_task`
+--
+ALTER TABLE `admin_task`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- Indexes for table `tss_package_subscription`
 --
 ALTER TABLE `tss_package_subscription`
@@ -56,10 +78,25 @@ ALTER TABLE `tss_package_subscription`
 --
 
 --
+-- AUTO_INCREMENT for table `admin_task`
+--
+ALTER TABLE `admin_task`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `tss_package_subscription`
 --
 ALTER TABLE `tss_package_subscription`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'just a normal id for the table';
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `admin_task`
+--
+ALTER TABLE `admin_task`
+  ADD CONSTRAINT `admin_task_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `tss_package_subscription` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

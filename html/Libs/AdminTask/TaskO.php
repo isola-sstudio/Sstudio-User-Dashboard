@@ -1,4 +1,4 @@
-<?php namespace Libs\TaskO;
+<?php namespace Libs\AdminTask;
 
   //config constants for server connection
   require_once __DIR__ . '/../../../../config/db/db_constants.php';
@@ -29,11 +29,6 @@
       }
     }
 
-
-
-
-
-
     /**
      **This method is used to count the 'a particular' amount of task created by
      * the admin.. it is expecting to be asked to count all tasks or tasks with
@@ -49,14 +44,78 @@
         # here, we are trying to count based on a constaint, most likely status
         $query = "SELECT COUNT(id) AS numberOfTasks FROM `thestart_upstudio`.`admin_task` WHERE `user_id` = '$userId' AND `status` = '$constraint'";
       }
-        if ($result = Self::$serverConn -> query($query)) {
-          # user info has been successfully inserted into database so send
-          return $result;
-        }else {
-          # user info could not be inserted at the moment so
+      if ($result = Self::$serverConn -> query($query)) {
+        # the query ran successfully, so return the number of Tasks
+        $row = $result->fetch_assoc();
+        return $row['numberOfTasks'];
+      }else {
+          # the query could not run.. definitely server issues
           return FALSE;
         }
     }
+
+    /**
+     **This method is used to retrieve info about a task or number, or
+     * collection of tasks from the database.
+     **To get a distinct set of values, set the distinct variable to TRUE
+     **@param string $reference, $referenceValue, $userInfo
+     **@return Array $rowContent, Bool FALSE if there was nothing to fetch or if
+     * there was server issues and the query was not successful
+     */
+    public function getTasksInfo($userId, $taskInfo, $limit='', $constraint='', $order='', $distinct=FALSE){
+      $query = "SELECT $taskInfo FROM `thestart_upstudio`.`admin_task` WHERE `user_id` = '$userId'";
+      //check if we are to select distinct values
+      if ($distinct) {
+        # add distinct to query string
+        $query = "SELECT DISTINCT $taskInfo FROM `thestart_upstudio`.`admin_task` WHERE `user_id` = '$userId'";
+      }
+      // in a situation where we have another constraint
+      if (isset($constraint) && !empty($constraint)) {
+        # there is a constraint, so we add up to the query
+        $constraintKey = $constraint['key'];
+        $constraintValue = $constraint['value'];
+        $query .= " AND `$constraintKey`='$constraintValue'";
+      }
+      // in a situation where we have an order type to follow
+      if (isset($order) && !empty($order)) {
+        # there is an order type, so we add up to the query
+        $orderColumn = $order['column'];
+        $orderType = $order['type'];
+        $query .= " ORDER BY `$orderColumn` $orderType";
+      }
+      // in a situation where we have a limit amount
+      if (isset($limit) && !empty($limit)) {
+        # there is a constraint, so we add up to the query
+        $query .= " LIMIT $limit";
+      }
+
+      if ($result = Self::$serverConn->query($query)) {
+        //query successful, return the mysqli object
+        if ($result->num_rows >= 1) {
+          # there was in fact a result
+          while ($row = $result->fetch_assoc()) {//while there is still one
+            # while there is still something from the task info column
+            $rowContent[] = $row["$taskInfo"];//dynamically initiate an array to return
+          }
+          return $rowContent;
+        }else {
+            # there was no result
+            return FALSE;
+          }
+      }else {
+          # query was not successful
+          return FALSE;
+        }
+    }
+
+    public function getTasks(){
+
+    }
+
+
+
+
+
 
 
 
@@ -105,19 +164,19 @@
 
 ?>
 <?php
-  $test = new TaskO();
-  //echo
-  echo "count all from 1";
-  var_dump($test->taskCount('1'));
-  echo "<br>count all from 2";
-  var_dump($test->taskCount('2'));
-  echo "<br>count just created from 1";
-  var_dump($test->taskCount('1',0));
-    echo "<br>count just created from 2";
-  var_dump($test->taskCount('2',0));
-  echo "<br>count just in progress from 1";
-  var_dump($test->taskCount('1',1));
-  echo "<br>count just in progress from 2";
-  var_dump($test->taskCount('2'1));
 
- ?>
+  $test = new TaskO();
+  // echo "bring in tasks without any additional stuffs<br>";
+  // echo "<br>bring in tasks with a constraint<br>";
+//      var_dump($test->getTasksInfo(1, "MONTHNAME(created)", 5, '', array('column' => 'created', 'type'=>'DESC' ), TRUE);
+//$userId, $taskInfo, $limit='', $constraint='', $order='', $distinct=FALSE
+     // echo date('Y',$test->getTasksInfo(1, 'MONTH(created)'));
+   var_dump($test->getTasksInfo(1, 'MONTHNAME(created)', 3, '', array('column' => 'MONTHNAME(created)', 'type' => 'DESC'), TRUE));
+  // echo "<br>bring in tasks with an order<br>";
+  // var_dump($test->getTasksInfo(1, 'task_name', '', array('key' => 'status', 'value'=>'0'), array('column' => 'created', 'type'=>'DESC')));
+  // echo "<br>bring in tasks with an order and a limit<br>";
+  // var_dump($test->getTasksInfo(1, 'task_name', '3', array('key' => 'status', 'value'=>'0'), array('column' => 'created', 'type'=>'DESC')));
+  // echo "<br><br><br>bring in tasks with an order and a limit<br>";
+  // var_dump($test->getTasksInfo(1, 'MONTH(created)', '3', array('key' => 'status', 'value'=>'0'), array('column' => 'created', 'type'=>'DESC')));
+
+?>

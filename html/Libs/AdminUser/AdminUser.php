@@ -125,12 +125,12 @@
      **This method is used to retrieve one or more columns about the user from
      * the database. User Info argument defaults to all in a situation where a
      * specific info to get is not specified
-     **@param string $reference, $value, $userInfo
+     **@param string $reference, $referenceValue, $userInfo
      **@return Mysqli object $result, string Returns the fetched user info
      * bool FALSE if the query was not successful.
      */
-    public function getAdminUserInfo($reference, $value, $userInfo = '*'){
-      $query = "SELECT $userInfo FROM `thestart_upstudio`.`tss_package_subscription` WHERE `$reference` = '$value'";
+    public function getAdminUserInfo($reference, $referenceValue, $userInfo = '*'){
+      $query = "SELECT $userInfo FROM `thestart_upstudio`.`tss_package_subscription` WHERE `$reference` = '$referenceValue'";
       if ($result = Self::$serverConn->query($query)) {
         //query successful, return the mysqli object
         if ($result->num_rows == 1) {

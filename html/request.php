@@ -118,8 +118,8 @@
                     <li style="padding: 70px 0 0;"><a href="dashboard.php" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Dashboard</a> </li>
                     <li><a href="#" class="waves-effect"><i class="fa fa-clone fa-fw" aria-hidden="true"></i> Request<span class="fa arrow"></span><span class="label label-rouded label-warning pull-right">3</span></a>
                         <ul class="nav nav-second-level">
-                            <li><a href="request.php#new"><i class="fa fa-hourglass-start fa-fw" aria-hidden="true"></i>New Task</a></li>
-                            <li><a href="request.php#ongoing"><i class="fa fa-columns fa-fw" aria-hidden="true"></i>Ongoing Task</a></li>
+                            <li><a href="request.php#new"><i class="fa fa-sticky-note-o fa-fw" aria-hidden="true"></i>New Task</a></li>
+                            <li><a href="request.php#ongoing"><i class="fa fa-tasks fa-fw" aria-hidden="true"></i>Ongoing Task</a></li>
                         </ul>
                     </li>
                     <li><a href="chat.html"><i class="fa fa-comment-o fa-fw" aria-hidden="true"></i>Chat</a></li>

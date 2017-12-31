@@ -15,6 +15,11 @@
     header('Location: index.php');
   }
 ?>
+<?php
+  //bring in the task controller
+  require_once __DIR__ . '/utils/task_controller.php';
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -124,10 +129,10 @@
                 </div>
                 <ul class="nav" id="side-menu">
                     <li style="padding: 70px 0 0;"><a href="dashboard.php" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Dashboard</a> </li>
-                    <li><a href="#" class="waves-effect"><i class="fa fa-clone fa-fw" aria-hidden="true"></i> Request<span class="fa arrow"></span><span class="label label-rouded label-warning pull-right">3</span></a>
+                    <li><a href="#" class="waves-effect"><i class="fa fa-clone fa-fw" aria-hidden="true"></i> Request<span class="fa arrow"></span><span class="label label-rouded label-warning pull-right"><?php echo $justCreatedTasks; ?></span></a>
                         <ul class="nav nav-second-level">
-                            <li><a href="request.php"><i class="fa fa-hourglass-start fa-fw" aria-hidden="true"></i>New Task</a></li>
-                            <li><a href="request.php#ongoing"><i class="fa fa-columns fa-fw" aria-hidden="true"></i>Ongoing Task</a></li>
+                            <li><a href="request.php"><i class="fa fa-sticky-note-o fa-fw" aria-hidden="true"></i>New Task</a></li>
+                            <li><a href="request.php#ongoing"><i class="fa fa-tasks fa-fw" aria-hidden="true"></i>Ongoing Task</a></li>
                         </ul>
                     </li>
                     <li><a href="chat.html"><i class="fa fa-comment-o fa-fw" aria-hidden="true"></i>Chat</a></li>
@@ -190,7 +195,7 @@
                                 <li>
                                     <div id="sparklinedash"></div>
                                 </li>
-                                <li class="text-right"><i class="ti-arrow-up text-success"></i> <span class="counter text-success">659</span></li>
+                                <li class="text-right"><i class="ti-arrow-up text-success"></i> <span class="counter text-success"><?php echo $totalTaskCreated; ?></span></li>
                             </ul>
                         </div>
                     </div>
@@ -201,7 +206,7 @@
                                 <li>
                                     <div id="sparklinedash2"></div>
                                 </li>
-                                <li class="text-right"><i class="ti-arrow-up text-purple"></i> <span class="counter text-purple">869</span></li>
+                                <li class="text-right"><i class="ti-arrow-up text-purple"></i> <span class="counter text-purple"><?php echo $ongoingTasks; ?></span></li>
                             </ul>
                         </div>
                     </div>
@@ -212,7 +217,7 @@
                                 <li>
                                     <div id="sparklinedash3"></div>
                                 </li>
-                                <li class="text-right"><i class="ti-arrow-up text-info"></i> <span class="counter text-info">911</span></li>
+                                <li class="text-right"><i class="ti-arrow-up text-info"></i> <span class="counter text-info"><?php echo $completedTask; ?></span></li>
                             </ul>
                         </div>
                     </div>
@@ -240,18 +245,17 @@
                 <div class="row">
                     <div class="col-md-12 col-lg-6 col-sm-12" style="width:55%;">
                         <div class="white-box">
-                            <div class="col-md-3 col-sm-4 col-xs-6 pull-right" style="width:40%;">
+                            <div class="col-md-3 col-sm-4 col-xs-6 pull-right" style="width:30%;">
                                 <select class="form-control pull-right row b-none">
-                                    <option>December 2017</option>
-                                    <option>April 2017</option>
-                                    <option>May 2017</option>
-                                    <option>June 2017</option>
-                                    <option>July 2017</option>
+                                  <?php foreach ($lastFiveMonths as $month): ?>
+                                    <option><?php echo $month; ?></option>
+                                  <?php endforeach; ?>
                                 </select>
                             </div>
                             <h3 class="box-title">Recent Tasks</h3>
                             <div class="row sales-report">
                                 <div class="col-md-6 col-sm-6 col-xs-6">
+                                  <!-- JS to pick the selected month from the dropdown box -->
                                     <h2>December 2017</h2>
                                     <p>TASKS REPORT</p>
                                 </div>
