@@ -108,7 +108,7 @@
         }
     }
 
-    public function getTasks(){
+    public function getTasks($userId, $taskInfo, $limit='', $constraint='', $order='', $distinct=FALSE){
 
     }
 
