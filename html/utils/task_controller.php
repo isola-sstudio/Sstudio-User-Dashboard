@@ -48,6 +48,8 @@
       $recentTaskReport = $taskOperations->getReccentTasks($_SESSION['user_id'], $reportMonth, $amount);
       return $recentTaskReport;
     }
+
+    $ongoingTasksInfo = $taskOperations->getTasksInfo($_SESSION['user_id'], '*', '', array(array('key' => 'status', 'operator'=>'<', 'value'=>'3')), array('column' => 'created', 'type'=>'ASC'));
   }
 
 ?>

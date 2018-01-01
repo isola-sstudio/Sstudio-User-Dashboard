@@ -15,6 +15,14 @@
     header('Location: index.php');
   }
 ?>
+<?php
+  //bring in the request controller
+  require_once __DIR__ . '/utils/request_controller.php';
+  //bring in the task controller
+  require_once __DIR__ . '/utils/task_controller.php';
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -116,7 +124,7 @@
                 </div>
                 <ul class="nav" id="side-menu">
                     <li style="padding: 70px 0 0;"><a href="dashboard.php" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Dashboard</a> </li>
-                    <li><a href="#" class="waves-effect"><i class="fa fa-clone fa-fw" aria-hidden="true"></i> Request<span class="fa arrow"></span><span class="label label-rouded label-warning pull-right">3</span></a>
+                    <li><a href="#" class="waves-effect"><i class="fa fa-clone fa-fw" aria-hidden="true"></i> Request<span class="fa arrow"></span><span class="label label-rouded label-warning pull-right"><?php echo $justCreatedTasks; ?></span></a>
                         <ul class="nav nav-second-level">
                             <li><a href="request.php#new"><i class="fa fa-sticky-note-o fa-fw" aria-hidden="true"></i>New Task</a></li>
                             <li><a href="request.php#ongoing"><i class="fa fa-tasks fa-fw" aria-hidden="true"></i>Ongoing Tasks</a></li>
@@ -173,27 +181,34 @@
                 <div class="row" id="new">
                     <div class="col-md-12">
                         <div class="white-box">
-                            <h3 class="box-title">Request New Task</h3> </div>
+                            <h3 class="box-title">Request A New Task</h3> </div>
                     </div>
                 </div>
-
-
-
                 <div class="row">
                     <div class="col-md-6">
                         <div class="white-box">
                             <h3 class="box-title m-b-0">New Task Form</h3>
-                            <p class="text-muted m-b-30 font-13"> Please supply the following information about the new task you are about to create </p>
+                            <p class="text-muted <?php if(isset($requestResponse)){echo 'text-success';} ?> m-b-30 font-13">
+                              <?php
+                                if (isset($requestResponse)) {
+                                  echo $requestResponse;
+                                  # if we have a response.. i.e user has already submitted a form
+                                }else {
+                                  // user has not submitted a form.. but we need to change this to JS
+                                    echo "Please supply the following information about the new task you are about to create";
+                                  }
+                                ?>
+                            </p>
                             <form class="form-horizontal" action="" method="post">
                                 <div class="form-group">
                                     <label for="task_name" class="col-sm-3 control-label">Task Name*</label>
                                     <div class="col-sm-9">
-                                        <input type="text" name="task_name" class="form-control" id="task_name" placeholder="Task Name"> </div>
+                                        <input type="text" name="task_name" class="form-control" id="task_name" placeholder="Task Name" required> </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="task_desc" class="col-sm-3 control-label">Description*</label>
                                     <div class="col-sm-9">
-                                        <textarea name="task_desc" class="form-control" id="task_desc" rows="5" placeholder="Task Description"></textarea>
+                                        <textarea name="task_desc" class="form-control" id="task_desc" rows="5" placeholder="Task Description" required></textarea>
                                 </div>
 
                                 <div class="form-group m-b-0">
@@ -210,11 +225,45 @@
 
 
 
-
                 <div class="row" id="ongoing">
                     <div class="col-md-12">
                         <div class="white-box">
                             <h3 class="box-title">View Ongoing Tasks</h3> </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="white-box">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Task</th>
+                                            <th>Progress</th>
+                                            <th>Time Created</th>
+                                            <th class="text-nowrap">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($ongoingTasksInfo as $key => $value): ?>
+                                          <tr>
+                                            <td><?php echo $value['task_name']; ?></td>
+                                            <td>
+                                              <div class="progress progress-xs margin-vertical-10 ">
+                                                <div class="progress-bar progress-bar-danger" style="width: 35%"></div>
+                                              </div>
+                                            </td>
+                                            <td><?php echo date('M d, Y', strtotime($value['created'])); ?></td>
+                                            <td class="text-nowrap">
+                                              <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                              <a href="#" data-toggle="tooltip" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
+                                            </td>
+                                          </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
