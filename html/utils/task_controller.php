@@ -40,8 +40,14 @@
     /**
      **Setting stuffs for the Recent Task div on the dashboard page
      */
-    $lastFiveMonths = $taskOperations->getTasksInfo($_SESSION['user_id'], 'MONTHNAME(created)', 5, '', array('column' => 'MONTHNAME(created)', 'type' => 'DESC'), TRUE);
+    $lastFiveMonths = $taskOperations->getReccentTasksMonths($_SESSION['user_id'], 5);
 
+    //get recent task report based on selected month
+    function recentTaskReport($reportMonth, $amount){
+      $taskOperations = new TaskO();
+      $recentTaskReport = $taskOperations->getReccentTasks($_SESSION['user_id'], $reportMonth, $amount);
+      return $recentTaskReport;
+    }
   }
 
 ?>

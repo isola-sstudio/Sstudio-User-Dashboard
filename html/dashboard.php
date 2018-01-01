@@ -131,8 +131,8 @@
                     <li style="padding: 70px 0 0;"><a href="dashboard.php" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Dashboard</a> </li>
                     <li><a href="#" class="waves-effect"><i class="fa fa-clone fa-fw" aria-hidden="true"></i> Request<span class="fa arrow"></span><span class="label label-rouded label-warning pull-right"><?php echo $justCreatedTasks; ?></span></a>
                         <ul class="nav nav-second-level">
-                            <li><a href="request.php"><i class="fa fa-sticky-note-o fa-fw" aria-hidden="true"></i>New Task</a></li>
-                            <li><a href="request.php#ongoing"><i class="fa fa-tasks fa-fw" aria-hidden="true"></i>Ongoing Task</a></li>
+                            <li><a href="request.php#new"><i class="fa fa-sticky-note-o fa-fw" aria-hidden="true"></i>New Task</a></li>
+                            <li><a href="request.php#ongoing"><i class="fa fa-tasks fa-fw" aria-hidden="true"></i>Ongoing Tasks</a></li>
                         </ul>
                     </li>
                     <li><a href="chat.html"><i class="fa fa-comment-o fa-fw" aria-hidden="true"></i>Chat</a></li>
@@ -243,7 +243,7 @@
                 <!-- Recent comment, table & feed widgets -->
                 <!-- ============================================================== -->
                 <div class="row">
-                    <div class="col-md-12 col-lg-6 col-sm-12" style="width:55%;">
+                    <div class="col-md-12 col-lg-6 col-sm-12" style="width:60%;">
                         <div class="white-box">
                             <div class="col-md-3 col-sm-4 col-xs-6 pull-right" style="width:30%;">
                                 <select class="form-control pull-right row b-none">
@@ -256,7 +256,7 @@
                             <div class="row sales-report">
                                 <div class="col-md-6 col-sm-6 col-xs-6">
                                   <!-- JS to pick the selected month from the dropdown box -->
-                                    <h2>December 2017</h2>
+                                    <h2>January 2018</h2>
                                     <p>TASKS REPORT</p>
                                 </div>
 <!--                                <div class="col-md-6 col-sm-6 col-xs-6 ">
@@ -274,61 +274,55 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td class="txt-oflo">Elite admin</td>
-                                            <td><span class="label label-success label-rouded">COMPLETED</span> </td>
-                                            <td class="txt-oflo">April 18, 2017</td>
-                                            <td><span class="text-success">...</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td class="txt-oflo">Real Homes WP Theme</td>
-                                            <td><span class="label label-info label-rouded">ONGOING</span></td>
-                                            <td class="txt-oflo">April 19, 2017</td>
-                                            <td><span class="text-info">...</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td class="txt-oflo">Ample Admin</td>
-                                            <td><span class="label label-info label-rouded">ONGOING</span></td>
-                                            <td class="txt-oflo">April 19, 2017</td>
-                                            <td><span class="text-info">...</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td class="txt-oflo">Medical Pro WP Theme</td>
-                                            <td><span class="label label-danger label-rouded">NOT STARTED</span></td>
-                                            <td class="txt-oflo">April 20, 2017</td>
-                                            <td><span class="text-danger">...</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td class="txt-oflo">Hosting press html</td>
-                                            <td><span class="label label-warning label-rouded">STARTED</span></td>
-                                            <td class="txt-oflo">April 21, 2017</td>
-                                            <td><span class="text-success">...</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td class="txt-oflo">Digital Agency PSD</td>
-                                            <td><span class="label label-success label-rouded">COMPLETED</span> </td>
-                                            <td class="txt-oflo">April 23, 2017</td>
-                                            <td><span class="text-danger">...</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>7</td>
-                                            <td class="txt-oflo">Helping Hands WP Theme</td>
-                                            <td><span class="label label-warning label-rouded">STARTED</span></td>
-                                            <td class="txt-oflo">April 22, 2017</td>
-                                            <td><span class="text-success">...</span></td>
-                                        </tr>
+                                        <!--First option is to load all recent task onto the page  -->
+                                        <!--Second option is to dynamically load with Ajax  -->
+                                        <!--For now.. let's just have something here  -->
+                                        <?php
+                                          $selectedTasks = recentTaskReport('January', 7);//selected task from the dropdown box
+                                          $count = 1;//initialize count for the # column
+                                        ?>
+                                        <?php foreach ($selectedTasks as $key => $value): ?>
+                                          <?php switch ($value['status']) {
+                                            case 0:
+                                              # a just created task
+                                              $colorClass = 'label-danger';
+                                              $text = 'NOT STARTED';
+                                              $textColorClass = 'text-danger';
+                                              break;
+                                            case 1:
+                                              # a just created task
+                                              $colorClass = 'label-success';
+                                              $text = 'ONGOING';
+                                              $textColorClass = 'text-success';
+                                              break;
+                                            case 3:
+                                              # a just created task
+                                              $colorClass = 'label-info';
+                                              $text = 'COMPLETED';
+                                              $textColorClass = 'text-info';
+                                              break;
+                                            default:
+                                              # well, don't know where this falls
+                                              $colorClass = 'label-info';
+                                              $text = '';
+                                              $textColorClass = '';
+                                              break;
+                                          } ?>
+                                          <tr>
+                                            <td><?php echo $count; ?></td>
+                                            <td class="txt-oflo"><?php echo $value['task_name']; ?></td>
+                                            <td><span class="label <?php echo $colorClass; ?> label-rouded"><?php echo $text; ?></span> </td>
+                                            <td class="txt-oflo"><?php echo date('M d, Y', strtotime($value['created'])); ?></td>
+                                            <td><span class="<?php echo $textColorClass; ?>"><?php echo $value['task_description']; ?></span></td>
+                                          </tr>
+                                          <?php $count++; ?>
+                                        <?php endforeach; ?>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 col-lg-6 col-sm-12" style="width:45%;">
+                    <div class="col-md-12 col-lg-6 col-sm-12" style="width:40%;">
                         <div class="white-box">
                             <h3 class="box-title">Recent Discussion</h3>
                             <div class="comment-center p-t-10">

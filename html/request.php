@@ -175,6 +175,41 @@ if (!$adminUser->loggedIn()) {
                     <div class="white-box">
                         <h3 class="box-title">Request Page</h3> </div>
                 </div>
+
+                <ul class="nav" id="side-menu">
+                    <li style="padding: 70px 0 0;"><a href="dashboard.php" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Dashboard</a> </li>
+                    <li><a href="#" class="waves-effect"><i class="fa fa-clone fa-fw" aria-hidden="true"></i> Request<span class="fa arrow"></span><span class="label label-rouded label-warning pull-right">3</span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="request.php#new"><i class="fa fa-sticky-note-o fa-fw" aria-hidden="true"></i>New Task</a></li>
+                            <li><a href="request.php#ongoing"><i class="fa fa-tasks fa-fw" aria-hidden="true"></i>Ongoing Tasks</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="chat.html"><i class="fa fa-comment-o fa-fw" aria-hidden="true"></i>Chat</a></li>
+                    <li><a href="form-basic.html"><i class="fa fa-calendar-o fa-fw" aria-hidden="true"></i>History</a></li>
+                    <li class="devider"></li>
+                    <li><a href="profile.html"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Profile</a></li>
+<!--                    <li><a href="basic-table.html"><i class="fa fa-table fa-fw" aria-hidden="true"></i>Basic Table</a></li>
+                    <li><a href="fontawesome.html"><i class="fa fa-font fa-fw" aria-hidden="true"></i>Font awesome</a></li>
+                    <li><a href="map-google.html" class="waves-effect"><i class="fa fa-globe fa-fw" aria-hidden="true"></i>Google Map</a></li>
+                    <li><a href="map-vector.html" class="waves-effect"><i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>Vector Map</a></li>
+                    <li><a href="javascript:void(0)" class="waves-effect"><i class="fa fa-cog fa-fw" aria-hidden="true"></i>Multi-Level Dropdown<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="javascript:void(0)">Second Level Item</a></li>
+                            <li><a href="javascript:void(0)">Second Level Item</a></li>
+                            <li><a href="javascript:void(0)" class="waves-effect">Third Level <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li><a href="javascript:void(0)">Third Level Item</a></li>
+                                    <li><a href="javascript:void(0)">Third Level Item</a></li>
+                                    <li><a href="javascript:void(0)">Third Level Item</a></li>
+                                    <li><a href="javascript:void(0)">Third Level Item</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li> -->
+                    <li><a href="login.html" class="waves-effect"><i class="fa fa-credit-card fa-fw" aria-hidden="true"></i>Billing</a></li>
+                    <li class="devider"></li>
+                    <li><a href="faq.html" class="waves-effect"><i class="fa fa-circle-o fa-fw text-success"></i> Faqs</a></li>
+                </ul>
             </div>
             <div class="row">
                 <form method="POST" action="">
@@ -184,41 +219,59 @@ if (!$adminUser->loggedIn()) {
                             <input type="email" id="example-email" name="name" class="form-control" placeholder="Name of the task">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            <label class="col-md-6" for="example-email">Priority / Task</label>
-                            <button class="btn btn-primary col-md-2" onclick="addTask()">Add Task</button>
-                        </div>
-                        <div class="col-sm-12 task">
-                            <div class="col-sm-12">
-                                <div class="col-md-3">
-                                    <div class="range-slider">
-                                        <input class="range-slider__range" type="range" value="0" min="0" max="100"  name="priority[]"/>
-                                        <span class="range-slider__value">0</span>
+
+                    <!-- /.col-lg-12 -->
+                </div>
+                <div class="row" id="new">
+                    <div class="col-md-12">
+                        <div class="white-box">
+                            <h3 class="box-title">Request New Task</h3> </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="white-box">
+                            <h3 class="box-title m-b-0">New Task Form</h3>
+                            <p class="text-muted m-b-30 font-13"> Please supply the following information about the new task you are about to create </p>
+                            <form class="form-horizontal" action="" method="post">
+                                <div class="form-group">
+                                    <label for="task_name" class="col-sm-3 control-label">Task Name*</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="task_name" class="form-control" id="task_name" placeholder="Task Name"> </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="task_desc" class="col-sm-3 control-label">Description*</label>
+                                    <div class="col-sm-9">
+                                        <textarea name="task_desc" class="form-control" id="task_desc" rows="5" placeholder="Task Description"></textarea>
+                                </div>
+
+                                <div class="form-group m-b-0">
+                                    <div class="col-sm-offset-3 col-sm-9">
+                                        <button type="submit" name="create_request" class="btn btn-info waves-effect waves-light m-t-10">Submit</button>
                                     </div>
                                 </div>
-                                <div class="col-md-9">
-                                    <input type="text" name="name[]" class="form-control" placeholder="Name of the task">
-                                    <textarea name="desc" style="width:100%;max-width: 100%" rows="5" placeholder="Description of the task"></textarea>
-                                </div>
-                            </div>
-                            <br />
+                            </form>
                         </div>
-                        <button class="btn btn-primary" type="submit">Submit</button>
-                        <script type="text/javascript">
-                            var taskHTML = "";
-
-                            function addTask () {
-                                var task = $('.task')
-                                if (!taskHTML) {
-                                    taskHTML = task.html()
-                                }
-                                task.append(taskHTML)
-                                rangeSlider()
-                            }
-                        </script>
                     </div>
-                </form>
+                </div>
+
+
+
+
+
+
+                <div class="row" id="ongoing">
+                    <div class="col-md-12">
+                        <div class="white-box">
+                            <h3 class="box-title">View Ongoing Tasks</h3> </div>
+                    </div>
+                </div>
+
+
+
             </div>
         </div>
     </div>
