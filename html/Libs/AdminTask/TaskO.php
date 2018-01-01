@@ -29,6 +29,47 @@
       }
     }
 
+
+    /**
+     **This method is used to create a task when a user submits a task form
+     **@param string $userId, $taskName, $taskDescription
+     **@return bool TRUE if the task was successfully created
+     * without any error. FALSE otherwise.
+     */
+    public function createTask($userId, $taskName, $taskDescription){
+      if ($this->getTasksInfo($userId, 'id', '', array(array('key' => 'task_name','operator'=>'=', 'value'=>"$taskName"),array('key' => 'task_description','operator'=>'=', 'value'=>"$taskDescription")))) {
+        # check if the task has been created already, in order to avoid multiple
+        // duplicate
+        return "possibly duplicate";
+      }else {
+          # not a duplicate so
+          //build up a query string and create a user
+          $query = "INSERT INTO `thestart_upstudio`.`admin_task`(`user_id`,
+            `task_name`, `task_description`)
+            VALUES('$userId', '$taskName', '$taskDescription')";
+            if (Self::$serverConn -> query($query) === TRUE) {
+              # the task has been created successfully
+              return TRUE;
+            }else {
+              # task could not be created at the moment so
+              //try again with mysqli::escape_string
+             $taskName = Self::$serverConn->escape_string($taskName);
+             $taskDescription = Self::$serverConn->escape_string($taskDescription);
+             //set the query again
+             $query = "INSERT INTO `thestart_upstudio`.`admin_task`(`user_id`,
+               `task_name`, `task_description`)
+               VALUES('$userId', '$taskName', '$taskDescription')";
+                if (Self::$serverConn -> query($query) === TRUE) {
+                  # the task has been created successfully
+                  return TRUE;
+                }else {
+                  # Still, the task could not be created
+                  return FALSE;
+                }
+            }
+        }
+    }
+
     /**
      **This method is used to count the 'a particular' amount of task created by
      * the admin.. it is expecting to be asked to count all tasks or tasks with
@@ -75,16 +116,13 @@
       // in a situation where we have another constraint
       if (isset($constraint) && !empty($constraint)) {
         # there is a constraint, so we add up to the query
-        // $constraintKey = $constraint['key'];
-        // $constraintOperator = $constraint['operator'];
-        // $constraintValue = $constraint['value'];
         foreach ($constraint as $constraintSet) {
           # so we can have multiple constraints, we pass in a multidimensional array
           $constraintSetKey = $constraintSet['key'];
           $constraintSetOperator = $constraintSet['operator'];
           $constraintSetValue = $constraintSet['value'];
 
-          $query .= " AND `$constraintSetKey` $constraintSetOperator '$constraintSetValue'";
+          $query .= " AND `$constraintSetKey` $constraintSetOperator \"$constraintSetValue\"";
         }
       }
       // in a situation where we have an order type to follow
@@ -283,4 +321,5 @@
 //     var_dump($v);
 //   // }
 // }
+// var_dump($test->getTasksInfo(1, 'id', '', array(array('key' => 'task_name','operator'=>'=', 'value'=>"It's your boy Whizzy"),array('key' => 'task_description','operator'=>'=', 'value'=>"No problem"))));
 ?>

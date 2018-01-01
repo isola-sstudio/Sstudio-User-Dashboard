@@ -170,12 +170,59 @@
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
-                <div class="row">
+                <div class="row" id="new">
                     <div class="col-md-12">
                         <div class="white-box">
-                            <h3 class="box-title">Request Page</h3> </div>
+                            <h3 class="box-title">Request New Task</h3> </div>
                     </div>
                 </div>
+
+
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="white-box">
+                            <h3 class="box-title m-b-0">New Task Form</h3>
+                            <p class="text-muted m-b-30 font-13"> Please supply the following information about the new task you are about to create </p>
+                            <form class="form-horizontal" action="" method="post">
+                                <div class="form-group">
+                                    <label for="task_name" class="col-sm-3 control-label">Task Name*</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="task_name" class="form-control" id="task_name" placeholder="Task Name"> </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="task_desc" class="col-sm-3 control-label">Description*</label>
+                                    <div class="col-sm-9">
+                                        <textarea name="task_desc" class="form-control" id="task_desc" rows="5" placeholder="Task Description"></textarea>
+                                </div>
+
+                                <div class="form-group m-b-0">
+                                    <div class="col-sm-offset-3 col-sm-9">
+                                        <button type="submit" name="create_request" class="btn btn-info waves-effect waves-light m-t-10">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div class="row" id="ongoing">
+                    <div class="col-md-12">
+                        <div class="white-box">
+                            <h3 class="box-title">View Ongoing Tasks</h3> </div>
+                    </div>
+                </div>
+
+
+
+
+
+
             </div>
             <!-- /.container-fluid -->
             <footer class="footer text-center"> 2017 &copy; The Startup Studio </footer>

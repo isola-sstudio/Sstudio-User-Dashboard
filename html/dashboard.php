@@ -131,7 +131,7 @@
                     <li style="padding: 70px 0 0;"><a href="dashboard.php" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Dashboard</a> </li>
                     <li><a href="#" class="waves-effect"><i class="fa fa-clone fa-fw" aria-hidden="true"></i> Request<span class="fa arrow"></span><span class="label label-rouded label-warning pull-right"><?php echo $justCreatedTasks; ?></span></a>
                         <ul class="nav nav-second-level">
-                            <li><a href="request.php"><i class="fa fa-sticky-note-o fa-fw" aria-hidden="true"></i>New Task</a></li>
+                            <li><a href="request.php#new"><i class="fa fa-sticky-note-o fa-fw" aria-hidden="true"></i>New Task</a></li>
                             <li><a href="request.php#ongoing"><i class="fa fa-tasks fa-fw" aria-hidden="true"></i>Ongoing Tasks</a></li>
                         </ul>
                     </li>
@@ -256,7 +256,7 @@
                             <div class="row sales-report">
                                 <div class="col-md-6 col-sm-6 col-xs-6">
                                   <!-- JS to pick the selected month from the dropdown box -->
-                                    <h2>December 2017</h2>
+                                    <h2>January 2018</h2>
                                     <p>TASKS REPORT</p>
                                 </div>
 <!--                                <div class="col-md-6 col-sm-6 col-xs-6 ">
@@ -278,7 +278,7 @@
                                         <!--Second option is to dynamically load with Ajax  -->
                                         <!--For now.. let's just have something here  -->
                                         <?php
-                                          $selectedTasks = recentTaskReport('December', 7);//selected task from the dropdown box
+                                          $selectedTasks = recentTaskReport('January', 7);//selected task from the dropdown box
                                           $count = 1;//initialize count for the # column
                                         ?>
                                         <?php foreach ($selectedTasks as $key => $value): ?>
