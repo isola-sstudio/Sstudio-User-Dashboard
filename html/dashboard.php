@@ -572,6 +572,8 @@
     <!-- chartist chart -->
     <script src="../plugins/bower_components/chartist-js/dist/chartist.min.js"></script>
     <script src="../plugins/bower_components/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
+    <script src="../plugins/bower_components/chartist-plugin-axistitle/dist/chartist-plugin-axistitle.min.js "></script>
+<!--    <script src="../plugins/bower_components/chartist-plugin-pointlabels/dist/chartist-plugin-pointlabels.min.js "></script>-->
     <!-- Sparkline chart JavaScript -->
     <script src="../plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js"></script>
     <!-- Custom Theme JavaScript -->
