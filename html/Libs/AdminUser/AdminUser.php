@@ -1,7 +1,7 @@
 <?php namespace Libs\AdminUser;
 
   //config constants for server connection
-  require_once __DIR__ . '/../../../config/db/db_constants.php';
+  require_once __DIR__ . '/../../../../config/db/db_constants.php';
 
 
 
@@ -140,8 +140,18 @@
             $row = $result->fetch_assoc();
             return $row["$userInfo"];
           }else {
-              # return the mysqli object
-              return $result;
+              while ($row = $result->fetch_assoc()) {
+                # load up row contents into a dynamic array
+                $rowContents[] = $row;
+              }
+              // since we aree most likely dealing with a user
+              foreach ($rowContents as $key => $value) {
+                foreach ($value as $nextKey => $nextValue) {
+                  # code...
+                  $returnRow["$nextKey"] = $nextValue;
+                }
+              }
+              return $returnRow;
             }
         }else {
             # there was no result
@@ -161,7 +171,7 @@
      **@return bool TRUE if all details passed in were successfully updated in
      *database. FALSE otherwise.
      */
-     public function updateAdminUserInfo($info, $user_id){
+     public function updateAdminUserInfo($info, $userId){
        //build up a query parts for query string from info
        $query = "UPDATE `thestart_upstudio`.`tss_package_subscription` SET";
        foreach ($info as $key => $value) {
@@ -169,14 +179,14 @@
          //adding each key value pair to $query
          if (array_keys($info)[count($info) - 1] == $key) {
            # we have the last one of the set of info passed in so no comma
-           $query .= " `$key` = '$value'";
+           $query .= " `$key` = \"$value\"";
          }else {
            # it is the first of a set or one of a set so add a comma
-           $query .= " `$key` = '$value',";
+           $query .= " `$key` = \"$value\",";
          }
        }
        //add the final part to query
-       $query .= " WHERE `tss_package_subscription`.`id` = '$user_id'";
+       $query .= " WHERE `tss_package_subscription`.`id` = '$userId'";
 
        //perform the update
        if ($result = Self::$serverConn->query($query)) {

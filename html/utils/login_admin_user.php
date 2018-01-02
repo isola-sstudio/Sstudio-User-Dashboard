@@ -18,7 +18,6 @@
         $validation = new Validation();
         if ($validation->ifExists('company_email', $_POST['email'])) {# check if the user actually exists
           $adminUser = new AdminUser();
-
           if ($adminUser->logAdminUserIn($_POST['email'], $_POST['password'])) {# check if username and password match
             //so we set the necessary SESSION variables and send them to the
             //dashboard

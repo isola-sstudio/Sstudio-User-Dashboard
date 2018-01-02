@@ -16,6 +16,8 @@
   }
 ?>
 <?php
+  //bring in the admin user controller
+  require_once __DIR__ . '/utils/admin_user_controller.php';
   //bring in the request controller
   require_once __DIR__ . '/utils/request_controller.php';
   //bring in the task controller
@@ -85,14 +87,14 @@
                             <input type="text" placeholder="Search..." class="form-control"> <a href=""><i class="fa fa-search"></i></a> </form>
                     </li>
                     <li class="dropdown">
-                        <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="../plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">Steave</b><span class="caret"></span> </a>
+                        <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="../plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle"><b class="hidden-xs"><?php echo $adminUserDetails['company_name']; ?></b><span class="caret"></span> </a>
                         <ul class="dropdown-menu dropdown-user animated flipInY">
                             <li>
                                 <div class="dw-user-box">
                                     <div class="u-img"><img src="../plugins/images/users/varun.jpg" alt="user" /></div>
                                     <div class="u-text">
-                                        <h4>Steave Jobs</h4>
-                                        <p class="text-muted">varun@gmail.com</p><a href="profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a></div>
+                                        <h4><?php echo $adminUserDetails['company_name']; ?></h4>
+                                        <p class="text-muted"><?php echo $adminUserDetails['company_email']; ?></p><a href="profile.php" class="btn btn-rounded btn-danger btn-sm">View Profile</a></div>
                                 </div>
                             </li>
                             <li role="separator" class="divider"></li>
@@ -130,10 +132,10 @@
                             <li><a href="request.php#ongoing"><i class="fa fa-tasks fa-fw" aria-hidden="true"></i>Ongoing Tasks</a></li>
                         </ul>
                     </li>
-                    <li><a href="chat.html"><i class="fa fa-comment-o fa-fw" aria-hidden="true"></i>Chat</a></li>
+                    <li><a href="#"><i class="fa fa-comment-o fa-fw" aria-hidden="true"></i>Chat</a></li>
                     <li><a href="history.php"><i class="fa fa-calendar-o fa-fw" aria-hidden="true"></i>History</a></li>
                     <li class="devider"></li>
-                    <li><a href="profile.html"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Profile</a></li>
+                    <li><a href="profile.php"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Profile</a></li>
 <!--                    <li><a href="basic-table.html"><i class="fa fa-table fa-fw" aria-hidden="true"></i>Basic Table</a></li>
                     <li><a href="fontawesome.html"><i class="fa fa-font fa-fw" aria-hidden="true"></i>Font awesome</a></li>
                     <li><a href="map-google.html" class="waves-effect"><i class="fa fa-globe fa-fw" aria-hidden="true"></i>Google Map</a></li>
@@ -152,9 +154,9 @@
                             </li>
                         </ul>
                     </li> -->
-                    <li><a href="login.html" class="waves-effect"><i class="fa fa-credit-card fa-fw" aria-hidden="true"></i>Billing</a></li>
+                    <li><a href="#" class="waves-effect"><i class="fa fa-credit-card fa-fw" aria-hidden="true"></i>Billing</a></li>
                     <li class="devider"></li>
-                    <li><a href="faq.html" class="waves-effect"><i class="fa fa-circle-o fa-fw text-success"></i> Faqs</a></li>
+                    <li><a href="#" class="waves-effect"><i class="fa fa-circle-o fa-fw text-success"></i> Faqs</a></li>
                 </ul>
             </div>
         </div>
@@ -204,6 +206,25 @@
                                     <label for="task_name" class="col-sm-3 control-label">Task Name*</label>
                                     <div class="col-sm-9">
                                         <input type="text" name="task_name" class="form-control" id="task_name" placeholder="Task Name" required> </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="task_priority" class="col-sm-3 control-label">Task Priority*</label>
+                                    <div class="col-sm-9">
+                                        <input type="range" name="task_priority" class="form-control" id="task_priority" min="1" max="100" step="1" list="tickmarks" required>
+                                          <datalist id="tickmarks">
+                                            <option value="0" label="0%">
+                                            <option value="10">
+                                            <option value="20">
+                                            <option value="30">
+                                            <option value="40">
+                                            <option value="50" label="50%">
+                                            <option value="60">
+                                            <option value="70">
+                                            <option value="80">
+                                            <option value="90">
+                                            <option value="100" label="100%">
+                                          </datalist>
+                                      </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="task_desc" class="col-sm-3 control-label">Description*</label>
