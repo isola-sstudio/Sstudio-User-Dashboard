@@ -49,7 +49,11 @@
       return $recentTaskReport;
     }
 
+    // ongoing tasks
     $ongoingTasksInfo = $taskOperations->getTasksInfo($_SESSION['user_id'], '*', '', array(array('key' => 'status', 'operator'=>'<', 'value'=>'3')), array('column' => 'created', 'type'=>'ASC'));
+
+    // all available tasks
+    $taskHistory = $taskOperations->getTasksInfo($_SESSION['user_id'], '*', '', '', array('column' => 'created', 'type'=>'DESC'));
   }
 
 ?>

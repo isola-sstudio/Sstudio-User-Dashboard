@@ -131,7 +131,7 @@
                         </ul>
                     </li>
                     <li><a href="chat.html"><i class="fa fa-comment-o fa-fw" aria-hidden="true"></i>Chat</a></li>
-                    <li><a href="form-basic.html"><i class="fa fa-calendar-o fa-fw" aria-hidden="true"></i>History</a></li>
+                    <li><a href="history.php"><i class="fa fa-calendar-o fa-fw" aria-hidden="true"></i>History</a></li>
                     <li class="devider"></li>
                     <li><a href="profile.html"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Profile</a></li>
 <!--                    <li><a href="basic-table.html"><i class="fa fa-table fa-fw" aria-hidden="true"></i>Basic Table</a></li>
@@ -220,11 +220,6 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
-
                 <div class="row" id="ongoing">
                     <div class="col-md-12">
                         <div class="white-box">
@@ -240,7 +235,7 @@
                                         <tr>
                                             <th>Task</th>
                                             <th>Progress</th>
-                                            <th>Time Created</th>
+                                            <th>Date Created</th>
                                             <th class="text-nowrap">Action</th>
                                         </tr>
                                     </thead>
@@ -266,12 +261,6 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
-
-
             </div>
             <!-- /.container-fluid -->
             <footer class="footer text-center"> 2017 &copy; The Startup Studio </footer>

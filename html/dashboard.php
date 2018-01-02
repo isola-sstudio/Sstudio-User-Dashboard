@@ -136,7 +136,7 @@
                         </ul>
                     </li>
                     <li><a href="chat.html"><i class="fa fa-comment-o fa-fw" aria-hidden="true"></i>Chat</a></li>
-                    <li><a href="form-basic.html"><i class="fa fa-calendar-o fa-fw" aria-hidden="true"></i>History</a></li>
+                    <li><a href="history.php"><i class="fa fa-calendar-o fa-fw" aria-hidden="true"></i>History</a></li>
                     <li class="devider"></li>
                     <li><a href="profile.html"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Profile</a></li>
 <!--                    <li><a href="basic-table.html"><i class="fa fa-table fa-fw" aria-hidden="true"></i>Basic Table</a></li>
@@ -274,8 +274,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!--First option is to load all recent task onto the page  -->
-                                        <!--Second option is to dynamically load with Ajax  -->
                                         <!--For now.. let's just have something here  -->
                                         <?php
                                           $selectedTasks = recentTaskReport('January', 7);//selected task from the dropdown box
