@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 31, 2017 at 05:59 AM
+-- Generation Time: Jan 02, 2018 at 02:10 PM
 -- Server version: 5.7.18-1
 -- PHP Version: 7.0.20-2
 
@@ -34,6 +34,7 @@ CREATE TABLE `admin_task` (
   `task_name` varchar(200) NOT NULL,
   `task_description` text,
   `status` char(1) NOT NULL DEFAULT '0',
+  `task_progress` char(3) DEFAULT '10' COMMENT 'progress field for task created. It is meant to be in percentage and 10% as default',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
