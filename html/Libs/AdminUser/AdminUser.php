@@ -1,7 +1,7 @@
 <?php namespace Libs\AdminUser;
 
   //config constants for server connection
-  require_once __DIR__ . '/../../../../config/db/db_constants.php';
+  require_once __DIR__ . '/../../../config/db/db_constants.php';
 
 
 
