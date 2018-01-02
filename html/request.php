@@ -98,11 +98,11 @@
                                 </div>
                             </li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
+                            <li><a href="profile.php"><i class="ti-user"></i> My Profile</a></li>
                             <li><a href="#"><i class="ti-wallet"></i> My Balance</a></li>
                             <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#"><i class="ti-settings"></i> Account Setting</a></li>
+                            <li><a href="profile.php"><i class="ti-settings"></i> Account Setting</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="utils/logout_admin_user.php"><i class="fa fa-power-off"></i> Logout</a></li>
                         </ul>
@@ -261,6 +261,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php if ($ongoingTasksInfo): ?>
                                         <?php foreach ($ongoingTasksInfo as $key => $value): ?>
                                           <tr>
                                             <td><?php echo $value['task_name']; ?></td>
@@ -276,6 +277,7 @@
                                             </td>
                                           </tr>
                                         <?php endforeach; ?>
+                                      <?php endif; ?>
                                     </tbody>
                                 </table>
                             </div>

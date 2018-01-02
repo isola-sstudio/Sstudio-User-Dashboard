@@ -96,11 +96,11 @@
                                 </div>
                             </li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
+                            <li><a href="profile.php"><i class="ti-user"></i> My Profile</a></li>
                             <li><a href="#"><i class="ti-wallet"></i> My Balance</a></li>
                             <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#"><i class="ti-settings"></i> Account Setting</a></li>
+                            <li><a href="profile.php"><i class="ti-settings"></i> Account Setting</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="utils/logout_admin_user.php"><i class="fa fa-power-off"></i> Logout</a></li>
                         </ul>
@@ -207,42 +207,44 @@
                                       <?php
                                         $count = 1;//initialize count for the # column
                                       ?>
-                                      <?php foreach ($taskHistory as $key => $value): ?>
-                                        <?php switch ($value['status']) {
-                                          case 0:
-                                            # a just created task
-                                            $colorClass = 'label-danger';
-                                            $text = 'NOT STARTED';
-                                            $textColorClass = 'text-danger';
-                                            break;
-                                          case 1:
-                                            # a just created task
-                                            $colorClass = 'label-success';
-                                            $text = 'ONGOING';
-                                            $textColorClass = 'text-success';
-                                            break;
-                                          case 3:
-                                            # a just created task
-                                            $colorClass = 'label-info';
-                                            $text = 'COMPLETED';
-                                            $textColorClass = 'text-info';
-                                            break;
-                                          default:
-                                            # well, don't know where this falls
-                                            $colorClass = 'label-info';
-                                            $text = '';
-                                            $textColorClass = '';
-                                            break;
-                                        } ?>
-                                        <tr>
-                                          <td><?php echo $count; ?></td>
-                                          <td class="txt-oflo"><?php echo $value['task_name']; ?></td>
-                                          <td><span class="<?php echo $textColorClass; ?>"><?php echo $value['task_description']; ?></span></td>
-                                          <td><span class="label <?php echo $colorClass; ?> label-rouded"><?php echo $text; ?></span> </td>
-                                          <td><?php echo date('M d, Y', strtotime($value['created'])); ?></td>
-                                        </tr>
-                                        <?php $count++; ?>
-                                      <?php endforeach; ?>
+                                      <?php if ($taskHistory): ?>
+                                        <?php foreach ($taskHistory as $key => $value): ?>
+                                          <?php switch ($value['status']) {
+                                            case 0:
+                                              # a just created task
+                                              $colorClass = 'label-danger';
+                                              $text = 'NOT STARTED';
+                                              $textColorClass = 'text-danger';
+                                              break;
+                                            case 1:
+                                              # a just created task
+                                              $colorClass = 'label-success';
+                                              $text = 'ONGOING';
+                                              $textColorClass = 'text-success';
+                                              break;
+                                            case 3:
+                                              # a just created task
+                                              $colorClass = 'label-info';
+                                              $text = 'COMPLETED';
+                                              $textColorClass = 'text-info';
+                                              break;
+                                            default:
+                                              # well, don't know where this falls
+                                              $colorClass = 'label-info';
+                                              $text = '';
+                                              $textColorClass = '';
+                                              break;
+                                          } ?>
+                                          <tr>
+                                            <td><?php echo $count; ?></td>
+                                            <td class="txt-oflo"><?php echo $value['task_name']; ?></td>
+                                            <td><span class="<?php echo $textColorClass; ?>"><?php echo $value['task_description']; ?></span></td>
+                                            <td><span class="label <?php echo $colorClass; ?> label-rouded"><?php echo $text; ?></span> </td>
+                                            <td><?php echo date('M d, Y', strtotime($value['created'])); ?></td>
+                                          </tr>
+                                          <?php $count++; ?>
+                                        <?php endforeach; ?>
+                                      <?php endif; ?>
                                     </tbody>
                                 </table>
                             </div>
