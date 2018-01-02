@@ -3,3 +3,5 @@ We are adding the 'Sign In' functionality. Let's create a dashboard for users wh
 
 I Have included an sql file for the db operations..
 Also, a config folder is needed a directory up of the dashboard directory to set up the constants for mysql operations
+
+You could just insert some demo data in the tables

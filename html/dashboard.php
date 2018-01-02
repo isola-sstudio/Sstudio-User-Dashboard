@@ -15,6 +15,11 @@
     header('Location: index.php');
   }
 ?>
+<?php
+  //bring in the task controller
+  require_once __DIR__ . '/utils/task_controller.php';
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +31,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" type="image/png" sizes="16x16" href="../plugins/images/favicon.png">
-    <title>Ample Admin Template - The Ultimate Multipurpose admin template</title>
+    <title>Dashboard - The Startup Studio</title>
     <!-- Bootstrap Core CSS -->
     <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Menu CSS -->
@@ -72,7 +77,7 @@
             <div class="navbar-header">
                 <div class="top-left-part">
                     <!-- Logo -->
-                    <a class="logo" href="index.html">
+                    <a class="logo" href="dashboard.php">
                       <b>
                         <img src="../plugins/images/admin-logo-dark.png" style="width:80%;" alt="home" class="light-logo" />
                       </b>
@@ -123,16 +128,15 @@
                     <h3><span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span class="hide-menu">Navigation</span></h3>
                 </div>
                 <ul class="nav" id="side-menu">
-                    <li style="padding: 70px 0 0;"><a href="index.html" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Dashboard</a> </li>
-                    <li><a href="#" class="waves-effect"><i class="fa fa-clone fa-fw" aria-hidden="true"></i> Request<span class="fa arrow"></span><span class="label label-rouded label-warning pull-right">3</span></a>
+                    <li style="padding: 70px 0 0;"><a href="dashboard.php" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Dashboard</a> </li>
+                    <li><a href="#" class="waves-effect"><i class="fa fa-clone fa-fw" aria-hidden="true"></i> Request<span class="fa arrow"></span><span class="label label-rouded label-warning pull-right"><?php echo $justCreatedTasks; ?></span></a>
                         <ul class="nav nav-second-level">
-                            <li><a href="starter-page.html"><i class="fa fa-hourglass-start fa-fw" aria-hidden="true"></i>Starter Page</a></li>
-                            <li><a href="blank.html"><i class="fa fa-columns fa-fw" aria-hidden="true"></i>Blank Page</a></li>
-                            <li><a href="404.html"><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i>Error 404</a></li>
+                            <li><a href="request.php#new"><i class="fa fa-sticky-note-o fa-fw" aria-hidden="true"></i>New Task</a></li>
+                            <li><a href="request.php#ongoing"><i class="fa fa-tasks fa-fw" aria-hidden="true"></i>Ongoing Tasks</a></li>
                         </ul>
                     </li>
                     <li><a href="chat.html"><i class="fa fa-comment-o fa-fw" aria-hidden="true"></i>Chat</a></li>
-                    <li><a href="form-basic.html"><i class="fa fa-calendar-o fa-fw" aria-hidden="true"></i>History</a></li>
+                    <li><a href="history.php"><i class="fa fa-calendar-o fa-fw" aria-hidden="true"></i>History</a></li>
                     <li class="devider"></li>
                     <li><a href="profile.html"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Profile</a></li>
 <!--                    <li><a href="basic-table.html"><i class="fa fa-table fa-fw" aria-hidden="true"></i>Basic Table</a></li>
@@ -171,7 +175,7 @@
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
                         <h4 class="page-title">Dashboard</h4> </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-                        <a href="https://wrappixel.com/templates/ampleadmin/" target="_blank" class="btn btn-danger pull-right m-l-20 hidden-xs hidden-sm waves-effect waves-light">Upgrade to Pro</a>
+                        <a href="https:sstudio.io/" target="_blank" class="btn btn-danger pull-right m-l-20 hidden-xs hidden-sm waves-effect waves-light">Upgrade to Pro</a>
                         <ol class="breadcrumb">
                             <li><a href="#">Dashboard</a></li>
                         </ol>
@@ -191,7 +195,7 @@
                                 <li>
                                     <div id="sparklinedash"></div>
                                 </li>
-                                <li class="text-right"><i class="ti-arrow-up text-success"></i> <span class="counter text-success">659</span></li>
+                                <li class="text-right"><i class="ti-arrow-up text-success"></i> <span class="counter text-success"><?php echo $totalTaskCreated; ?></span></li>
                             </ul>
                         </div>
                     </div>
@@ -202,7 +206,7 @@
                                 <li>
                                     <div id="sparklinedash2"></div>
                                 </li>
-                                <li class="text-right"><i class="ti-arrow-up text-purple"></i> <span class="counter text-purple">869</span></li>
+                                <li class="text-right"><i class="ti-arrow-up text-purple"></i> <span class="counter text-purple"><?php echo $ongoingTasks; ?></span></li>
                             </ul>
                         </div>
                     </div>
@@ -213,7 +217,7 @@
                                 <li>
                                     <div id="sparklinedash3"></div>
                                 </li>
-                                <li class="text-right"><i class="ti-arrow-up text-info"></i> <span class="counter text-info">911</span></li>
+                                <li class="text-right"><i class="ti-arrow-up text-info"></i> <span class="counter text-info"><?php echo $completedTask; ?></span></li>
                             </ul>
                         </div>
                     </div>
@@ -239,21 +243,20 @@
                 <!-- Recent comment, table & feed widgets -->
                 <!-- ============================================================== -->
                 <div class="row">
-                    <div class="col-md-12 col-lg-6 col-sm-12" style="width:55%;">
+                    <div class="col-md-12 col-lg-6 col-sm-12" style="width:60%;">
                         <div class="white-box">
-                            <div class="col-md-3 col-sm-4 col-xs-6 pull-right" style="width:40%;">
+                            <div class="col-md-3 col-sm-4 col-xs-6 pull-right" style="width:30%;">
                                 <select class="form-control pull-right row b-none">
-                                    <option>December 2017</option>
-                                    <option>April 2017</option>
-                                    <option>May 2017</option>
-                                    <option>June 2017</option>
-                                    <option>July 2017</option>
+                                  <?php foreach ($lastFiveMonths as $month): ?>
+                                    <option><?php echo $month; ?></option>
+                                  <?php endforeach; ?>
                                 </select>
                             </div>
                             <h3 class="box-title">Recent Tasks</h3>
                             <div class="row sales-report">
                                 <div class="col-md-6 col-sm-6 col-xs-6">
-                                    <h2>December 2017</h2>
+                                  <!-- JS to pick the selected month from the dropdown box -->
+                                    <h2>January 2018</h2>
                                     <p>TASKS REPORT</p>
                                 </div>
 <!--                                <div class="col-md-6 col-sm-6 col-xs-6 ">
@@ -271,61 +274,53 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td class="txt-oflo">Elite admin</td>
-                                            <td><span class="label label-success label-rouded">COMPLETED</span> </td>
-                                            <td class="txt-oflo">April 18, 2017</td>
-                                            <td><span class="text-success">...</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td class="txt-oflo">Real Homes WP Theme</td>
-                                            <td><span class="label label-info label-rouded">ONGOING</span></td>
-                                            <td class="txt-oflo">April 19, 2017</td>
-                                            <td><span class="text-info">...</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td class="txt-oflo">Ample Admin</td>
-                                            <td><span class="label label-info label-rouded">ONGOING</span></td>
-                                            <td class="txt-oflo">April 19, 2017</td>
-                                            <td><span class="text-info">...</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td class="txt-oflo">Medical Pro WP Theme</td>
-                                            <td><span class="label label-danger label-rouded">NOT STARTED</span></td>
-                                            <td class="txt-oflo">April 20, 2017</td>
-                                            <td><span class="text-danger">...</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td class="txt-oflo">Hosting press html</td>
-                                            <td><span class="label label-warning label-rouded">STARTED</span></td>
-                                            <td class="txt-oflo">April 21, 2017</td>
-                                            <td><span class="text-success">...</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td class="txt-oflo">Digital Agency PSD</td>
-                                            <td><span class="label label-success label-rouded">COMPLETED</span> </td>
-                                            <td class="txt-oflo">April 23, 2017</td>
-                                            <td><span class="text-danger">...</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>7</td>
-                                            <td class="txt-oflo">Helping Hands WP Theme</td>
-                                            <td><span class="label label-warning label-rouded">STARTED</span></td>
-                                            <td class="txt-oflo">April 22, 2017</td>
-                                            <td><span class="text-success">...</span></td>
-                                        </tr>
+                                        <!--For now.. let's just have something here  -->
+                                        <?php
+                                          $selectedTasks = recentTaskReport('January', 7);//selected task from the dropdown box
+                                          $count = 1;//initialize count for the # column
+                                        ?>
+                                        <?php foreach ($selectedTasks as $key => $value): ?>
+                                          <?php switch ($value['status']) {
+                                            case 0:
+                                              # a just created task
+                                              $colorClass = 'label-danger';
+                                              $text = 'NOT STARTED';
+                                              $textColorClass = 'text-danger';
+                                              break;
+                                            case 1:
+                                              # a just created task
+                                              $colorClass = 'label-success';
+                                              $text = 'ONGOING';
+                                              $textColorClass = 'text-success';
+                                              break;
+                                            case 3:
+                                              # a just created task
+                                              $colorClass = 'label-info';
+                                              $text = 'COMPLETED';
+                                              $textColorClass = 'text-info';
+                                              break;
+                                            default:
+                                              # well, don't know where this falls
+                                              $colorClass = 'label-info';
+                                              $text = '';
+                                              $textColorClass = '';
+                                              break;
+                                          } ?>
+                                          <tr>
+                                            <td><?php echo $count; ?></td>
+                                            <td class="txt-oflo"><?php echo $value['task_name']; ?></td>
+                                            <td><span class="label <?php echo $colorClass; ?> label-rouded"><?php echo $text; ?></span> </td>
+                                            <td class="txt-oflo"><?php echo date('M d, Y', strtotime($value['created'])); ?></td>
+                                            <td><span class="<?php echo $textColorClass; ?>"><?php echo $value['task_description']; ?></span></td>
+                                          </tr>
+                                          <?php $count++; ?>
+                                        <?php endforeach; ?>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 col-lg-6 col-sm-12" style="width:45%;">
+                    <div class="col-md-12 col-lg-6 col-sm-12" style="width:40%;">
                         <div class="white-box">
                             <h3 class="box-title">Recent Discussion</h3>
                             <div class="comment-center p-t-10">
@@ -542,7 +537,7 @@
                 </div>
             </div>
             <!-- /.container-fluid -->
-            <footer class="footer text-center"> 2017 &copy; Ample Admin brought to you by themedesigner.in </footer>
+            <footer class="footer text-center"> 2017 &copy; The Startup Studio </footer>
         </div>
         <!-- ============================================================== -->
         <!-- End Page Content -->
@@ -569,6 +564,8 @@
     <!-- chartist chart -->
     <script src="../plugins/bower_components/chartist-js/dist/chartist.min.js"></script>
     <script src="../plugins/bower_components/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
+    <script src="../plugins/bower_components/chartist-plugin-axistitle/dist/chartist-plugin-axistitle.min.js "></script>
+<!--    <script src="../plugins/bower_components/chartist-plugin-pointlabels/dist/chartist-plugin-pointlabels.min.js "></script>-->
     <!-- Sparkline chart JavaScript -->
     <script src="../plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js"></script>
     <!-- Custom Theme JavaScript -->
