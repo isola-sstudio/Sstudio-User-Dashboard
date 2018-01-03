@@ -14,7 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" type="image/png" sizes="16x16" href="../plugins/images/favicon.png">
-    <title>Ample Admin Template - The Ultimate Multipurpose admin template</title>
+    <title>Startup Studio Admin - Power Your Startup</title>
     <!-- Bootstrap Core CSS -->
     <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- animation CSS -->
@@ -88,6 +88,7 @@
                 <h3 class="box-title m-b-0">Sign In to Admin</h3>
                 <small>Enter your details below</small>
                 <form class="form-horizontal new-lg-form" id="loginform" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                  <small class="text-danger"><?php if (isset($loginError)) { echo $loginError; } ?></small>
                     <div class="form-group  m-t-20">
                         <div class="col-xs-12">
                             <label>Email Address</label>

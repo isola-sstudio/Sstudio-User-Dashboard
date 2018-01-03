@@ -16,6 +16,8 @@
   }
 ?>
 <?php
+  //bring in the admin user controller
+  require_once __DIR__ . '/utils/admin_user_controller.php';
   //bring in the task controller
   require_once __DIR__ . '/utils/task_controller.php';
 ?>
@@ -90,22 +92,22 @@
                             <input type="text" placeholder="Search..." class="form-control"> <a href=""><i class="fa fa-search"></i></a> </form>
                     </li>
                     <li class="dropdown">
-                        <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="../plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">Steave</b><span class="caret"></span> </a>
+                        <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="../plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle"><b class="hidden-xs"><?php echo $adminUserDetails['company_name']; ?></b><span class="caret"></span> </a>
                         <ul class="dropdown-menu dropdown-user animated flipInY">
                             <li>
                                 <div class="dw-user-box">
                                     <div class="u-img"><img src="../plugins/images/users/varun.jpg" alt="user" /></div>
                                     <div class="u-text">
-                                        <h4>Steave Jobs</h4>
-                                        <p class="text-muted">varun@gmail.com</p><a href="profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a></div>
+                                        <h4><?php echo $adminUserDetails['company_name']; ?></h4>
+                                        <p class="text-muted"><?php echo $adminUserDetails['company_email']; ?></p><a href="profile.php" class="btn btn-rounded btn-danger btn-sm">View Profile</a></div>
                                 </div>
                             </li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
+                            <li><a href="profile.php"><i class="ti-user"></i> My Profile</a></li>
                             <li><a href="#"><i class="ti-wallet"></i> My Balance</a></li>
                             <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#"><i class="ti-settings"></i> Account Setting</a></li>
+                            <li><a href="profile.php"><i class="ti-settings"></i> Account Setting</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="utils/logout_admin_user.php"><i class="fa fa-power-off"></i> Logout</a></li>
                         </ul>
@@ -135,10 +137,10 @@
                             <li><a href="request.php#ongoing"><i class="fa fa-tasks fa-fw" aria-hidden="true"></i>Ongoing Tasks</a></li>
                         </ul>
                     </li>
-                    <li><a href="chat.html"><i class="fa fa-comment-o fa-fw" aria-hidden="true"></i>Chat</a></li>
-                    <li><a href="form-basic.html"><i class="fa fa-calendar-o fa-fw" aria-hidden="true"></i>History</a></li>
+                    <li><a href="#"><i class="fa fa-comment-o fa-fw" aria-hidden="true"></i>Chat</a></li>
+                    <li><a href="history.php"><i class="fa fa-calendar-o fa-fw" aria-hidden="true"></i>History</a></li>
                     <li class="devider"></li>
-                    <li><a href="profile.html"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Profile</a></li>
+                    <li><a href="profile.php"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Profile</a></li>
 <!--                    <li><a href="basic-table.html"><i class="fa fa-table fa-fw" aria-hidden="true"></i>Basic Table</a></li>
                     <li><a href="fontawesome.html"><i class="fa fa-font fa-fw" aria-hidden="true"></i>Font awesome</a></li>
                     <li><a href="map-google.html" class="waves-effect"><i class="fa fa-globe fa-fw" aria-hidden="true"></i>Google Map</a></li>
@@ -157,9 +159,9 @@
                             </li>
                         </ul>
                     </li> -->
-                    <li><a href="login.html" class="waves-effect"><i class="fa fa-credit-card fa-fw" aria-hidden="true"></i>Billing</a></li>
+                    <li><a href="#" class="waves-effect"><i class="fa fa-credit-card fa-fw" aria-hidden="true"></i>Billing</a></li>
                     <li class="devider"></li>
-                    <li><a href="faq.html" class="waves-effect"><i class="fa fa-circle-o fa-fw text-success"></i> Faqs</a></li>
+                    <li><a href="#" class="waves-effect"><i class="fa fa-circle-o fa-fw text-success"></i> Faqs</a></li>
                 </ul>
             </div>
         </div>
@@ -175,7 +177,7 @@
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
                         <h4 class="page-title">Dashboard</h4> </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-                        <a href="https:sstudio.io/" target="_blank" class="btn btn-danger pull-right m-l-20 hidden-xs hidden-sm waves-effect waves-light">Upgrade to Pro</a>
+                        <a href="request.php#new" target="_blank" class="btn btn-danger pull-right m-l-20 hidden-xs hidden-sm waves-effect waves-light">Create a Task</a>
                         <ol class="breadcrumb">
                             <li><a href="#">Dashboard</a></li>
                         </ol>
@@ -274,78 +276,66 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!--First option is to load all recent task onto the page  -->
-                                        <!--Second option is to dynamically load with Ajax  -->
                                         <!--For now.. let's just have something here  -->
                                         <?php
                                           $selectedTasks = recentTaskReport('January', 7);//selected task from the dropdown box
                                           $count = 1;//initialize count for the # column
                                         ?>
-                                        <?php foreach ($selectedTasks as $key => $value): ?>
-                                          <?php switch ($value['status']) {
-                                            case 0:
-                                              # a just created task
-                                              $colorClass = 'label-danger';
-                                              $text = 'NOT STARTED';
-                                              $textColorClass = 'text-danger';
-                                              break;
-                                            case 1:
-                                              # a just created task
-                                              $colorClass = 'label-success';
-                                              $text = 'ONGOING';
-                                              $textColorClass = 'text-success';
-                                              break;
-                                            case 3:
-                                              # a just created task
-                                              $colorClass = 'label-info';
-                                              $text = 'COMPLETED';
-                                              $textColorClass = 'text-info';
-                                              break;
-                                            default:
-                                              # well, don't know where this falls
-                                              $colorClass = 'label-info';
-                                              $text = '';
-                                              $textColorClass = '';
-                                              break;
-                                          } ?>
-                                          <tr>
-                                            <td><?php echo $count; ?></td>
-                                            <td class="txt-oflo"><?php echo $value['task_name']; ?></td>
-                                            <td><span class="label <?php echo $colorClass; ?> label-rouded"><?php echo $text; ?></span> </td>
-                                            <td class="txt-oflo"><?php echo date('M d, Y', strtotime($value['created'])); ?></td>
-                                            <td><span class="<?php echo $textColorClass; ?>"><?php echo $value['task_description']; ?></span></td>
-                                          </tr>
-                                          <?php $count++; ?>
-                                        <?php endforeach; ?>
+                                        <?php if ($selectedTasks): ?>
+                                          <?php foreach ($selectedTasks as $key => $value): ?>
+                                            <?php switch ($value['status']) {
+                                              case 0:
+                                                # a just created task
+                                                $colorClass = 'label-danger';
+                                                $text = 'NOT STARTED';
+                                                $textColorClass = 'text-danger';
+                                                break;
+                                              case 1:
+                                                # a just created task
+                                                $colorClass = 'label-success';
+                                                $text = 'ONGOING';
+                                                $textColorClass = 'text-success';
+                                                break;
+                                              case 3:
+                                                # a just created task
+                                                $colorClass = 'label-info';
+                                                $text = 'COMPLETED';
+                                                $textColorClass = 'text-info';
+                                                break;
+                                              default:
+                                                # well, don't know where this falls
+                                                $colorClass = 'label-info';
+                                                $text = '';
+                                                $textColorClass = '';
+                                                break;
+                                            } ?>
+                                            <tr>
+                                              <td><?php echo $count; ?></td>
+                                              <td class="txt-oflo"><?php echo $value['task_name']; ?></td>
+                                              <td><span class="label <?php echo $colorClass; ?> label-rouded"><?php echo $text; ?></span> </td>
+                                              <td class="txt-oflo"><?php echo date('M d, Y', strtotime($value['created'])); ?></td>
+                                              <td><span class="<?php echo $textColorClass; ?>"><?php echo $value['task_description']; ?></span></td>
+                                            </tr>
+                                            <?php $count++; ?>
+                                          <?php endforeach; ?>
+                                        <?php endif; ?>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-12 col-lg-6 col-sm-12" style="width:40%;">
-                        <div class="white-box">
-                            <h3 class="box-title">Recent Discussion</h3>
-                            <div class="comment-center p-t-10">
-                                <div class="comment-body">
-                                    <div class="user-img"> <img src="../plugins/images/users/pawandeep.jpg" alt="user" class="img-circle"></div>
-                                    <div class="mail-contnet">
-                                        <h5>Pavan kumar</h5><span class="time">10:20 AM   20  may 2016</span> <span class="label label-rouded label-info">PENDING</span>
-                                        <br/><span class="mail-desc">Donec ac condimentum massa. Etiam pellentesque pretium lacus. Phasellus ultricies dictum suscipit. Aenean commodo dui pellentesque molestie feugiat. Aenean commodo dui pellentesque molestie feugiat</span> <a href="javacript:void(0)" class="btn btn btn-rounded btn-default btn-outline m-r-5"><i class="ti-check text-success m-r-5"></i>Approve</a><a href="javacript:void(0)" class="btn-rounded btn btn-default btn-outline"><i class="ti-close text-danger m-r-5"></i> Reject</a> </div>
-                                </div>
-                                <div class="comment-body">
-                                    <div class="user-img"> <img src="../plugins/images/users/sonu.jpg" alt="user" class="img-circle"> </div>
-                                    <div class="mail-contnet">
-                                        <h5>Sonu Nigam</h5><span class="time">10:20 AM   20  may 2016</span> <span class="label label-rouded label-success">APPROVED</span>
-                                        <br/><span class="mail-desc">Donec ac condimentum massa. Etiam pellentesque pretium lacus. Phasellus ultricies dictum suscipit. Aenean commodo dui pellentesque molestie feugiat. Aenean commodo dui pellentesque molestie feugiat</span> </div>
-                                </div>
-                                <div class="comment-body b-none">
-                                    <div class="user-img"> <img src="../plugins/images/users/arijit.jpg" alt="user" class="img-circle"> </div>
-                                    <div class="mail-contnet">
-                                        <h5>Arijit singh</h5><span class="time">10:20 AM   20  may 2016</span> <span class="label label-rouded label-danger">REJECTED</span>
-                                        <br/><span class="mail-desc">Donec ac condimentum massa. Etiam pellentesque pretium lacus. Phasellus ultricies dictum suscipit. Aenean commodo dui pellentesque molestie feugiat. Aenean commodo dui pellentesque molestie feugiat</span> </div>
-                                </div>
-                            </div>
-                        </div>
+                      <div class="panel">
+                       <div class="sk-chat-widgets">
+                           <div class="panel panel-default">
+                               <div class="panel-heading">
+                                   PROJECT LISTING
+                               </div>
+                               <div class="panel-body">
+
+                               </div>
+                           </div>
+                       </div>
                     </div>
                 </div>
                 <!-- ============================================================== -->
@@ -354,186 +344,22 @@
                 <div class="row">
                     <!-- .col -->
                     <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="panel">
-                            <div class="sk-chat-widgets">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        PROJECT LISTING
-                                    </div>
-                                    <div class="panel-body">
-                                        <ul class="chatonline">
-                                            <li>
-                                                <div class="call-chat">
-                                                    <button class="btn btn-success btn-circle btn-lg" type="button"><i class="fa fa-phone"></i></button>
-                                                    <button class="btn btn-info btn-circle btn-lg" type="button"><i class="fa fa-comments-o"></i></button>
-                                                </div>
-                                                <a href="javascript:void(0)"><img src="../plugins/images/users/varun.jpg" alt="user-img" class="img-circle"> <span>Varun Dhavan <small class="text-success">online</small></span></a>
-                                            </li>
-                                            <li>
-                                                <div class="call-chat">
-                                                    <button class="btn btn-success btn-circle btn-lg" type="button"><i class="fa fa-phone"></i></button>
-                                                    <button class="btn btn-info btn-circle btn-lg" type="button"><i class="fa fa-comments-o"></i></button>
-                                                </div>
-                                                <a href="javascript:void(0)"><img src="../plugins/images/users/genu.jpg" alt="user-img" class="img-circle"> <span>Genelia Deshmukh <small class="text-warning">Away</small></span></a>
-                                            </li>
-                                            <li>
-                                                <div class="call-chat">
-                                                    <button class="btn btn-success btn-circle btn-lg" type="button"><i class="fa fa-phone"></i></button>
-                                                    <button class="btn btn-info btn-circle btn-lg" type="button"><i class="fa fa-comments-o"></i></button>
-                                                </div>
-                                                <a href="javascript:void(0)"><img src="../plugins/images/users/ritesh.jpg" alt="user-img" class="img-circle"> <span>Ritesh Deshmukh <small class="text-danger">Busy</small></span></a>
-                                            </li>
-                                            <li>
-                                                <div class="call-chat">
-                                                    <button class="btn btn-success btn-circle btn-lg" type="button"><i class="fa fa-phone"></i></button>
-                                                    <button class="btn btn-info btn-circle btn-lg" type="button"><i class="fa fa-comments-o"></i></button>
-                                                </div>
-                                                <a href="javascript:void(0)"><img src="../plugins/images/users/arijit.jpg" alt="user-img" class="img-circle"> <span>Arijit Sinh <small class="text-muted">Offline</small></span></a>
-                                            </li>
-                                            <li>
-                                                <div class="call-chat">
-                                                    <button class="btn btn-success btn-circle btn-lg" type="button"><i class="fa fa-phone"></i></button>
-                                                    <button class="btn btn-info btn-circle btn-lg" type="button"><i class="fa fa-comments-o"></i></button>
-                                                </div>
-                                                <a href="javascript:void(0)"><img src="../plugins/images/users/govinda.jpg" alt="user-img" class="img-circle"> <span>Govinda Star <small class="text-success">online</small></span></a>
-                                            </li>
-                                            <li>
-                                                <div class="call-chat">
-                                                    <button class="btn btn-success btn-circle btn-lg" type="button"><i class="fa fa-phone"></i></button>
-                                                    <button class="btn btn-info btn-circle btn-lg" type="button"><i class="fa fa-comments-o"></i></button>
-                                                </div>
-                                                <a href="javascript:void(0)"><img src="../plugins/images/users/hritik.jpg" alt="user-img" class="img-circle"> <span>John Abraham<small class="text-success">online</small></span></a>
-                                            </li>
-                                            <li>
-                                                <div class="call-chat">
-                                                    <button class="btn btn-success btn-circle btn-lg" type="button"><i class="fa fa-phone"></i></button>
-                                                    <button class="btn btn-info btn-circle btn-lg" type="button"><i class="fa fa-comments-o"></i></button>
-                                                </div>
-                                                <a href="javascript:void(0)"><img src="../plugins/images/users/varun.jpg" alt="user-img" class="img-circle"> <span>Varun Dhavan <small class="text-success">online</small></span></a>
-                                            </li>
-                                            <li>
-                                                <div class="call-chat">
-                                                    <button class="btn btn-success btn-circle btn-lg" type="button"><i class="fa fa-phone"></i></button>
-                                                    <button class="btn btn-info btn-circle btn-lg" type="button"><i class="fa fa-comments-o"></i></button>
-                                                </div>
-                                                <a href="javascript:void(0)"><img src="../plugins/images/users/arijit.jpg" alt="user-img" class="img-circle"> <span>Arijit Sinh <small class="text-muted">Offline</small></span></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <!-- /.col -->
                     <!-- .col -->
                     <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">HISTORY</div>
-                            <div class="panel-body">
-                                <div class="steamline">
-                                    <div class="sl-item">
-                                        <div class="sl-left bg-success"> <i class="ti-user"></i></div>
-                                        <div class="sl-right">
-                                            <div><a href="#">Tohnathan Doe</a> <span class="sl-date">5 minutes ago</span></div>
-                                            <div class="desc">Contrary to popular belief</div>
-                                        </div>
-                                    </div>
-                                    <div class="sl-item">
-                                        <div class="sl-left bg-info"><i class="fa fa-image"></i></div>
-                                        <div class="sl-right">
-                                            <div><a href="#">Hritik Roshan</a> <span class="sl-date">5 minutes ago</span></div>
-                                            <div class="desc">Lorem Ipsum is simply dummy</div>
-                                            <div class="row inline-photos">
-                                                <div class="col-xs-4"><img class="img-responsive" alt="user" src="../plugins/images/small/vd1.jpg"></div>
-                                                <div class="col-xs-4"><img class="img-responsive" alt="user" src="../plugins/images/small/vd2.jpg"></div>
-                                                <div class="col-xs-4"><img class="img-responsive" alt="user" src="../plugins/images/small/vd3.jpg"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="sl-item">
-                                        <div class="sl-left"> <img class="img-circle" alt="user" src="../plugins/images/users/sonu.jpg"> </div>
-                                        <div class="sl-right">
-                                            <div><a href="#">Gohn Doe</a> <span class="sl-date">5 minutes ago</span></div>
-                                            <div class="desc">The standard chunk of ipsum </div>
-                                        </div>
-                                    </div>
-                                    <div class="sl-item">
-                                        <div class="sl-left"> <img class="img-circle" alt="user" src="../plugins/images/users/ritesh.jpg"> </div>
-                                        <div class="sl-right">
-                                            <div><a href="#">Varun Dhavan</a> <span class="sl-date">5 minutes ago</span></div>
-                                            <div class="desc">Contrary to popular belief</div>
-                                        </div>
-                                    </div>
-                                    <div class="sl-item">
-                                        <div class="sl-left"> <img class="img-circle" alt="user" src="../plugins/images/users/govinda.jpg"> </div>
-                                        <div class="sl-right">
-                                            <div><a href="#">Tiger Sroff</a> <span class="sl-date">5 minutes ago</span></div>
-                                            <div class="desc">The generated lorem ipsum
-                                                <br><a href="javascript:void(0)" class="btn m-t-10 m-r-5 btn-rounded btn-outline btn-success">Apporve</a> <a href="javascript:void(0)" class="btn m-t-10 btn-rounded btn-outline btn-danger">Refuse</a> </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
+
+
                     </div>
                     <!-- /.col -->
                     <!-- .col -->
                     <div class="col-lg-4 col-md-12 col-sm-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading"> CHATBOX
-                                <div class="pull-right"> <a href="#" data-perform="panel-dismiss"><i class="ti-close"></i></a> </div>
-                            </div>
-                            <div class="panel-wrapper collapse in" role="dialog" aria-expanded="true">
-                                <div class="panel-body">
-                                    <div class="chat-box" style="height: 510px;">
-                                        <ul class="chat-list slimscroll" style="overflow: hidden;" tabindex="5005">
-                                            <li>
-                                                <div class="chat-image"> <img alt="male" src="../plugins/images/users/sonu.jpg"> </div>
-                                                <div class="chat-body">
-                                                    <div class="chat-text">
-                                                        <h4>Sonu Nigam</h4>
-                                                        <p> Hi, All! </p> <b>10.00 am</b> </div>
-                                                </div>
-                                            </li>
-                                            <li class="odd">
-                                                <div class="chat-image"> <img alt="Female" src="../plugins/images/users/genu.jpg"> </div>
-                                                <div class="chat-body">
-                                                    <div class="chat-text">
-                                                        <h4>Genelia</h4>
-                                                        <p> Hi, How are you Sonu? ur next concert? </p> <b>10.03 am</b> </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="chat-image"> <img alt="male" src="../plugins/images/users/ritesh.jpg"> </div>
-                                                <div class="chat-body">
-                                                    <div class="chat-text">
-                                                        <h4>Ritesh</h4>
-                                                        <p> Hi, Sonu and Genelia, </p> <b>10.05 am</b> </div>
-                                                </div>
-                                            </li>
-                                            <li class="odd">
-                                                <div class="chat-image"> <img alt="Female" src="../plugins/images/users/genu.jpg"> </div>
-                                                <div class="chat-body">
-                                                    <div class="chat-text">
-                                                        <h4>Genelia</h4>
-                                                        <p> Hi, How are you Sonu? ur next concert? </p> <b>10.03 am</b> </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="panel-footer">
-                                    <div class="row">
-                                        <div class="col-xs-8">
-                                            <textarea placeholder="Type your message here" class="chat-box-input"></textarea>
-                                        </div>
-                                        <div class="col-xs-4 text-right">
-                                            <button class="btn btn-success btn-circle btn-xl" type="button"><i class="fa fa-paper-plane-o"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
+
+
+
                     </div>
                     <!-- /.col -->
                 </div>

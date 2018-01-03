@@ -1,7 +1,7 @@
 <?php namespace Libs\AdminTask;
 
   //config constants for server connection
-  require_once __DIR__ . '/../../../config/db/db_constants.php';
+  require_once __DIR__ . '/../../../../config/db/db_constants.php';
 
 
 
@@ -36,7 +36,7 @@
      **@return bool TRUE if the task was successfully created
      * without any error. FALSE otherwise.
      */
-    public function createTask($userId, $taskName, $taskDescription){
+    public function createTask($userId, $taskName, $taskPriority, $taskDescription){
       if ($this->getTasksInfo($userId, 'id', '', array(array('key' => 'task_name','operator'=>'=', 'value'=>"$taskName"),array('key' => 'task_description','operator'=>'=', 'value'=>"$taskDescription")))) {
         # check if the task has been created already, in order to avoid multiple
         // duplicate
@@ -45,8 +45,8 @@
           # not a duplicate so
           //build up a query string and create a user
           $query = "INSERT INTO `thestart_upstudio`.`admin_task`(`user_id`,
-            `task_name`, `task_description`)
-            VALUES('$userId', '$taskName', '$taskDescription')";
+            `task_name`, `task_priority`, `task_description`)
+            VALUES('$userId', '$taskName', '$taskPriority', '$taskDescription')";
             if (Self::$serverConn -> query($query) === TRUE) {
               # the task has been created successfully
               return TRUE;
@@ -57,8 +57,8 @@
              $taskDescription = Self::$serverConn->escape_string($taskDescription);
              //set the query again
              $query = "INSERT INTO `thestart_upstudio`.`admin_task`(`user_id`,
-               `task_name`, `task_description`)
-               VALUES('$userId', '$taskName', '$taskDescription')";
+               `task_name`, `task_priority` `task_description`)
+               VALUES('$userId', '$taskName', '$taskPriority', '$taskDescription')";
                 if (Self::$serverConn -> query($query) === TRUE) {
                   # the task has been created successfully
                   return TRUE;

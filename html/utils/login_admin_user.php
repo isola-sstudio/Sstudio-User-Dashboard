@@ -18,7 +18,6 @@
         $validation = new Validation();
         if ($validation->ifExists('company_email', $_POST['email'])) {# check if the user actually exists
           $adminUser = new AdminUser();
-
           if ($adminUser->logAdminUserIn($_POST['email'], $_POST['password'])) {# check if username and password match
             //so we set the necessary SESSION variables and send them to the
             //dashboard
@@ -35,7 +34,7 @@
         }else {
             # the user does not exist so we send an appropriate message
             //ask for a popup here or a signup page
-            $loginError = "We couldn't find your email in our database. Click here to signup";
+            $loginError = "We couldn't find your email in our database.";
           }
       }else {
           # at least one of the submitted fields is blank

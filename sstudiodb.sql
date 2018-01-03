@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 31, 2017 at 05:59 AM
+-- Generation Time: Jan 02, 2018 at 08:10 PM
 -- Server version: 5.7.18-1
 -- PHP Version: 7.0.20-2
 
@@ -34,7 +34,9 @@ CREATE TABLE `admin_task` (
   `task_name` varchar(200) NOT NULL,
   `task_description` text,
   `status` char(1) NOT NULL DEFAULT '0',
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `task_priority` char(3) NOT NULL COMMENT 'field that represents the priority of the task as determined by the user max is 100',
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_completed` timestamp NULL DEFAULT NULL COMMENT 'date the task was completed'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -49,6 +51,8 @@ CREATE TABLE `tss_package_subscription` (
   `company_email` varchar(320) NOT NULL COMMENT 'now it''s just the email of the intended user of the admin dashboard',
   `password` char(32) NOT NULL,
   `contact_number` varchar(14) NOT NULL COMMENT 'contact number filled on the modal form on the pricing page',
+  `country` varchar(255) DEFAULT NULL,
+  `picture` varchar(255) DEFAULT NULL,
   `project_description` text COMMENT 'project description filled on the modal form on the pricing page',
   `stripe_customer_id` varchar(255) DEFAULT NULL COMMENT 'stripe customer id created by at stripe''s checkout api',
   `subscription_plan` varchar(8) DEFAULT NULL COMMENT 'the plan chosen on the pricing page, basic, standard or custom',
