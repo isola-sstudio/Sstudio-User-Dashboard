@@ -22,16 +22,16 @@
     /**
      **Setting stuffs for the quick analytics info div on the dashboard page
      */
-    //set total task created
+    //set amount of total task created
     $totalTaskCreated = $taskOperations->taskCount($_SESSION['user_id']);
 
-    //set just created task
+    //set amount of just created task
     $justCreatedTasks = $taskOperations->taskCount($_SESSION['user_id'], '0');
 
-    //set ongoing task
+    //set amount of ongoing task
     $ongoingTasks = $taskOperations->taskCount($_SESSION['user_id'], '1');
 
-    //set completed task
+    //set amount of completed task
     $completedTask = $taskOperations->taskCount($_SESSION['user_id'], '3');
     /**
      **End Setting stuffs for the quick analytics info div on the dashboard page
@@ -49,8 +49,23 @@
       return $recentTaskReport;
     }
 
-    // ongoing tasks
-    $ongoingTasksInfo = $taskOperations->getTasksInfo($_SESSION['user_id'], '*', '', array(array('key' => 'status', 'operator'=>'<', 'value'=>'3')), array('column' => 'created', 'type'=>'ASC'));
+    // details about all ongoing tasks
+    $ongoingTasksInfo = $taskOperations->getTasksInfo($_SESSION['user_id'], '*', '', array(array('key' => 'status', 'operator'=>'=', 'value'=>'1')), array('column' => 'created', 'type'=>'ASC'));
+    // create a JSON variable for this
+    ?>
+      <script type="text/javascript">
+        var ongoingTasksGraph = <?php echo json_encode($ongoingTasksInfo); ?>;
+      </script>
+    <?php
+
+    // details about all completed tasks
+    $completedTasksInfo = $taskOperations->getTasksInfo($_SESSION['user_id'], '*', '', array(array('key' => 'status', 'operator'=>'=', 'value'=>'3')), array('column' => 'created', 'type'=>'ASC'));
+    // create a JSON variable for this
+    ?>
+      <script type="text/javascript">
+        var completedTasksGraph = <?php echo json_encode($completedTasksInfo); ?>;
+      </script>
+    <?php
 
     // all available tasks
     $taskHistory = $taskOperations->getTasksInfo($_SESSION['user_id'], '*', '', '', array('column' => 'created', 'type'=>'DESC'));
