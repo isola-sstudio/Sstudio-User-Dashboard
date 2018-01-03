@@ -24,6 +24,18 @@ $(document).ready(function () {
                 {meta: 'Updated Task Description', value: 5},
                 {meta: 'description', value: 3},
                 {meta: 'description', value: 50}
+            ],
+            [
+                {meta: 'Task Created', value: 0},
+                {meta: 'Updated Task Description', value: 25},
+                {meta: 'description', value: 40},
+                {meta: 'description', value: 70}
+            ],
+            [
+                {meta: 'Task Created', value: 0},
+                {meta: 'Updated Task Description', value: 15},
+                {meta: 'description', value: 30},
+                {meta: 'description', value: 60}
             ]
         ]
     };
