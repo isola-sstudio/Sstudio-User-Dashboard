@@ -39,6 +39,7 @@
      */
     public function createAdminUserAccount($name, $email, $password, $contactNumber){
       //build up a query string and create a user
+      $password = md5($password);
       $query = "INSERT INTO `thestart_upstudio`.`tss_package_subscription`(`company_name`,
         `company_email`, `password`, `contact_number`)
         VALUES('$name', '$email', '$password', '$contactNumber')";

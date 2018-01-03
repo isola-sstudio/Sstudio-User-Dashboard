@@ -34,7 +34,7 @@
         }else {
             # the user does not exist so we send an appropriate message
             //ask for a popup here or a signup page
-            $loginError = "We couldn't find your email in our database. Click here to signup";
+            $loginError = "We couldn't find your email in our database.";
           }
       }else {
           # at least one of the submitted fields is blank

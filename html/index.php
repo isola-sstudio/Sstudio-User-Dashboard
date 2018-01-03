@@ -88,6 +88,7 @@
                 <h3 class="box-title m-b-0">Sign In to Admin</h3>
                 <small>Enter your details below</small>
                 <form class="form-horizontal new-lg-form" id="loginform" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                  <small class="text-danger"><?php if (isset($loginError)) { echo $loginError; } ?></small>
                     <div class="form-group  m-t-20">
                         <div class="col-xs-12">
                             <label>Email Address</label>
