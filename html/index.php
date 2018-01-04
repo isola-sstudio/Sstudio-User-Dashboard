@@ -1,6 +1,8 @@
 <?php
   //used for the login operation
   require_once __DIR__ . '/utils/login_admin_user.php';
+  //used for fb signup and login
+  require_once __DIR__ . '/includes/fblogin.php';
   //used for the signup operation
   require_once __DIR__ . '/utils/create_admin_user.php';
 ?>
@@ -44,7 +46,7 @@
         </div>
         <div class="new-login-box">
             <div class="white-box">
-                <h3 class="box-title m-b-0">Sign In to Admin</h3>
+                <h3 class="box-title m-b-0" id="forms-head-title">Sign In to Admin</h3>
                 <small>Enter your details below</small>
                 <form class="form-horizontal new-lg-form" id="loginform" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                   <small class="text-danger"><?php if (isset($loginError)) { echo $loginError; } ?></small>
@@ -76,11 +78,12 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 m-t-10 text-center">
                             <div class="social">
-                                <a href="javascript:void(0)" class="btn  btn-facebook" data-toggle="tooltip" title="Login with Facebook"> <i aria-hidden="true" class="fa fa-facebook"></i> </a>
-                                <a href="javascript:void(0)" class="btn btn-googleplus" data-toggle="tooltip" title="Login with Google"> <i aria-hidden="true" class="fa fa-google-plus"></i> </a>
+                                <a href="<?php echo htmlspecialchars($loginUrl); ?>" class="btn  btn-facebook" data-toggle="tooltip" title="Login with Facebook"> <i aria-hidden="true" class="fa fa-facebook"></i> </a>
+                                <!-- <a href="javascript:void(0)" class="btn btn-googleplus" data-toggle="tooltip" title="Login with Google"> <i aria-hidden="true" class="fa fa-google-plus"></i> </a> -->
                             </div>
                         </div>
-                    </div>
+                         <a href="javascript:void(0)" id="to-signup" class="text-dark pull-right"><i class="fa fa-paper-plane m-r-5"></i> Don't have an account? Signup Now!</a> </div>
+
                 </form>
                 <form class="form-horizontal" id="recoverform" action="index.html">
                     <div class="form-group ">
@@ -100,8 +103,43 @@
                         </div>
                     </div>
                 </form>
+
+
+                <form class="form-horizontal new-lg-form" id="signupform" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                  <small class="text-danger"><?php if (isset($signupError)) { echo $signupError; } ?></small>
+                    <div class="form-group  m-t-20">
+                        <div class="col-xs-12">
+                            <label>Name</label>
+                            <input class="form-control" type="text" name="name" required="" placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="form-group  m-t-20">
+                        <div class="col-xs-12">
+                            <label>Email</label>
+                            <input class="form-control" type="email" name="email" required="" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="form-group  m-t-20">
+                        <div class="col-xs-12">
+                            <label>Password</label>
+                            <input class="form-control" type="password" name="password" required="" placeholder="Password">
+                        </div>
+                    </div><br><br><br>
+                    <small>Sign up with Facebook</small>
+                    <a href="<?php echo htmlspecialchars($loginUrl); ?>" class="btn  btn-facebook" data-toggle="tooltip" title="Login with Facebook"> <i aria-hidden="true" class="fa fa-facebook"></i> </a>
+                </form>
+
+              </div>
+
             </div>
-        </div>
+
+
+
+
+
+
+
+
     </section>
     <!-- jQuery -->
     <script src="../plugins/bower_components/jquery/dist/jquery.min.js"></script>

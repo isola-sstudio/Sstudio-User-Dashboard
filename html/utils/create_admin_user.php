@@ -18,8 +18,8 @@
         $validation = new Validation();
         if (!$validation->ifExists('company_email', $_POST['email'])) {# check that the user had not previously registered
           $adminUser = new AdminUser();
-
-          if ($adminUser->createAdminUserAccount($_POST['name'], $_POST['email'], $_POST['password'], $_POST['phone'])) {
+                                                            
+          if ($adminUser->createAdminUserAccount($_POST['name'], $_POST['email'], '', $_POST['password'])) {
             //so we set the necessary SESSION variables and send them to the
             //dashboard
             $_SESSION['user_id'] = $adminUser->getAdminUserInfo('company_email', $_POST['email'], 'id');

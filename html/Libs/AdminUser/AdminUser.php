@@ -37,12 +37,12 @@
      **@return bool TRUE if the user info was successfully added to database
      * without any error. FALSE otherwise.
      */
-    public function createAdminUserAccount($name, $email, $password, $contactNumber){
+    public function createAdminUserAccount($name, $email, $picture='', $password=''){
       //build up a query string and create a user
       $password = md5($password);
       $query = "INSERT INTO `thestart_upstudio`.`tss_package_subscription`(`company_name`,
-        `company_email`, `password`, `contact_number`)
-        VALUES('$name', '$email', '$password', '$contactNumber')";
+        `company_email`, `picture`, `password`)
+        VALUES('$name', '$email', '$picture', '$password')";
         if (Self::$serverConn -> query($query) === TRUE) {
           # user info has been successfully inserted into database so send
           return TRUE;
@@ -99,15 +99,11 @@
      * variables are set and they match with email
      */
     public function loggedIn(){
-      if ((isset($_SESSION['user_id']) && !empty($_SESSION['user_id']))
-      && (isset($_SESSION['email']) && !empty($_SESSION['email']))) {
+      if (((isset($_SESSION['user_id']) && !empty($_SESSION['user_id']))
+      && (isset($_SESSION['email']) && !empty($_SESSION['email']))) ||
+      (isset($_SESSION['fb_access_token']) && !empty($_SESSION['fb_access_token']))) {
         # if the necessary session variables are set for session
-        if ($_SESSION['email'] == $this->getAdminUserInfo('id', $_SESSION['user_id'], 'company_email')) {
-          # means the set session variables(user_id and email) are explicitly correct
-          return TRUE;
-        }else {
-          return FALSE;
-        }
+        return TRUE;
       }else {
         # just return FALSE since the necessary session variables are not even set
         return FALSE;
