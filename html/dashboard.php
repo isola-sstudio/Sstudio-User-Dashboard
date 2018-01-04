@@ -229,16 +229,33 @@
                 <!-- /.row -->
                 <div class="row">
                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                        <div class="white-box">
+
+
+
+
+
+
+                          <div class="white-box">
                             <h3 class="box-title">Task Timeline</h3>
+                            <?php if ($tasksGraphTimeline): ?>
                             <ul class="list-inline text-right">
+                              <li>
+                                <h5><i class="fa fa-circle m-r-5 text-info"></i>Ongoing</h5> </li>
                                 <li>
-                                    <h5><i class="fa fa-circle m-r-5 text-info"></i>Ongoing</h5> </li>
-                                <li>
-                                    <h5><i class="fa fa-circle m-r-5 text-inverse"></i>Completed</h5> </li>
-                            </ul>
-                            <div id="ct-visits" style="height: 405px;"></div>
-                        </div>
+                                  <h5><i class="fa fa-circle m-r-5 text-inverse"></i>Completed</h5> </li>
+                                </ul>
+                                <div id="ct-visits" style="height: 405px;"></div>
+                              <?php else: ?>
+                                <h3 >You have not created any task. Click the button below to Create one!</h3>
+                                <a href="request.php#new" target="_blank" class="btn btn-danger m-l-20 hidden-xs hidden-sm waves-effect waves-light">Create a Task</a>
+                              <?php endif; ?>
+                              </div>
+
+
+
+
+
+
                     </div>
                 </div>
                 <!-- ============================================================== -->
@@ -255,7 +272,11 @@
                                 </select>
                             </div>
                             <h3 class="box-title">Recent Tasks</h3>
-                            <div class="row sales-report">
+
+
+
+                            <?php if ($lastFiveMonths): ?>
+                             <div class="row sales-report">
                                 <div class="col-md-6 col-sm-6 col-xs-6">
                                   <!-- JS to pick the selected month from the dropdown box -->
                                     <h2>January 2018</h2>
@@ -263,8 +284,10 @@
                                 </div>
 <!--                                <div class="col-md-6 col-sm-6 col-xs-6 ">
                                     <h1 class="text-right text-info m-t-20">$3,690</h1> </div>-->
-                            </div>
+
                             <div class="table-responsive">
+                            </div>
+
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -322,9 +345,17 @@
                                     </tbody>
                                 </table>
                             </div>
+                          <?php else: ?>
+                            <h3 >No Recent Task to show! Create one now!</h3>
+                          <?php endif; ?>
+
+
+
+
+
                         </div>
                     </div>
-                    <div class="col-md-12 col-lg-6 col-sm-12" style="width:40%;">
+                    <!-- <div class="col-md-12 col-lg-6 col-sm-12" style="width:40%;">
                       <div class="panel">
                        <div class="sk-chat-widgets">
                            <div class="panel panel-default">
@@ -337,7 +368,7 @@
                            </div>
                        </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- ============================================================== -->
                 <!-- chats, message & profile widgets -->
                 <!-- ============================================================== -->

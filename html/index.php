@@ -36,51 +36,10 @@
     <div class="preloader">
         <div class="cssload-speeding-wheel"></div>
     </div>
-    <section id="wrapper" class="new-login-register">
+    <section id="wrapper" class="new-login-register" style="background: linear-gradient(45deg, #3f1caa 0%, #3c56e1 100%);">
         <div class="lg-info-panel">
             <div class="inner-panel">
                 <a href="javascript:void(0)" class="p-20 di"><img src="../plugins/images/admin-logo.png" style="width:40%;"></a>
-                <div class="lg-content" style="margin:0">
-                  <div class="form-group m-b-0">
-                      <div class="col-sm-12 text-center">
-                          <p>Don't have an account?</p>
-                      </div>
-                  </div>
-                  <div class="white-box" style="background-color:rgba(255,255,255,0.2);">
-                      <h3 class="box-title m-b-0">CREATE AN ACCOUNT</h3>
-                      <form class="form-horizontal new-lg-form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-                          <div class="form-group  m-t-20">
-                              <div class="col-xs-12">
-                                  <label>Name</label>
-                                  <input class="form-control" type="text" name="name" required="" placeholder="Name">
-                              </div>
-                          </div>
-                          <div class="form-group  m-t-20">
-                              <div class="col-xs-12">
-                                  <label>Email Address</label>
-                                  <input class="form-control" type="email" name="email" required="" placeholder="you@company.com">
-                              </div>
-                          </div>
-                          <div class="form-group">
-                              <div class="col-xs-12">
-                                  <label>Password</label>
-                                  <input class="form-control" type="password" name="password" required="" placeholder="Password">
-                              </div>
-                          </div>
-                          <div class="form-group  m-t-20">
-                              <div class="col-xs-12">
-                                  <label>Contact Number</label>
-                                  <input class="form-control" type="text" name="phone" required="" placeholder="contact number">
-                              </div>
-                          </div>
-                          <div class="form-group text-center m-t-20">
-                              <div class="col-xs-12">
-                                  <button class="btn btn-rounded btn-danger p-l-20 p-r-20" type="submit" name="signup">Sign Up</button>
-                              </div>
-                          </div>
-                      </form>
-                  </div>
-                </div>
             </div>
         </div>
         <div class="new-login-box">

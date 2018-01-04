@@ -251,6 +251,8 @@
                     <div class="col-sm-12">
                         <div class="white-box">
                             <div class="table-responsive">
+                              <?php if ($ongoingTasksInfo): ?>
+
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
@@ -280,6 +282,11 @@
                                       <?php endif; ?>
                                     </tbody>
                                 </table>
+                              <?php else: ?>
+                                  <h3>
+                                    You currently do not have any Ongoing Tasks. Fill in the above form to Create one.
+                                  </h3>
+                              <?php endif; ?>
                             </div>
                         </div>
                     </div>

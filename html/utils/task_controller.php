@@ -50,20 +50,34 @@
     }
 
     // details about all ongoing tasks
-    $ongoingTasksInfo = $taskOperations->getTasksInfo($_SESSION['user_id'], '*', '', array(array('key' => 'status', 'operator'=>'=', 'value'=>'1')), array('column' => 'created', 'type'=>'ASC'));
+    $tasksGraphTimeline = $taskOperations->getTasksInfo($_SESSION['user_id'], 'created', '', array(array('key' => 'status', 'operator'=>'>', 'value'=>'0')), array('column' => 'created', 'type'=>'ASC'), TRUE);
     // create a JSON variable for this
+    $tasksGraphTimelineJSON = json_encode($tasksGraphTimeline);
     ?>
       <script type="text/javascript">
-        var ongoingTasksGraph = <?php echo json_encode($ongoingTasksInfo); ?>;
+        var tasksGraphTimeline = JSON.parse('<?php echo addslashes($tasksGraphTimelineJSON); ?>');
       </script>
+    <?php
+
+    // details about all ongoing tasks
+    $ongoingTasksInfo = $taskOperations->getTasksInfo($_SESSION['user_id'], '*', '', array(array('key' => 'status', 'operator'=>'=', 'value'=>'1')), array('column' => 'created', 'type'=>'ASC'));
+    // create a JSON variable for this
+    $ongoingTasksInfoJSON = json_encode($ongoingTasksInfo);
+    ?>
+
+    <script type="text/javascript">
+      var ongoingTasksGraph = JSON.parse('<?php echo addslashes($ongoingTasksInfoJSON); ?>');
+    </script>
+
     <?php
 
     // details about all completed tasks
     $completedTasksInfo = $taskOperations->getTasksInfo($_SESSION['user_id'], '*', '', array(array('key' => 'status', 'operator'=>'=', 'value'=>'3')), array('column' => 'created', 'type'=>'ASC'));
     // create a JSON variable for this
+    $completedTasksInfoJSON = json_encode($completedTasksInfo);
     ?>
       <script type="text/javascript">
-        var completedTasksGraph = <?php echo json_encode($completedTasksInfo); ?>;
+        var completedTasksGraph = JSON.parse('<?php echo addslashes($completedTasksInfoJSON); ?>');
       </script>
     <?php
 

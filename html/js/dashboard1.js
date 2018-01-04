@@ -1,3 +1,75 @@
+/*well, it is expected that variables containing user task data from the
+ database would have been set already on this page.. located in the
+ task_controller file
+*/
+//check that there are ongoing and probably some completed tasks
+if (tasksGraphTimeline) {
+  //now create an array to hold the labels on the x axis
+  var xAxisLabel = [];
+
+  //before we continue, let's have an array for months
+  var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep",
+  "Oct", "Nov", "Dec"];
+
+  for (var i = 0; i < tasksGraphTimeline.length; i++) {
+    dateFormat = new Date(tasksGraphTimeline[i]+"Z");
+    dateString = monthNames[dateFormat.getMonth()] + ' ' + dateFormat.getDate() + ', ' + dateFormat.getFullYear();
+    xAxisLabel.push(dateString);
+  }
+
+  //now create all completed tasks series
+  completedTasksSeries = [];
+  // loop through tasksGraphTimeline and for each point, fix a point for completed graph line
+  var completedCount = 0;//initialize a count to loop through ongoing Graph Line
+  for (var i = 0; i < tasksGraphTimeline.length; i++) {
+    if (completedTasksGraph[completedCount]['created'] == tasksGraphTimeline[i]) {
+        //there is a date in the timeline that corresponds with a date in the ongoing timeline
+        // lets find the goal achievement
+        var now = new Date();
+        var goalAchievement = ((((new Date(completedTasksGraph[completedCount].due_date + "Z") - new Date(completedTasksGraph[completedCount].created+"Z"))/(now - new Date(completedTasksGraph[completedCount].created+"Z"))) * 100) + completedTasksGraph[completedCount].task_priority)/2;
+        completedTasksSeries.push({meta: completedTasksGraph[completedCount].task_name, value: goalAchievement});
+        completedCount++;//increase the count on completed tasks
+    }else {
+        completedTasksSeries.push({});
+      }
+    //lets break to avoid errors in a situation where we have reached end of array
+    if (completedCount == completedTasksGraph.length) {
+      break;
+    }
+  }
+
+  //now create all ongoing tasks series
+  ongoingTasksSeries = [];
+  // loop through tasksGraphTimeline and for each point, fix a point for ongoing graph line
+  var ongoingCount = 0;//initialize a count to loop through ongoing Graph Line
+  for (var i = 0; i < tasksGraphTimeline.length; i++) {
+    if (ongoingTasksGraph[ongoingCount]['created'] == tasksGraphTimeline[i]) {
+        //there is a date in the timeline that corresponds with a date in the ongoing timeline
+        // lets find the goal achievement
+        var now = new Date();
+        var goalAchievement = ((((new Date(ongoingTasksGraph[ongoingCount].due_date + "Z") - new Date(ongoingTasksGraph[ongoingCount].created+"Z"))/(now - new Date(ongoingTasksGraph[ongoingCount].created+"Z"))) * 100) + ongoingTasksGraph[ongoingCount].task_priority)/2;
+        ongoingTasksSeries.push({meta: ongoingTasksGraph[ongoingCount].task_name, value: goalAchievement});
+        ongoingCount++;//increase the count on ongoing tasks
+    }else {
+        ongoingTasksSeries.push({});
+      }
+    //lets break to avoid errors in a situation where we have reached end of array
+    if (ongoingCount == ongoingTasksGraph.length) {
+      break;
+    }
+
+  }
+
+}else {
+    //let all the variables be empty
+    xAxisLabel = [];
+    ongoingTasksSeries = [];
+    completedTasksSeries = [];
+  }
+
+
+
+
 $(document).ready(function () {
     "use strict";
     // toat popup js
@@ -16,27 +88,16 @@ $(document).ready(function () {
     // Create a simple line chart
     var data = {
         // A labels array that can contain any sort of values
-        labels: ['12/11/17', '12/12/17', '12/14/17', '12/15/17'],
+        labels: xAxisLabel,
         // Our series array that contains series objects or in this case series data arrays
-        series: [
-            [
-                {meta: 'Task Created', value: 0},
-                {meta: 'Updated Task Description', value: 5},
-                {meta: 'description', value: 3},
-                {meta: 'description', value: 50}
-            ],
-            [
-                {meta: 'Task Created', value: 0},
-                {meta: 'Updated Task Description', value: 25},
-                {meta: 'description', value: 40},
-                {meta: 'description', value: 70}
-            ],
-            [
-                {meta: 'Task Created', value: 0},
-                {meta: 'Updated Task Description', value: 15},
-                {meta: 'description', value: 30},
-                {meta: 'description', value: 60}
-            ]
+        series: [ongoingTasksSeries, completedTasksSeries
+            // ,
+            // [
+            //     {meta: 'Task Created', value: 0},
+            //     {meta: 'Updated Task Description', value: 15},
+            //     {meta: 'description', value: 30},
+            //     {meta: 'description', value: 60}
+            // ]
         ]
     };
 
@@ -66,7 +127,7 @@ $(document).ready(function () {
             Chartist.plugins.ctAxisTitle({
 
                 axisY: {
-                    axisTitle: 'Goal Percentage',
+                    axisTitle: 'Goal Achievement',
                     axisClass: 'ct-axis-title',
                     offset: {
                         x: 0,
@@ -92,8 +153,8 @@ $(document).ready(function () {
     var chart = new Chartist.Line('#ct-visits', data, options);
     // Let's put a sequence number aside so we can use it in the event callbacks
     var seq = 0,
-        delays = 200,
-        durations = 2000;
+        delays = 50,
+        durations = 500;
 
 // Once the chart is fully created we reset the sequence
     chart.on('created', function() {

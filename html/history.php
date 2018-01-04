@@ -184,15 +184,13 @@
                             <h3 class="box-title">View all Task</h3> </div>
                     </div>
                 </div>
-
-
-
-
                 <!-- /row -->
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="white-box">
                             <div class="table-responsive">
+                              <?php if ($taskHistory): ?>
+
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -247,6 +245,14 @@
                                       <?php endif; ?>
                                     </tbody>
                                 </table>
+                              <?php else: ?>
+                                <h3>
+                                  You currently do not have any task created. Task History
+                                  gives you information about your created Tasks.
+                                  Click the button below to create one.
+                                </h3>
+                                                        <a href="request.php#new" class="btn btn-danger m-l-20 hidden-xs hidden-sm waves-effect waves-light">Create a Task</a>
+                              <?php endif; ?>
                             </div>
                         </div>
                     </div>
