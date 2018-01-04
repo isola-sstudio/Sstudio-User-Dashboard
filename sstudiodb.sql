@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jan 02, 2018 at 08:10 PM
+-- Generation Time: Jan 04, 2018 at 07:09 AM
 -- Server version: 5.7.18-1
 -- PHP Version: 7.0.20-2
 
@@ -35,6 +35,7 @@ CREATE TABLE `admin_task` (
   `task_description` text,
   `status` char(1) NOT NULL DEFAULT '0',
   `task_priority` char(3) NOT NULL COMMENT 'field that represents the priority of the task as determined by the user max is 100',
+  `due_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'date at which the task is expected to be completed',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_completed` timestamp NULL DEFAULT NULL COMMENT 'date the task was completed'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
