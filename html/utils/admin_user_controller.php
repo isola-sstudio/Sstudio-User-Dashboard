@@ -13,7 +13,7 @@
 
   $adminUser = new AdminUser();
 
-  if (isset($_SESSION['user_id']) && isset($_SESSION['email'])) {
+  if (isset($_SESSION['user_id'])) {
     # the needed session variables are set.. also means the user is logged in
     // bring in all the details of the user
     $adminUserDetails = $adminUser->getAdminUserInfo('id', $_SESSION['user_id']);

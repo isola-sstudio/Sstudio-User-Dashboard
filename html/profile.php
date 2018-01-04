@@ -84,11 +84,11 @@
                             <input type="text" placeholder="Search..." class="form-control"> <a href=""><i class="fa fa-search"></i></a> </form>
                     </li>
                     <li class="dropdown">
-                        <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="../plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle"><b class="hidden-xs"><?php echo $adminUserDetails['company_name']; ?></b><span class="caret"></span> </a>
+                        <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="<?php echo $adminUserDetails['picture']; ?>" alt="user-img" width="36" class="img-circle"><b class="hidden-xs"><?php echo $adminUserDetails['company_name']; ?></b><span class="caret"></span> </a>
                         <ul class="dropdown-menu dropdown-user animated flipInY">
                             <li>
                                 <div class="dw-user-box">
-                                    <div class="u-img"><img src="../plugins/images/users/varun.jpg" alt="user" /></div>
+                                    <div class="u-img"><img src="<?php echo $adminUserDetails['picture']; ?>" alt="user" /></div>
                                     <div class="u-text">
                                         <h4><?php echo $adminUserDetails['company_name']; ?></h4>
                                         <p class="text-muted"><?php echo $adminUserDetails['company_email']; ?></p><a href="profile.php" class="btn btn-rounded btn-danger btn-sm">View Profile</a></div>
@@ -181,10 +181,13 @@
                 <div class="row">
                     <div class="col-md-4 col-xs-12">
                         <div class="white-box">
-                            <div class="user-bg"> <img width="100%" alt="user" src="../plugins/images/large/img1.jpg">
+                            <div class="user-bg">
+                              <?php if ($adminUserDetails['wallpaper']): ?>
+                                <img width="100%" alt="user" src="<?php echo $adminUserDetails['wallpaper']; ?>">
+                              <?php endif; ?>
                                 <div class="overlay-box">
                                     <div class="user-content">
-                                        <a href="javascript:void(0)"><img src="../plugins/images/users/genu.jpg" class="thumb-lg img-circle" alt="img"></a>
+                                        <a href="javascript:void(0)"><img src="<?php echo $adminUserDetails['picture']; ?>" class="thumb-lg img-circle" alt="img"></a>
                                         <h4 class="text-white"><?php echo $adminUserDetails['company_name']; ?></h4>
                                         <h5 class="text-white"><?php echo $adminUserDetails['company_email']; ?></h5> </div>
                                 </div>

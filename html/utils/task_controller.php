@@ -14,7 +14,7 @@
   //use Libs\AdminUser\AdminUser;
   use Libs\AdminTask\TaskO;
 
-  if (isset($_SESSION['user_id']) && isset($_SESSION['email'])) {
+  if (isset($_SESSION['user_id'])) {
     # the needed session variables are set.. also means the user is logged in
     //init the TaskO object
     $taskOperations = new TaskO();

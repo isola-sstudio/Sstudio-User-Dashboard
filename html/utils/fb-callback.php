@@ -75,24 +75,29 @@ if (! $accessToken->isLongLived()) {
   if (isset($accessToken)) {
     # we have an access token
 
-    $response = $fb->get('/me?fields=name,email,picture', $_SESSION['fb_access_token']);
+    $response = $fb->get('/me?fields=name,email,picture,cover', $_SESSION['fb_access_token']);
     $userNode = $response->getGraphUser();
     $name = $userNode->getName();
     $email = $userNode->getEmail();
     $picture = $userNode->getPicture()->getUrl();
+    $cover = $userNode->getCover()->getUrl();
 
     $adminUser = new AdminUser();
 
     # it must have been a log in request so check if their email is already
     // in the database and then send them to the dashboard
-    if ($adminUser->getAdminUserInfo('company_email', $email, $userInfo = 'id')) {
+    if ($userId = $adminUser->getAdminUserInfo('company_email', $email, $userInfo = 'id')) {
       # if they are a registered user
+      $_SESSION['user_id'] = $userId;
       header('Location: ../dashboard.php');//send them to dashboard
     }else {
         # they are not a registered user, so, why not.. register them then!
         // create an account for the person
-        $adminUser->createAdminUserAccount($name, $email, '', $picture);
-        header('Location: ../dashboard.php');//send them to dashboard
+        if($adminUser->createAdminUserAccount($name, $email, $picture, $cover, '')){
+          $userId = $adminUser->getAdminUserInfo('company_email', $email, $userInfo = 'id');
+          $_SESSION['user_id'] = $userId;
+          header('Location: ../dashboard.php');//send them to dashboard
+        }
       }
 
   }

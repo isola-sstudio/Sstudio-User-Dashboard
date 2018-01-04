@@ -126,7 +126,7 @@
                         </div>
                     </div><br><br><br>
                     <small>Sign up with Facebook</small>
-                    <a href="<?php echo htmlspecialchars($loginUrl); ?>" class="btn  btn-facebook" data-toggle="tooltip" title="Login with Facebook"> <i aria-hidden="true" class="fa fa-facebook"></i> </a>
+                    <a href="<?php echo htmlspecialchars($loginUrl); ?>" class="btn  btn-facebook" data-toggle="tooltip" title="Signup with Facebook"> <i aria-hidden="true" class="fa fa-facebook"></i> </a>
                 </form>
 
               </div>
