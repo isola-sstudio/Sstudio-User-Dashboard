@@ -107,7 +107,7 @@
      * there was server issues and the query was not successful
      */
     public function getTasksInfo($userId, $taskInfo, $limit='', $constraint='', $order='', $distinct=FALSE){
-      $query = "SELECT `$taskInfo` FROM `thestart_upstudio`.`admin_task` WHERE `user_id` = '$userId'";
+      $query = "SELECT $taskInfo FROM `thestart_upstudio`.`admin_task` WHERE `user_id` = '$userId'";
       //check if we are to select distinct values
       if ($distinct) {
         # add distinct to query string
@@ -240,6 +240,164 @@
           return FALSE;
         }
     }
+
+    /**
+     **This method is used to retrieve the timeline of total task created according
+     * to days, weeks, months or years the timeline type defaults to days
+     **@param string $userId, $limit, $timelineType
+     **@return Array $rowContent, Bool FALSE if there was nothing to fetch or if
+     * there was server issues and the query was not successful
+     */
+    public function getTotalTaskTimeline($userId, $limit='', $timelineType=''){
+      $query = "SELECT DISTINCT DATE(created) FROM `thestart_upstudio`.`admin_task` WHERE `user_id` = '$userId' ORDER BY DATE(created) ASC";
+      // check if the request is in weeks
+      //add order
+
+      // check if the request is in months then
+
+      // check if the request is in years then
+
+      //add limit
+      if ($limit) {
+        # there is a limit to add
+        $query .= " LIMIT $limit";
+      }
+
+      if ($result = Self::$serverConn->query($query)) {
+        //query successful, return the mysqli object
+        if ($result->num_rows >= 1) {
+          # there was in fact a result
+          while ($row = $result->fetch_assoc()) {//while there is still one
+            # while there is still something from the created column
+            $rowContents[] = $row['DATE(created)'];//dynamically initialize an array to return
+          }
+          return $rowContents;
+        }else {
+            # there was no result
+            return FALSE;
+          }
+      }else {
+          # query was not successful
+          return FALSE;
+        }
+    }
+
+    /**
+     **This method is used to retrieve the total number of ongoing tasks according
+      * to days, weeks, months or years the timeline type defaults to days
+     **@param string $userId, $limit, $timelineType
+     **@return Array $arrayToReturn, Bool FALSE if there was nothing to fetch or if
+     * there was server issues and the query was not successful
+     */
+    public function getTotalOngoingTaskInfo($userId, $limit='', $timelineType=''){
+      $query = "SELECT DATE(created) FROM `thestart_upstudio`.`admin_task` WHERE `user_id` = '$userId' AND `status` < 3 ORDER BY DATE(created) ASC";
+      // check if the request is in weeks
+      //add order
+
+      // check if the request is in months then
+
+      // check if the request is in years then
+
+      //add limit
+      if ($limit) {
+        # there is a limit to add
+        $query .= " LIMIT $limit";
+      }
+
+      if ($result = Self::$serverConn->query($query)) {
+        //query successful, return the mysqli object
+        if ($result->num_rows >= 1) {
+          # there was in fact a result
+          while ($row = $result->fetch_assoc()) {//while there is still one
+            # while there is still something from the created column
+            $rowContents[] = $row;//dynamically initialize an array to return
+          }
+          //an array to keep what is to be returned
+          $arrayToReturn = [];
+
+           $totalTaskTimeline = $this->getTotalTaskTimeline($userId, $limit, $timelineType);
+          // for each one of the ongoing task date fetched, count amount that corresponds
+           for ($i=0; $i < count($totalTaskTimeline); $i++) {
+             # going through each element in this totalTaskTimeline
+             $totalNumberOnThisDate = 0;
+            foreach ($rowContents as $key => $value) {
+              # go through all the elements in the total ongoing task timeline
+              if ($value['DATE(created)'] == $totalTaskTimeline[$i]) {
+                # this particular date of task created correspond to this timeline date
+                $totalNumberOnThisDate++;
+              }
+            }
+            $arrayToReturn[$totalTaskTimeline[$i]] = $totalNumberOnThisDate;
+           }
+          return $arrayToReturn;
+        }else {
+            # there was no result
+            return FALSE;
+          }
+      }else {
+          # query was not successful
+          return FALSE;
+        }
+    }
+
+    /**
+     **This method is used to retrieve the total number of ongoing tasks according
+      * to days, weeks, months or years the timeline type defaults to days
+     **@param string $userId, $limit, $timelineType
+     **@return Array $arrayToReturn, Bool FALSE if there was nothing to fetch or if
+     * there was server issues and the query was not successful
+     */
+    public function getTotalTaskInfo($userId, $limit='', $timelineType=''){
+      $query = "SELECT DATE(created) FROM `thestart_upstudio`.`admin_task` WHERE `user_id` = '$userId' ORDER BY DATE(created) ASC";
+      // check if the request is in weeks
+      //add order
+
+      // check if the request is in months then
+
+      // check if the request is in years then
+
+      //add limit
+      if ($limit) {
+        # there is a limit to add
+        $query .= " LIMIT $limit";
+      }
+
+      if ($result = Self::$serverConn->query($query)) {
+        //query successful, return the mysqli object
+        if ($result->num_rows >= 1) {
+          # there was in fact a result
+          while ($row = $result->fetch_assoc()) {//while there is still one
+            # while there is still something from the created column
+            $rowContents[] = $row;//dynamically initialize an array to return
+          }
+          //an array to keep what is to be returned
+          $arrayToReturn = [];
+
+           $totalTaskTimeline = $this->getTotalTaskTimeline($userId, $limit, $timelineType);
+          // for each one of the ongoing task date fetched, count amount that corresponds
+           for ($i=0; $i < count($totalTaskTimeline); $i++) {
+             # going through each element in this totalTaskTimeline
+             $totalNumberOnThisDate = 0;
+            foreach ($rowContents as $key => $value) {
+              # go through all the elements in the total ongoing task timeline
+              if ($value['DATE(created)'] == $totalTaskTimeline[$i]) {
+                # this particular date of task created correspond to this timeline date
+                $totalNumberOnThisDate++;
+              }
+            }
+            $arrayToReturn[$totalTaskTimeline[$i]] = $totalNumberOnThisDate;
+           }
+          return $arrayToReturn;
+        }else {
+            # there was no result
+            return FALSE;
+          }
+      }else {
+          # query was not successful
+          return FALSE;
+        }
+    }
+
 
 
 

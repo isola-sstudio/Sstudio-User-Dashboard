@@ -1,6 +1,6 @@
 <?php
   session_start();
-
+$_SESSION['user_id'] = 1;
   /**Always, this guy is just ready to start dumping everything he knows about
    * the admin as far as tasks are concerned
    **He brings in some info without being asked.. maybe we should allow him to
@@ -50,34 +50,34 @@
     }
 
     // details about all ongoing tasks
-    $tasksGraphTimeline = $taskOperations->getTasksInfo($_SESSION['user_id'], 'created', '', array(array('key' => 'status', 'operator'=>'>', 'value'=>'0')), array('column' => 'created', 'type'=>'ASC'), TRUE);
+    $tasksGraphTimeline = $taskOperations->getTotalTaskTimeline($_SESSION['user_id']);
     // create a JSON variable for this
-    $tasksGraphTimelineJSON = json_encode($tasksGraphTimeline);
+      $tasksGraphTimelineJSON = json_encode($tasksGraphTimeline);
     ?>
       <script type="text/javascript">
         var tasksGraphTimeline = JSON.parse('<?php echo addslashes($tasksGraphTimelineJSON); ?>');
       </script>
+
+
     <?php
-
-    // details about all ongoing tasks
-    $ongoingTasksInfo = $taskOperations->getTasksInfo($_SESSION['user_id'], '*', '', array(array('key' => 'status', 'operator'=>'=', 'value'=>'1')), array('column' => 'created', 'type'=>'ASC'));
-    // create a JSON variable for this
-    $ongoingTasksInfoJSON = json_encode($ongoingTasksInfo);
+     // details about all ongoing tasks
+     $totalOngoingTasksInfo = $taskOperations->getTotalOngoingTaskInfo($_SESSION['user_id']);
+     // create a JSON variable for this
+     $totalOngoingTasksInfoJSON = json_encode($totalOngoingTasksInfo);
     ?>
-
     <script type="text/javascript">
-      var ongoingTasksGraph = JSON.parse('<?php echo addslashes($ongoingTasksInfoJSON); ?>');
+      var totalOngoingTasksGraph = JSON.parse('<?php echo addslashes($totalOngoingTasksInfoJSON); ?>');
     </script>
 
     <?php
 
     // details about all completed tasks
-    $completedTasksInfo = $taskOperations->getTasksInfo($_SESSION['user_id'], '*', '', array(array('key' => 'status', 'operator'=>'=', 'value'=>'3')), array('column' => 'created', 'type'=>'ASC'));
+    $totalTasksInfo = $taskOperations->getTotalTaskInfo($_SESSION['user_id']);
     // create a JSON variable for this
-    $completedTasksInfoJSON = json_encode($completedTasksInfo);
+    $totalTasksInfoJSON = json_encode($totalTasksInfo);
     ?>
       <script type="text/javascript">
-        var completedTasksGraph = JSON.parse('<?php echo addslashes($completedTasksInfoJSON); ?>');
+        var totalTasksGraph = JSON.parse('<?php echo addslashes($totalTasksInfoJSON); ?>');
       </script>
     <?php
 

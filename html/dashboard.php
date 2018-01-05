@@ -241,11 +241,11 @@
                               <li>
                                 <h5><i class="fa fa-circle m-r-5 text-info"></i>Ongoing</h5> </li>
                                 <li>
-                                  <h5><i class="fa fa-circle m-r-5 text-inverse"></i>Completed</h5> </li>
+                                  <h5><i class="fa fa-circle m-r-5 text-inverse"></i>All Tasks</h5> </li>
                                 </ul>
                                 <div id="ct-visits" style="height: 405px;"></div>
                               <?php else: ?>
-                                <h3 >You have not created any task. Click the button below to Create one!</h3>
+                                <h3 >You dont have any ongoing task. Click the button below to Create one!</h3>
                                 <a href="request.php#new" target="_blank" class="btn btn-danger m-l-20 hidden-xs hidden-sm waves-effect waves-light">Create a Task</a>
                               <?php endif; ?>
                               </div>

@@ -42,7 +42,7 @@
       $password = md5($password);
       $query = "INSERT INTO `thestart_upstudio`.`tss_package_subscription`(`company_name`,
         `company_email`, `picture`, `wallpaper`, `password`)
-        VALUES('$name', '$email', '$picture', $cover, '$password')";
+        VALUES('$name', '$email', '$picture', '$cover', '$password')";
         if (Self::$serverConn -> query($query) === TRUE) {
           # user info has been successfully inserted into database so send
           return TRUE;
@@ -127,8 +127,7 @@
      * bool FALSE if the query was not successful.
      */
     public function getAdminUserInfo($reference, $referenceValue, $userInfo = '*'){
-      $query = "SELECT `$userInfo` FROM `thestart_upstudio`.`tss_package_subscription` WHERE `$reference` = '$referenceValue'";
-      echo $query;
+      $query = "SELECT $userInfo FROM `thestart_upstudio`.`tss_package_subscription` WHERE `$reference` = '$referenceValue'";
       if ($result = Self::$serverConn->query($query)) {
         //query successful, return the mysqli object
         if ($result->num_rows == 1) {

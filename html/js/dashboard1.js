@@ -17,48 +17,29 @@ if (tasksGraphTimeline) {
     xAxisLabel.push(dateString);
   }
 
-  //now create all completed tasks series
-  completedTasksSeries = [];
-  // loop through tasksGraphTimeline and for each point, fix a point for completed graph line
-  var completedCount = 0;//initialize a count to loop through ongoing Graph Line
-  for (var i = 0; i < tasksGraphTimeline.length; i++) {
-    if (completedTasksGraph[completedCount]['created'] == tasksGraphTimeline[i]) {
-        //there is a date in the timeline that corresponds with a date in the ongoing timeline
-        // lets find the goal achievement
-        var now = new Date();
-        var goalAchievement = ((((new Date(completedTasksGraph[completedCount].due_date + "Z") - new Date(completedTasksGraph[completedCount].created+"Z"))/(now - new Date(completedTasksGraph[completedCount].created+"Z"))) * 100) + completedTasksGraph[completedCount].task_priority)/2;
-        completedTasksSeries.push({meta: completedTasksGraph[completedCount].task_name, value: goalAchievement});
-        completedCount++;//increase the count on completed tasks
-    }else {
-        completedTasksSeries.push({});
-      }
-    //lets break to avoid errors in a situation where we have reached end of array
-    if (completedCount == completedTasksGraph.length) {
-      break;
-    }
+  // now create total ongoing tasks line
+  //totalOngoingTasksGraph
+  var totalOngoingTasksGraphSeries = [];
+  var totalCountHere = 6;
+  var i = 0;
+  for(key in totalOngoingTasksGraph){
+    totalCountHere = parseInt(totalOngoingTasksGraph[tasksGraphTimeline[0]]) + totalCountHere;
+     totalOngoingTasksGraphSeries.push({meta:totalCountHere +' Ongoing Tasks', value: totalCountHere});
+     i++;
   }
-
-  //now create all ongoing tasks series
-  ongoingTasksSeries = [];
-  // loop through tasksGraphTimeline and for each point, fix a point for ongoing graph line
-  var ongoingCount = 0;//initialize a count to loop through ongoing Graph Line
-  for (var i = 0; i < tasksGraphTimeline.length; i++) {
-    if (ongoingTasksGraph[ongoingCount]['created'] == tasksGraphTimeline[i]) {
-        //there is a date in the timeline that corresponds with a date in the ongoing timeline
-        // lets find the goal achievement
-        var now = new Date();
-        var goalAchievement = ((((new Date(ongoingTasksGraph[ongoingCount].due_date + "Z") - new Date(ongoingTasksGraph[ongoingCount].created+"Z"))/(now - new Date(ongoingTasksGraph[ongoingCount].created+"Z"))) * 100) + ongoingTasksGraph[ongoingCount].task_priority)/2;
-        ongoingTasksSeries.push({meta: ongoingTasksGraph[ongoingCount].task_name, value: goalAchievement});
-        ongoingCount++;//increase the count on ongoing tasks
-    }else {
-        ongoingTasksSeries.push({});
-      }
-    //lets break to avoid errors in a situation where we have reached end of array
-    if (ongoingCount == ongoingTasksGraph.length) {
-      break;
-    }
-
+  console.log(totalOngoingTasksGraphSeries);
+  // now create total ongoing tasks line
+  //totalTasksGraph
+  var totalTasksGraphSeries = [];
+  var totalCountHere = 6;
+  var i = 0;
+  for(key in totalTasksGraph){
+    totalCountHere = parseInt(totalTasksGraph[tasksGraphTimeline[i]]) + totalCountHere;
+     totalTasksGraphSeries.push({meta:totalCountHere +' Total Tasks', value: ''+totalCountHere});
+     i++;
   }
+  console.log(totalTasksGraphSeries);
+
 
 }else {
     //let all the variables be empty
@@ -90,7 +71,7 @@ $(document).ready(function () {
         // A labels array that can contain any sort of values
         labels: xAxisLabel,
         // Our series array that contains series objects or in this case series data arrays
-        series: [ongoingTasksSeries, completedTasksSeries
+        series: [totalTasksGraphSeries, totalOngoingTasksGraphSeries
             // ,
             // [
             //     {meta: 'Task Created', value: 0},
@@ -112,7 +93,7 @@ $(document).ready(function () {
         axisY: {
             offset: 60,
             labelInterpolationFnc: function(value) {
-                return value + '%';
+                return value;
             }
         },
         axisX: {
@@ -127,7 +108,7 @@ $(document).ready(function () {
             Chartist.plugins.ctAxisTitle({
 
                 axisY: {
-                    axisTitle: 'Goal Achievement',
+                    axisTitle: 'Number of Tasks',
                     axisClass: 'ct-axis-title',
                     offset: {
                         x: 0,

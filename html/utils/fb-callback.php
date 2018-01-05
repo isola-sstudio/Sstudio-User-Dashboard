@@ -80,7 +80,7 @@ if (! $accessToken->isLongLived()) {
     $name = $userNode->getName();
     $email = $userNode->getEmail();
     $picture = $userNode->getPicture()->getUrl();
-    $cover = $userNode->getCover()->getUrl();
+//    $cover = $userNode->getCover()->getUrl();
 
     $adminUser = new AdminUser();
 
@@ -93,7 +93,7 @@ if (! $accessToken->isLongLived()) {
     }else {
         # they are not a registered user, so, why not.. register them then!
         // create an account for the person
-        if($adminUser->createAdminUserAccount($name, $email, $picture, $cover, '')){
+        if($adminUser->createAdminUserAccount($name, $email, $picture, '', '')){
           $userId = $adminUser->getAdminUserInfo('company_email', $email, $userInfo = 'id');
           $_SESSION['user_id'] = $userId;
           header('Location: ../dashboard.php');//send them to dashboard

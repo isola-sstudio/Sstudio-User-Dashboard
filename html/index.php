@@ -79,7 +79,7 @@
                         <div class="col-xs-12 col-sm-12 col-md-12 m-t-10 text-center">
                             <div class="social">
                                 <a href="<?php echo htmlspecialchars($loginUrl); ?>" class="btn  btn-facebook" data-toggle="tooltip" title="Login with Facebook"> <i aria-hidden="true" class="fa fa-facebook"></i> </a>
-                                <!-- <a href="javascript:void(0)" class="btn btn-googleplus" data-toggle="tooltip" title="Login with Google"> <i aria-hidden="true" class="fa fa-google-plus"></i> </a> -->
+                                <a href="javascript:void(0)" class="btn btn-googleplus" data-toggle="tooltip" title="Login with Google"> <i aria-hidden="true" class="fa fa-google"></i> </a>
                             </div>
                         </div>
                          <a href="javascript:void(0)" id="to-signup" class="text-dark pull-right"><i class="fa fa-paper-plane m-r-5"></i> Don't have an account? Signup Now!</a> </div>
@@ -124,9 +124,15 @@
                             <label>Password</label>
                             <input class="form-control" type="password" name="password" required="" placeholder="Password">
                         </div>
+                    </div>
+                    <div class="form-group text-center m-t-20">
+                        <div class="col-xs-12">
+                            <button class="btn btn-info btn-lg btn-block btn-rounded text-uppercase waves-effect waves-light" type="submit" name="signup">Signup</button>
+                        </div>
                     </div><br><br><br>
-                    <small>Sign up with Facebook</small>
+                    <small>Sign up using</small>
                     <a href="<?php echo htmlspecialchars($loginUrl); ?>" class="btn  btn-facebook" data-toggle="tooltip" title="Signup with Facebook"> <i aria-hidden="true" class="fa fa-facebook"></i> </a>
+                    <a href="javascript:void(0)" class="btn btn-googleplus" data-toggle="tooltip" title="Signup with Google"> <i aria-hidden="true" class="fa fa-google"></i> </a>
                 </form>
 
               </div>

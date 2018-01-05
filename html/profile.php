@@ -203,6 +203,9 @@
                                 <li class="tab">
                                     <a href="#settings" data-toggle="tab" aria-expanded="false"> <span class="visible-xs"><i class="fa fa-cog"></i></span> <span class="hidden-xs">Settings</span> </a>
                                 </li>
+                                <li class="tab">
+                                    <a href="#billing" data-toggle="tab" aria-expanded="false"> <span class="visible-xs"><i class="fa fa-cog"></i></span> <span class="hidden-xs">Billing</span> </a>
+                                </li>
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="profile">
@@ -277,9 +280,23 @@
                                         </div>
                                     </form>
                                 </div>
+
+
+
+
+
+                                <div class="tab-pane" id="Billing">
+                                </div>
+
+
+
+
+
+
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <!-- /.row -->
                 <!-- ============================================================== -->
