@@ -61,6 +61,11 @@ $_SESSION['user_id'] = 1;
 
     <?php
      // details about all ongoing tasks
+     $ongoingTasksInfo = $taskOperations->getTasksInfo($_SESSION['user_id'], '*', '', array(array('key' => 'status','operator'=>'=', 'value'=>'2')), array('column' => 'created', 'type'=>'DESC'));
+    ?>
+
+    <?php
+     // cumulative details about all ongoing tasks for graph
      $totalOngoingTasksInfo = $taskOperations->getTotalOngoingTaskInfo($_SESSION['user_id']);
      // create a JSON variable for this
      $totalOngoingTasksInfoJSON = json_encode($totalOngoingTasksInfo);
@@ -71,7 +76,7 @@ $_SESSION['user_id'] = 1;
 
     <?php
 
-    // details about all completed tasks
+    // cumulative details about all completed tasks for graph
     $totalTasksInfo = $taskOperations->getTotalTaskInfo($_SESSION['user_id']);
     // create a JSON variable for this
     $totalTasksInfoJSON = json_encode($totalTasksInfo);

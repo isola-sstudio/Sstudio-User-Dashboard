@@ -22,7 +22,7 @@ body {
   background: #fff;
 }
 .top-left-part {
-  background: #fff;
+  /*background: #fff;*/
 }
 .top-left-part .dark-logo {
   display: none;
@@ -35,7 +35,7 @@ body {
   color: #ffffff;
 }
 .navbar-header {
-  background: #2f323e;
+  /*background: #2f323e;*/
 }
 .navbar-top-links > li > a {
   color: #ffffff;
@@ -56,7 +56,8 @@ body {
 }
 /*Sidebar*/
 .sidebar {
-  background: #fff;
+  /*background: #fff;*/
+  background-color: #E9E8E9;
   box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.08);
 }
 .sidebar .label-custom {

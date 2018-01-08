@@ -130,37 +130,21 @@
                 </div>
                 <ul class="nav" id="side-menu">
                     <li style="padding: 70px 0 0;"><a href="dashboard.php" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Dashboard</a> </li>
+                    <li class="devider"></li>
                     <li><a href="#" class="waves-effect"><i class="fa fa-clone fa-fw" aria-hidden="true"></i> Request<span class="fa arrow"></span><span class="label label-rouded label-warning pull-right"><?php echo $justCreatedTasks; ?></span></a>
                         <ul class="nav nav-second-level">
                             <li><a href="request.php#new"><i class="fa fa-sticky-note-o fa-fw" aria-hidden="true"></i>New Task</a></li>
                             <li><a href="request.php#ongoing"><i class="fa fa-tasks fa-fw" aria-hidden="true"></i>Ongoing Tasks</a></li>
                         </ul>
                     </li>
+                    <li class="devider"></li>
                     <li><a href="#"><i class="fa fa-comment-o fa-fw" aria-hidden="true"></i>Chat</a></li>
+                    <li class="devider"></li>
                     <li><a href="history.php"><i class="fa fa-calendar-o fa-fw" aria-hidden="true"></i>History</a></li>
                     <li class="devider"></li>
                     <li><a href="profile.php"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Profile</a></li>
-<!--                    <li><a href="basic-table.html"><i class="fa fa-table fa-fw" aria-hidden="true"></i>Basic Table</a></li>
-                    <li><a href="fontawesome.html"><i class="fa fa-font fa-fw" aria-hidden="true"></i>Font awesome</a></li>
-                    <li><a href="map-google.html" class="waves-effect"><i class="fa fa-globe fa-fw" aria-hidden="true"></i>Google Map</a></li>
-                    <li><a href="map-vector.html" class="waves-effect"><i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>Vector Map</a></li>
-                    <li><a href="javascript:void(0)" class="waves-effect"><i class="fa fa-cog fa-fw" aria-hidden="true"></i>Multi-Level Dropdown<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li><a href="javascript:void(0)">Second Level Item</a></li>
-                            <li><a href="javascript:void(0)">Second Level Item</a></li>
-                            <li><a href="javascript:void(0)" class="waves-effect">Third Level <span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li><a href="javascript:void(0)">Third Level Item</a></li>
-                                    <li><a href="javascript:void(0)">Third Level Item</a></li>
-                                    <li><a href="javascript:void(0)">Third Level Item</a></li>
-                                    <li><a href="javascript:void(0)">Third Level Item</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li> -->
-                    <li><a href="#" class="waves-effect"><i class="fa fa-credit-card fa-fw" aria-hidden="true"></i>Billing</a></li>
                     <li class="devider"></li>
-                    <li><a href="#" class="waves-effect"><i class="fa fa-circle-o fa-fw text-success"></i> Faqs</a></li>
+                    <li><a href="#" class="waves-effect"><i class="fa fa-circle-o fa-fw text-success"></i>Customer Support</a></li>
                 </ul>
             </div>
         </div>
@@ -176,7 +160,7 @@
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
                         <h4 class="page-title">Dashboard</h4> </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-                        <a href="request.php#new" target="_blank" class="btn btn-danger pull-right m-l-20 hidden-xs hidden-sm waves-effect waves-light">Create a Task</a>
+                        <a href="request.php#new" target="_blank" class="btn pull-right m-l-20 shadow-xl ui-gradient-peach">Create a Task</a>
                         <ol class="breadcrumb">
                             <li><a href="#">Dashboard</a></li>
                         </ol>
@@ -196,7 +180,7 @@
                                 <li>
                                     <div id="sparklinedash"></div>
                                 </li>
-                                <li class="text-right"><i class="ti-arrow-up text-success"></i> <span class="counter text-success"><?php echo $totalTaskCreated; ?></span></li>
+                                <li class="text-right"><span class="counter text-success"><?php echo $totalTaskCreated; ?></span></li>
                             </ul>
                         </div>
                     </div>
@@ -207,7 +191,7 @@
                                 <li>
                                     <div id="sparklinedash2"></div>
                                 </li>
-                                <li class="text-right"><i class="ti-arrow-up text-purple"></i> <span class="counter text-purple"><?php echo $ongoingTasks; ?></span></li>
+                                <li class="text-right"><span class="counter text-purple"><?php echo $ongoingTasks; ?></span></li>
                             </ul>
                         </div>
                     </div>
@@ -218,7 +202,7 @@
                                 <li>
                                     <div id="sparklinedash3"></div>
                                 </li>
-                                <li class="text-right"><i class="ti-arrow-up text-info"></i> <span class="counter text-info"><?php echo $completedTask; ?></span></li>
+                                <li class="text-right"><span class="counter text-info"><?php echo $completedTask; ?></span></li>
                             </ul>
                         </div>
                     </div>
