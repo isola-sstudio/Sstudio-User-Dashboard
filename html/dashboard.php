@@ -220,7 +220,10 @@
 
                           <div class="white-box">
                             <h3 class="box-title">Task Timeline</h3>
-                            <?php if ($tasksGraphTimeline): ?>
+                            <?php if (!$tasksGraphTimeline): ?>
+                              <h3 >You dont have any ongoing task. Click the button below to Create one!</h3>
+                              <a href="request.php#new" target="_blank" class="btn btn-danger m-l-20 hidden-xs hidden-sm waves-effect waves-light">Create a Task</a>
+                            <?php endif; ?>
                             <ul class="list-inline text-right">
                               <li>
                                 <h5><i class="fa fa-circle m-r-5 text-info"></i>Ongoing</h5> </li>
@@ -228,10 +231,6 @@
                                   <h5><i class="fa fa-circle m-r-5 text-inverse"></i>All Tasks</h5> </li>
                                 </ul>
                                 <div id="ct-visits" style="height: 405px;"></div>
-                              <?php else: ?>
-                                <h3 >You dont have any ongoing task. Click the button below to Create one!</h3>
-                                <a href="request.php#new" target="_blank" class="btn btn-danger m-l-20 hidden-xs hidden-sm waves-effect waves-light">Create a Task</a>
-                              <?php endif; ?>
                               </div>
 
 
@@ -245,7 +244,7 @@
                 <!-- Recent comment, table & feed widgets -->
                 <!-- ============================================================== -->
                 <div class="row">
-                    <div class="col-md-12 col-lg-6 col-sm-12" style="width:60%;">
+                    <div class="col-sm-12">
                         <div class="white-box">
                             <div class="col-md-3 col-sm-4 col-xs-6 pull-right" style="width:30%;">
                                 <select class="form-control pull-right row b-none">
@@ -279,6 +278,9 @@
                                             <th>STATUS</th>
                                             <th>DATE</th>
                                             <th>DETAILS</th>
+                                            <th>DUE DATE</th>
+                                            <th>COMPLETED</th>
+                                            <th>ACTION</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -321,6 +323,13 @@
                                               <td><span class="label <?php echo $colorClass; ?> label-rouded"><?php echo $text; ?></span> </td>
                                               <td class="txt-oflo"><?php echo date('M d, Y', strtotime($value['created'])); ?></td>
                                               <td><span class="<?php echo $textColorClass; ?>"><?php echo $value['task_description']; ?></span></td>
+                                              <td class="txt-oflo"><?php echo date('M d, Y', strtotime($value['due_date'])); ?></td>
+                                              <td class="txt-oflo"><?php if ($value['date_completed']){ echo date('M d, Y', strtotime($value['date_completed'])); }?>
+                                            </td>
+                                              <td class="text-nowrap">
+                                                <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i></a>
+                                                <a href="#" data-toggle="tooltip" data-original-title="Suspend"> <i class="fa fa-pause text-warning"></i></a>
+                                              </td>
                                             </tr>
                                             <?php $count++; ?>
                                           <?php endforeach; ?>

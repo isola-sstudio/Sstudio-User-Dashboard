@@ -6,7 +6,6 @@
 if (tasksGraphTimeline) {
   //now create an array to hold the labels on the x axis
   var xAxisLabel = [];
-
   //before we continue, let's have an array for months
   var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep",
   "Oct", "Nov", "Dec"];
@@ -27,7 +26,7 @@ if (tasksGraphTimeline) {
      totalOngoingTasksGraphSeries.push({meta:totalCountHere +' Ongoing Tasks', value: totalCountHere});
      i++;
   }
-  console.log(totalOngoingTasksGraphSeries);
+
   // now create total ongoing tasks line
   //totalTasksGraph
   var totalTasksGraphSeries = [];
@@ -35,20 +34,37 @@ if (tasksGraphTimeline) {
   var i = 0;
   for(key in totalTasksGraph){
     totalCountHere = parseInt(totalTasksGraph[tasksGraphTimeline[i]]) + totalCountHere;
-     totalTasksGraphSeries.push({meta:totalCountHere +' Total Tasks', value: ''+totalCountHere});
+     totalTasksGraphSeries.push({meta:totalCountHere +' Tasks in Total', value: ''+totalCountHere});
      i++;
   }
-  console.log(totalTasksGraphSeries);
-
 
 }else {
-    //let all the variables be empty
+    //let us have a flat line graph
+    // the x axis
     xAxisLabel = [];
-    ongoingTasksSeries = [];
-    completedTasksSeries = [];
+
+    //before we continue, let's have an array for months
+    var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep",
+    "Oct", "Nov", "Dec"];
+
+    for (var i = 0; i < 3; i++) {
+      dateFormat = new Date();
+      dateFormat.setDate(dateFormat.getDate() - i);
+      dateString = monthNames[dateFormat.getMonth()] + ' ' + dateFormat.getDate() + ', ' + dateFormat.getFullYear();
+      xAxisLabel.push(dateString);
+    }
+
+    totalOngoingTasksGraphSeries = [{meta: '0 Task Ongoing', value: 0},
+                                    {meta: '0 Task Ongoing', value: 0},
+                                    {meta: '0 Task Ongoing', value: 0},
+                                    {meta: '0 Task Ongoing', value: 60}
+                                  ];
+    totalTasksGraphSeries = [{meta: '0 Tasks in Total', value: 0},
+                              {meta: '0 Tasks in Total', value: 0},
+                              {meta: '0 Tasks in Total', value: 0},
+                              {meta: '0 Tasks in Total', value: 60}
+                            ];
   }
-
-
 
 
 $(document).ready(function () {

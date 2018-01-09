@@ -62,7 +62,7 @@
         </div>
         <div class="new-login-box">
             <div class="white-box">
-                <h3 class="box-title m-b-0" id="forms-head-title">Sign In to Admin</h3>
+                <h3 class="box-title m-b-0" id="forms-head-title">Sign In to Statup Studio</h3>
                 <small>Let's get you started</small>
                 <form class="form-horizontal new-lg-form" id="loginform" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                   <small class="text-danger"><?php if (isset($loginError)) { echo $loginError; } ?></small>
@@ -88,7 +88,7 @@
                     </div>
                     <div class="form-group text-center m-t-20">
                         <div class="col-xs-12">
-                            <button class="btn btn-info btn-lg btn-block btn-rounded text-uppercase waves-effect waves-light" type="submit" name="login">Log In</button>
+                            <button class="btn btn-lg btn-block text-uppercase ui-gradient-green" type="submit" name="login">Log In</button>
                         </div>
                     </div>
                     <div class="row">
@@ -125,19 +125,19 @@
                   <small class="text-danger"><?php if (isset($signupError)) { echo $signupError; } ?></small>
                     <div class="form-group  m-t-20">
                         <div class="col-xs-12">
-                            <label>Email</label>
+                            <!-- <label>Email</label> -->
                             <input class="form-control" type="email" name="email" required="" placeholder="Email">
                         </div>
                     </div>
                     <div class="form-group  m-t-20">
                         <div class="col-xs-12">
-                            <label>Password</label>
+                            <!-- <label>Password</label> -->
                             <input class="form-control" type="password" name="password" required="" placeholder="Password">
                         </div>
                     </div>
                     <div class="form-group text-center m-t-20">
                         <div class="col-xs-12">
-                            <button class="btn btn-info btn-lg btn-block btn-rounded text-uppercase waves-effect waves-light" type="submit" name="signup">Signup</button>
+                            <button class="btn btn-lg btn-block text-uppercase ui-gradient-peach" type="submit" name="signup">Signup</button>
                         </div>
                     </div><br><br><br>
                     <small>Sign up using</small>
