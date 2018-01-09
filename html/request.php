@@ -189,27 +189,27 @@
                                 <div class="form-group">
                                     <label for="task_name" class="col-sm-3 control-label">Task Name*</label>
                                     <div class="col-sm-9">
-                                        <input type="text" name="task_name" class="form-control" id="task_name" placeholder="Task Name" required> </div>
+                                    <input type="text" name="task_name" class="form-control" id="task_name" placeholder="Task Name" required> </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="task_priority" class="col-sm-3 control-label">Task Priority*</label>
-                                    <div class="col-sm-9">
-                                        <input type="range" name="task_priority" class="form-control" id="task_priority" min="1" max="100" step="1" list="tickmarks" required>
-                                          <datalist id="tickmarks">
-                                            <option value="0" label="0%">
-                                            <option value="10">
-                                            <option value="20">
-                                            <option value="30">
-                                            <option value="40">
-                                            <option value="50" label="50%">
-                                            <option value="60">
-                                            <option value="70">
-                                            <option value="80">
-                                            <option value="90">
-                                            <option value="100" label="100%">
-                                          </datalist>
-                                      </div>
+                                    <div class="range-slider">
+                                      <input class="range-slider__range" name="task_priority" type="range" value="50" min="10" max="100" style="display:inline-block;width:auto;">
+                                      <span class="range-slider__value">0</span>
+                                    </div>
                                 </div>
+                                <div class="form-group">
+                                    <label for="due_date" class="col-sm-3 control-label">Due Date*</label>
+                                    <div class="col-sm-9">
+                                    <input type="date" name="due_date" class="form-control" id="due_date" required>
+                                  </div>
+
+                                </div>
+
+
+
+
+
                                 <div class="form-group">
                                     <label for="task_desc" class="col-sm-3 control-label">Description*</label>
                                     <div class="col-sm-9">

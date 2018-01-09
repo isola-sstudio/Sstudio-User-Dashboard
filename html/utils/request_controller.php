@@ -13,9 +13,16 @@
   if ($_SERVER['REQUEST_METHOD'] == POST && isset($_POST['create_request'])) {
     # there is a new request to create a task
     if (!Validation::isBlank($_POST['task_name'], $_POST['task_priority'], $_POST['task_desc'])) {
+      if (isset($_POST['due_date'])) {
+        # the user remembered to put a due date
+        $dueDate = $_POST['due_date'];
+      }else {
+        # the user has forgotten to put a due date for this task
+        $dueDate = '';
+      }
       # no empty field, so create task
       $taskOperations = new TaskO();
-      if ($taskOperations->createTask($_SESSION['user_id'], $_POST['task_name'], $_POST['task_priority'], $_POST['task_desc'])) {
+      if ($taskOperations->createTask($_SESSION['user_id'], $_POST['task_name'], $_POST['task_priority'], $dueDate, $_POST['task_desc'])) {
         # the task was successfully created
         $requestResponse = 'Task Successfully Created';
       }else {

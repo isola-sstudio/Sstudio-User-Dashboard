@@ -61,7 +61,7 @@
 
     <?php
      // details about all ongoing tasks
-     $ongoingTasksInfo = $taskOperations->getTasksInfo($_SESSION['user_id'], '*', '', array(array('key' => 'status','operator'=>'=', 'value'=>'2')), array('column' => 'created', 'type'=>'DESC'));
+     $ongoingTasksInfo = $taskOperations->getTasksInfo($_SESSION['user_id'], '*', '', array(array('key' => 'status','operator'=>'=', 'value'=>'1')), array('column' => 'created', 'type'=>'DESC'));
     ?>
 
     <?php

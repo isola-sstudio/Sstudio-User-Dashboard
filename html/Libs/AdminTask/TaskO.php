@@ -36,7 +36,7 @@
      **@return bool TRUE if the task was successfully created
      * without any error. FALSE otherwise.
      */
-    public function createTask($userId, $taskName, $taskPriority, $taskDescription){
+    public function createTask($userId, $taskName, $taskPriority, $dueDate, $taskDescription){
       if ($this->getTasksInfo($userId, 'id', '', array(array('key' => 'task_name','operator'=>'=', 'value'=>"$taskName"),array('key' => 'task_description','operator'=>'=', 'value'=>"$taskDescription")))) {
         # check if the task has been created already, in order to avoid multiple
         // duplicate
@@ -45,8 +45,8 @@
           # not a duplicate so
           //build up a query string and create a user
           $query = "INSERT INTO `thestart_upstudio`.`admin_task`(`user_id`,
-            `task_name`, `task_priority`, `task_description`)
-            VALUES('$userId', '$taskName', '$taskPriority', '$taskDescription')";
+            `task_name`, `task_priority`, `due_date`, `task_description`)
+            VALUES('$userId', '$taskName', '$taskPriority', '$dueDate', '$taskDescription')";
             if (Self::$serverConn -> query($query) === TRUE) {
               # the task has been created successfully
               return TRUE;
@@ -290,7 +290,7 @@
      * there was server issues and the query was not successful
      */
     public function getTotalOngoingTaskInfo($userId, $limit='', $timelineType=''){
-      $query = "SELECT DATE(created) FROM `thestart_upstudio`.`admin_task` WHERE `user_id` = '$userId' AND `status` < 3 ORDER BY DATE(created) ASC";
+      $query = "SELECT DATE(created) FROM `thestart_upstudio`.`admin_task` WHERE `user_id` = '$userId' AND `status` = 1 ORDER BY DATE(created) ASC";
       // check if the request is in weeks
       //add order
 

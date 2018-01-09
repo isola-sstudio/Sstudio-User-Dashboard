@@ -19,12 +19,14 @@ if (tasksGraphTimeline) {
   // now create total ongoing tasks line
   //totalOngoingTasksGraph
   var totalOngoingTasksGraphSeries = [];
-  var totalCountHere = 6;
+  var totalCountHere = 0;
   var i = 0;
+  console.log(totalOngoingTasksGraphSeries);
   for(key in totalOngoingTasksGraph){
     totalCountHere = parseInt(totalOngoingTasksGraph[tasksGraphTimeline[0]]) + totalCountHere;
      totalOngoingTasksGraphSeries.push({meta:totalCountHere +' Ongoing Tasks', value: totalCountHere});
      i++;
+     console.log(totalCountHere);
   }
 
   // now create total ongoing tasks line
