@@ -17,27 +17,26 @@ if (tasksGraphTimeline) {
   }
 
   // now create total ongoing tasks line
-  //totalOngoingTasksGraph
+  // console.log(totalOngoingTasksGraph);
   var totalOngoingTasksGraphSeries = [];
   var totalCountHere = 0;
   var i = 0;
-  console.log(totalOngoingTasksGraphSeries);
   for(key in totalOngoingTasksGraph){
-    totalCountHere = parseInt(totalOngoingTasksGraph[tasksGraphTimeline[0]]) + totalCountHere;
+    totalCountHere = parseInt(totalOngoingTasksGraph[tasksGraphTimeline[i]]) + totalCountHere;
      totalOngoingTasksGraphSeries.push({meta:totalCountHere +' Ongoing Tasks', value: totalCountHere});
      i++;
-     console.log(totalCountHere);
   }
 
   // now create total ongoing tasks line
-  //totalTasksGraph
+  console.log(totalTasksGraph);
   var totalTasksGraphSeries = [];
-  var totalCountHere = 6;
+  var totalCountHere = 0;
   var i = 0;
   for(key in totalTasksGraph){
     totalCountHere = parseInt(totalTasksGraph[tasksGraphTimeline[i]]) + totalCountHere;
-     totalTasksGraphSeries.push({meta:totalCountHere +' Tasks in Total', value: ''+totalCountHere});
+     totalTasksGraphSeries.push({meta:totalCountHere +' Tasks in Total', value: totalCountHere});
      i++;
+     console.log(totalCountHere);
   }
 
 }else {
