@@ -1,5 +1,5 @@
 <?php
-
+ini_set( "display_errors", 0);
   session_start();
 
   require_once __DIR__ .'/vendor/autoload.php';
@@ -82,16 +82,23 @@
                 </div>
                 <!-- /Logo -->
                 <ul class="nav navbar-top-links navbar-right pull-right">
-                    <li>
-                        <form role="search" class="app-search hidden-sm hidden-xs m-r-10">
-                            <input type="text" placeholder="Search..." class="form-control"> <a href=""><i class="fa fa-search"></i></a> </form>
-                    </li>
                     <li class="dropdown">
-                        <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="<?php echo $adminUserDetails['picture']; ?>" alt="user-img" width="36" class="img-circle"><b class="hidden-xs"><?php echo $adminUserDetails['company_name']; ?></b><span class="caret"></span> </a>
+                        <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#">
+                          <?php if ($adminUserDetails['picture']): ?>
+                            <img src="<?php echo $adminUserDetails['picture']; ?>" alt="user-img" width="36" class="img-circle">
+                          <?php endif; ?>
+                          <b class="hidden-xs"><?php echo $adminUserDetails['company_name']; ?></b>
+                          <span class="caret"></span>
+                          <span class="caret" style="visibility:hidden;"></span>
+                        </a>
                         <ul class="dropdown-menu dropdown-user animated flipInY">
                             <li>
                                 <div class="dw-user-box">
-                                    <div class="u-img"><img src="<?php echo $adminUserDetails['picture']; ?>" alt="user" /></div>
+                                    <div class="u-img">
+                                      <?php if ($adminUserDetails['picture']): ?>
+                                        <img src="<?php echo $adminUserDetails['picture']; ?>" alt="user" />
+                                      <?php endif; ?>
+                                    </div>
                                     <div class="u-text">
                                         <h4><?php echo $adminUserDetails['company_name']; ?></h4>
                                         <p class="text-muted"><?php echo $adminUserDetails['company_email']; ?></p><a href="profile.php" class="btn btn-rounded btn-danger btn-sm">View Profile</a></div>
@@ -266,7 +273,7 @@
                                 </table>
                               <?php else: ?>
                                   <h3>
-                                    You currently do not have any Ongoing Tasks. Fill in the above form to Create one.
+                                    No task here! Just a click away to your next task.
                                   </h3>
                               <?php endif; ?>
                             </div>

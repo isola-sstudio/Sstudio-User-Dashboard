@@ -1,5 +1,5 @@
 <?php
-
+ini_set( "display_errors", 0);
   session_start();
 
   require_once __DIR__ .'/vendor/autoload.php';
@@ -86,16 +86,23 @@
                 </div>
                 <!-- /Logo -->
                 <ul class="nav navbar-top-links navbar-right pull-right">
-                    <li>
-                        <form role="search" class="app-search hidden-sm hidden-xs m-r-10">
-                            <input type="text" placeholder="Search..." class="form-control"> <a href=""><i class="fa fa-search"></i></a> </form>
-                    </li>
                     <li class="dropdown">
-                        <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="<?php echo $adminUserDetails['picture']; ?>" alt="user-img" width="36" class="img-circle"><b class="hidden-xs"><?php echo $adminUserDetails['company_name']; ?></b><span class="caret"></span> </a>
+                        <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#">
+                          <?php if ($adminUserDetails['picture']): ?>
+                            <img src="<?php echo $adminUserDetails['picture']; ?>" alt="user-img" width="36" class="img-circle">
+                          <?php endif; ?>
+                          <b class="hidden-xs"><?php echo $adminUserDetails['company_name']; ?></b>
+                          <span class="caret"></span>
+                          <span class="caret" style="visibility:hidden;"></span>
+                        </a>
                         <ul class="dropdown-menu dropdown-user animated flipInY">
                             <li>
                                 <div class="dw-user-box">
-                                    <div class="u-img"><img src="<?php echo $adminUserDetails['picture']; ?>" alt="user" /></div>
+                                    <div class="u-img">
+                                      <?php if ($adminUserDetails['picture']): ?>
+                                        <img src="<?php echo $adminUserDetails['picture']; ?>" alt="user" />
+                                      <?php endif; ?>
+                                    </div>
                                     <div class="u-text">
                                         <h4><?php echo $adminUserDetails['company_name']; ?></h4>
                                         <p class="text-muted"><?php echo $adminUserDetails['company_email']; ?></p><a href="profile.php" class="btn btn-rounded btn-danger btn-sm">View Profile</a></div>
@@ -144,7 +151,7 @@
                     <li class="devider"></li>
                     <li><a href="profile.php"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Profile</a></li>
                     <li class="devider"></li>
-                    <li><a href="#" class="waves-effect"><i class="fa fa-user-circle fa-fw text-success"></i>Customer Support</a></li>
+                    <li><a href="#" class="waves-effect"><i class="fa fa fa-user-circle fa-fw"></i>Customer Support</a></li>
                 </ul>
             </div>
         </div>
@@ -221,7 +228,7 @@
                           <div class="white-box">
                             <h3 class="box-title">Task Timeline</h3>
                             <?php if (!$tasksGraphTimeline): ?>
-                              <h3 >You dont have any ongoing task. Click the button below to Create one!</h3>
+                              <h3>Accomplish great tasks quickly! It starts with a Click</h3>
                               <a href="request.php#new" target="_blank" class="btn btn-danger m-l-20 hidden-xs hidden-sm waves-effect waves-light">Create a Task</a>
                             <?php endif; ?>
                             <ul class="list-inline text-right">
@@ -269,7 +276,6 @@
 
                             <div class="table-responsive">
                             </div>
-
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -336,9 +342,98 @@
                                         <?php endif; ?>
                                     </tbody>
                                 </table>
-                            </div>
+                          </div>
                           <?php else: ?>
-                            <h3 >No Recent Task to show! Create one now!</h3>
+                            <h3 >Just a click away from building FASTER!</h3>
+
+
+
+
+
+                            <div class="row sales-report">
+                               <div class="col-md-6 col-sm-6 col-xs-6">
+                                 <!-- JS to pick the selected month from the dropdown box -->
+                                   <h2><?php echo date('F, Y'); ?></h2>
+                                   <p>TASKS REPORT</p>
+                               </div>
+                            <div class="table-responsive">
+                            </div>
+                             <table class="table">
+                               <thead>
+                                 <tr>
+                                     <th>#</th>
+                                     <th>NAME</th>
+                                     <th>STATUS</th>
+                                     <th>DATE</th>
+                                     <th>DETAILS</th>
+                                     <th>DUE DATE</th>
+                                     <th>COMPLETED</th>
+                                     <th>ACTION</th>
+                                 </tr>
+                               </thead>
+                               <tbody>
+                                 <!--For now.. let's just have something here  -->
+                                 <tr>
+                                   <td>1</td>
+                                   <td class="txt-oflo">Banner Design</td>
+                                   <td><span class="label label-info label-rouded">COMPLETED</span> </td>
+                                   <td class="txt-oflo"><?php echo date('M d, Y', strtotime('yesterday')); ?></td>
+                                   <td><span class="text-info">Would like an Instagram compliant banner</span></td>
+                                   <td class="txt-oflo"><?php echo date('M d, Y', strtotime('tomorrow')); ?></td>
+                                   <td class="txt-oflo"><?php echo date('M d, Y'); ?></td>
+                                   <td class="text-nowrap">
+                                     <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i></a>
+                                     <a href="#" data-toggle="tooltip" data-original-title="Suspend"> <i class="fa fa-pause text-warning"></i></a>
+                                   </td>
+                                 </tr>
+                                 <tr>
+                                   <td>2</td>
+                                   <td class="txt-oflo">User Dashboard</td>
+                                   <td><span class="label label-warning label-rouded">ONGOING</span> </td>
+                                   <td class="txt-oflo"><?php echo date('M d, Y', strtotime('2 days ago')); ?></td>
+                                   <td><span class="text-warning">A welcoming and fun dashboard for my users...</span></td>
+                                   <td class="txt-oflo"><?php echo date('M d, Y', strtotime('2 days')); ?></td>
+                                   <td class="txt-oflo"></td>
+                                   <td class="text-nowrap">
+                                     <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i></a>
+                                     <a href="#" data-toggle="tooltip" data-original-title="Suspend"> <i class="fa fa-pause text-warning"></i></a>
+                                   </td>
+                                 </tr>
+                                 <tr>
+                                   <td>3</td>
+                                   <td class="txt-oflo">Create Email Accounts</td>
+                                   <td><span class="label label-warning label-rouded">ONGOING</span> </td>
+                                   <td class="txt-oflo"><?php echo date('M d, Y', strtotime('yesterday')); ?></td>
+                                   <td><span class="text-warning">Create email accounts for all our staff</span></td>
+                                   <td class="txt-oflo"><?php echo date('M d, Y', strtotime('2 days')); ?></td>
+                                   <td class="txt-oflo"></td>
+                                   <td class="text-nowrap">
+                                     <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i></a>
+                                     <a href="#" data-toggle="tooltip" data-original-title="Suspend"> <i class="fa fa-pause text-warning"></i></a>
+                                   </td>
+                                 </tr>
+                                 <tr>
+                                   <td>4</td>
+                                   <td class="txt-oflo">Social Media Accounts</td>
+                                   <td><span class="label label-danger label-rouded">NOT STARTED</span> </td>
+                                   <td class="txt-oflo"><?php echo date('M d, Y'); ?></td>
+                                   <td><span class="text-danger">We would like to have social media accounts for all our portfolios</span></td>
+                                   <td class="txt-oflo"><?php echo date('M d, Y', strtotime('2 days')); ?></td>
+                                   <td class="txt-oflo"></td>
+                                   <td class="text-nowrap">
+                                     <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i></a>
+                                     <a href="#" data-toggle="tooltip" data-original-title="Suspend"> <i class="fa fa-pause text-warning"></i></a>
+                                   </td>
+                                 </tr>
+                               </tbody>
+                             </table>
+                           </div>
+
+
+
+
+
+
                           <?php endif; ?>
 
 
