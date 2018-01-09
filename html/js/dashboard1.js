@@ -5,7 +5,7 @@
 //check that there are ongoing and probably some completed tasks
 if (tasksGraphTimeline) {
   //now create an array to hold the labels on the x axis
-  var xAxisLabel = [];
+  var xAxisLabel = [0];
   //before we continue, let's have an array for months
   var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep",
   "Oct", "Nov", "Dec"];
@@ -18,7 +18,7 @@ if (tasksGraphTimeline) {
 
   // now create total ongoing tasks line
   // console.log(totalOngoingTasksGraph);
-  var totalOngoingTasksGraphSeries = [];
+  var totalOngoingTasksGraphSeries = [0];
   var totalCountHere = 0;
   var i = 0;
   for(key in totalOngoingTasksGraph){
@@ -29,7 +29,7 @@ if (tasksGraphTimeline) {
 
   // now create total ongoing tasks line
   console.log(totalTasksGraph);
-  var totalTasksGraphSeries = [];
+  var totalTasksGraphSeries = [0];
   var totalCountHere = 0;
   var i = 0;
   for(key in totalTasksGraph){
@@ -125,17 +125,17 @@ $(document).ready(function () {
             Chartist.plugins.ctAxisTitle({
 
                 axisY: {
-                    axisTitle: 'Number of Tasks',
+                    axisTitle: '# of tasks',
                     axisClass: 'ct-axis-title',
                     offset: {
                         x: 0,
-                        y: 0
+                        y: 24
                     },
                     textAnchor: 'middle',
-                    flipTitle: false
+                    flipTitle: true
                 },
                 axisX: {
-                    axisTitle: 'Time',
+                    axisTitle: 'Date',
                     axisClass: 'ct-axis-title',
                     offset: {
                         x: 0,

@@ -1,5 +1,5 @@
 <?php
-
+ini_set( "display_errors", 0);
   session_start();
 
   require_once __DIR__ .'/vendor/autoload.php';
@@ -122,7 +122,7 @@
 
 
                 <form class="form-horizontal new-lg-form" id="signupform" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-                  <small class="text-danger"><?php if (isset($signupError)) { echo $signupError; } ?></small>
+                  <small id="signup-error-span" class="text-danger"><?php if (isset($signupError)) { echo $signupError; } ?></small>
                     <div class="form-group  m-t-20">
                         <div class="col-xs-12">
                             <!-- <label>Email</label> -->

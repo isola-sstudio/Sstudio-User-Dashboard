@@ -138,6 +138,15 @@ $(document).ready(function () {
         $("#recoverform").fadeIn();
     });
 
+    // redirecting from singup error to signin tab
+    $('#to-signin').on("click", function () {
+        $("#signupform").slideUp();
+        $("#recoverform").slideUp();
+        $("#loginform").fadeIn();
+        $("#forms-head-title").text('SIGN IN TO STARTUP STUDIO');
+    });
+
+
 
     /* ===== Signup ===== */
 
@@ -148,6 +157,14 @@ $(document).ready(function () {
       $("#forms-head-title").text('SIGN UP');
     });
 
+    // also if there is a signup error
+    if (signupError) {
+      $("#loginform").slideUp();
+      $("#recoverform").slideUp();
+      $("#signupform").fadeIn();
+      $("#forms-head-title").text('SIGN UP');
+    }
+
     /* =================================================================
         Update 1.5
         this is for close icon when navigation open in mobile view
@@ -157,3 +174,22 @@ $(document).ready(function () {
         $(".navbar-toggle i").toggleClass("ti-menu").addClass("ti-close");
     });
 });
+var rangeSlider = function(){
+    var slider = $('.range-slider'),
+        range = $('.range-slider__range'),
+        value = $('.range-slider__value');
+
+    slider.each(function(){
+
+        value.each(function(){
+            var value = $(this).prev().attr('value');
+            $(this).html(value);
+        });
+
+        range.on('input', function(){
+            $(this).next(value).html(this.value);
+        });
+    });
+};
+
+rangeSlider();

@@ -28,15 +28,33 @@
               # user account could not be created
               //most likely, server problem or badly formatted inputs
               $signupError = "Something's not right! Check back in a moment";
+              $signupErrorJSON = json_encode($signupError);
+              ?>
+              <script type="text/javascript">
+                var signupError = JSON.parse('<?php echo addslashes($signupErrorJSON) ?>');
+              </script>
+              <?php
             }
         }else {
             # the user had been registered with this email so we send an
             // appropriate message
-            $signupError = "Looks like you have been here before. Click <a href=\"#\">here</a> to log in";
+            $signupError = "Looks like you have been here before. Click <a href=\"javascript:void(0)\" id=\"to-signin\">here</a> to log in";
+            $signupErrorJSON = json_encode($signupError);
+            ?>
+            <script type="text/javascript">
+              var signupError = JSON.parse('<?php echo addslashes($signupErrorJSON) ?>');
+            </script>
+            <?php
           }
       }else {
           # at least one of the submitted fields is blank
           $signupError = "Let's start by knowing your email. Your password is safe!";
+          $signupErrorJSON = json_encode($signupError);
+          ?>
+          <script type="text/javascript">
+            var signupError = JSON.parse('<?php echo addslashes($signupErrorJSON) ?>');
+          </script>
+          <?php
         }
     }
 ?>
