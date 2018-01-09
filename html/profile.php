@@ -186,106 +186,85 @@ ini_set( "display_errors", 0);
                         </div>
                     </div>
                     <div class="col-md-8 col-xs-12">
-                        <div class="white-box">
-                            <ul class="nav nav-tabs tabs customtab">
-                                <li class="active tab">
-                                    <a href="#profile" data-toggle="tab"> <span class="visible-xs"><i class="fa fa-user"></i></span> <span class="hidden-xs">Profile</span> </a>
-                                </li>
-                                <li class="tab">
-                                    <a href="#settings" data-toggle="tab" aria-expanded="false"> <span class="visible-xs"><i class="fa fa-cog"></i></span> <span class="hidden-xs">Settings</span> </a>
-                                </li>
-                                <li class="tab">
-                                    <a href="#billing" data-toggle="tab" aria-expanded="false"> <span class="visible-xs"><i class="fa fa-cog"></i></span> <span class="hidden-xs">Billing</span> </a>
-                                </li>
-                            </ul>
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="profile">
-                                    <div class="row">
-                                        <div class="col-md-3 col-xs-6 b-r"> <strong>Full Name</strong>
-                                            <br>
-                                            <p class="text-muted"><?php echo $adminUserDetails['company_name']; ?></p>
-                                        </div>
-                                        <div class="col-md-3 col-xs-6 b-r"> <strong>Mobile</strong>
-                                            <br>
-                                            <p class="text-muted"><?php echo $adminUserDetails['contact_number']; ?></p>
-                                        </div>
-                                        <div class="col-md-3 col-xs-6 b-r"> <strong>Email</strong>
-                                            <br>
-                                            <p class="text-muted"><?php echo $adminUserDetails['company_email']; ?></p>
-                                        </div>
-                                        <div class="col-md-3 col-xs-6"> <strong>Location</strong>
-                                            <br>
-                                            <p class="text-muted"><?php echo $adminUserDetails['country']; ?></p>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <p class="m-t-30"><?php echo $adminUserDetails['project_description']; ?></p>
-                                    <hr>
-                                </div>
-                                <div class="tab-pane" id="settings">
-                                    <form class="form-horizontal form-material" action="" method="post">
-                                        <div class="form-group">
-                                            <label class="col-md-12">Full Name</label>
-                                            <div class="col-md-12">
-                                                <input type="text" name="company_name" placeholder="<?php echo $adminUserDetails['company_name']; ?>" class="form-control form-control-line"> </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="example-email" class="col-md-12">Email</label>
-                                            <div class="col-md-12">
-                                                <input type="email" name="company_email" placeholder="<?php echo $adminUserDetails['company_email']; ?>" class="form-control form-control-line" name="example-email" id="example-email"> </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-12">Password</label>
-                                            <div class="col-md-12">
-                                                <input type="password" name="password" placeholder="password" class="form-control form-control-line" required> </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-12">Phone No</label>
-                                            <div class="col-md-12">
-                                                <input type="text" name="contact_number" placeholder="<?php echo $adminUserDetails['contact_number']; ?>" class="form-control form-control-line"> </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-12">Message</label>
-                                            <div class="col-md-12">
-                                                <textarea name="project_description" rows="5" class="form-control form-control-line" placeholder="<?php echo $adminUserDetails['company_name']; ?>"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-12">Select Country</label>
-                                            <div class="col-sm-12">
-                                                <select name="country" class="form-control form-control-line">
-                                                    <option value=""></option>
-                                                    <option>Nigeria</option>
-                                                    <option>London</option>
-                                                    <option>India</option>
-                                                    <option>Usa</option>
-                                                    <option>Canada</option>
-                                                    <option>Thailand</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                <button name="update_profile" class="btn btn-success">Update Profile</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
 
 
 
 
 
-                                <div class="tab-pane" id="Billing">
-                                </div>
+                      <div class="white-box">
+                          <ul class="nav nav-tabs tabs customtab">
+                              <li class="active tab">
+                                <a href="#profile" data-toggle="tab" aria-expanded="false"> <span class="visible-xs"><i class="fa fa-cog"></i></span> <span class="hidden-xs">Profile</span> </a>
+                              </li>
+                              <li class="tab">
+                                  <a href="#billing" data-toggle="tab"> <span class="visible-xs"><i class="fa fa-user"></i></span> <span class="hidden-xs">Billing</span> </a>
+                              </li>
+                          </ul>
+                          <div class="tab-content">
+
+
+
+
+
+                            <div class="tab-pane active" id="profile">
+                                  <form class="form-horizontal form-material" action="" method="post">
+                                      <div class="form-group">
+                                          <label class="col-md-12">Full Name</label>
+                                          <div class="col-md-12">
+                                            <input type="text" name="company_name" placeholder="<?php echo $adminUserDetails['company_name']; ?>" class="form-control form-control-line"> </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="example-email" class="col-md-12">Email</label>
+                                          <div class="col-md-12">
+                                              <input type="email" name="company_email" placeholder="<?php echo $adminUserDetails['company_email']; ?>" class="form-control form-control-line" name="example-email" id="example-email"> </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label class="col-md-12">Password</label>
+                                          <div class="col-md-12">
+                                              <input type="password" name="password" placeholder="password" class="form-control form-control-line" required> </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label class="col-md-12">Phone No</label>
+                                          <div class="col-md-12">
+                                              <input type="text" name="contact_number" placeholder="<?php echo $adminUserDetails['contact_number']; ?>" class="form-control form-control-line"> </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <div class="col-sm-12">
+                                              <button class="btn btn-success">Update Profile</button>
+                                          </div>
+                                      </div>
+                                  </form>
+                              </div>
 
 
 
 
 
 
-                            </div>
-                        </div>
+                              <div class="tab-pane" id="billing">
+                                <h4 class="font-bold m-t-30">Billing History</h4>
+
+                                <hr>
+                                <h4 class="font-bold m-t-30">Current Plan</h4>
+                                <hr>
+                                <h4 class="font-bold m-t-30">Change/Choose Plan</h4>
+                                <hr>
+                                <h4 class="font-bold m-t-30">Current Card Used</h4>
+
+
+                              </div>
+
+
+
+
+                          </div>
+                      </div>
+
+
+
+
+
+
                     </div>
 
                 </div>
