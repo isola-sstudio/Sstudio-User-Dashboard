@@ -1,6 +1,6 @@
 <?php
   session_start();
-$_SESSION['user_id'] = 1;
+
   /**Always, this guy is just ready to start dumping everything he knows about
    * the admin as far as tasks are concerned
    **He brings in some info without being asked.. maybe we should allow him to

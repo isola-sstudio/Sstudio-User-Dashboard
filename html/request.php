@@ -127,7 +127,7 @@
                 <ul class="nav" id="side-menu">
                     <li style="padding: 70px 0 0;"><a href="dashboard.php" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Dashboard</a> </li>
                     <li class="devider"></li>
-                    <li><a href="#" class="waves-effect"><i class="fa fa-clone fa-fw" aria-hidden="true"></i> Request<span class="fa arrow"></span><span class="label label-rouded label-warning pull-right"><?php echo $justCreatedTasks; ?></span></a>
+                    <li><a href="#" class="waves-effect"><i class="fa fa-clone fa-fw" aria-hidden="true"></i> Request<span class="fa arrow"></span><span class="label label-rouded label-success pull-right"><?php echo $justCreatedTasks; ?></span></a>
                         <ul class="nav nav-second-level">
                             <li><a href="request.php#new"><i class="fa fa-sticky-note-o fa-fw" aria-hidden="true"></i>New Task</a></li>
                             <li><a href="request.php#ongoing"><i class="fa fa-tasks fa-fw" aria-hidden="true"></i>Ongoing Tasks</a></li>
@@ -140,7 +140,7 @@
                     <li class="devider"></li>
                     <li><a href="profile.php"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Profile</a></li>
                     <li class="devider"></li>
-                    <li><a href="#" class="waves-effect"><i class="fa fa-circle-o fa-fw text-success"></i>Customer Support</a></li>
+                    <li><a href="#" class="waves-effect"><i class="fa fa-user-circle fa-fw text-success"></i>Customer Support</a></li>
                 </ul>
             </div>
         </div>
@@ -275,7 +275,7 @@
                 </div>
             </div>
             <!-- /.container-fluid -->
-            <footer class="footer text-center"> 2017 &copy; The Startup Studio </footer>
+            <footer class="footer text-center" style="z-index:9999"> 2017 &copy; The Startup Studio </footer>
         </div>
         <!-- ============================================================== -->
         <!-- End Page Content -->

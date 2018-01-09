@@ -22,7 +22,6 @@
             //so we set the necessary SESSION variables and send them to the
             //dashboard
             $_SESSION['user_id'] = $adminUser->getAdminUserInfo('company_email', $_POST['email'], 'id');
-            $_SESSION['email'] = $_POST['email'];
             header('Location: dashboard.php');
           }else {
               # username and password do not match so we send appropraite message

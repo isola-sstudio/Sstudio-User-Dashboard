@@ -99,8 +99,7 @@
      * variables are set and they match with email
      */
     public function loggedIn(){
-      if (((isset($_SESSION['user_id']) && !empty($_SESSION['user_id']))
-      && (isset($_SESSION['email']) && !empty($_SESSION['email']))) ||
+      if ((isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])) ||
       (isset($_SESSION['fb_access_token']) && !empty($_SESSION['fb_access_token']))) {
         # if the necessary session variables are set for session
         return TRUE;

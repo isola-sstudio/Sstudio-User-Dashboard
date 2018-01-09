@@ -1,4 +1,22 @@
 <?php
+
+  session_start();
+
+  require_once __DIR__ .'/vendor/autoload.php';
+
+  use Libs\AdminUser\AdminUser;
+
+  if (!isset($adminUser)) {
+    # let's create an admin user object
+    $adminUser = new AdminUser();
+  }
+  if ($adminUser->loggedIn()) {
+    # this admin user is not logged in, so, redirect
+    header('Location: dashboard.php');
+  }
+?>
+
+<?php
   //used for the login operation
   require_once __DIR__ . '/utils/login_admin_user.php';
   //used for fb signup and login
@@ -39,26 +57,24 @@
         <div class="cssload-speeding-wheel"></div>
     </div>
     <section id="wrapper" class="new-login-register" style="background: linear-gradient(45deg, #3f1caa 0%, #3c56e1 100%);">
-        <div class="lg-info-panel">
-            <div class="inner-panel">
-                <a href="javascript:void(0)" class="p-20 di"><img src="../plugins/images/admin-logo.png" style="width:40%;"></a>
-            </div>
+        <div class="inner-panel">
+          <a href="javascript:void(0)" class="p-20 di"><img src="../plugins/images/admin-logo.png" style="width:40%;"></a>
         </div>
         <div class="new-login-box">
             <div class="white-box">
                 <h3 class="box-title m-b-0" id="forms-head-title">Sign In to Admin</h3>
-                <small>Enter your details below</small>
+                <small>Let's get you started</small>
                 <form class="form-horizontal new-lg-form" id="loginform" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                   <small class="text-danger"><?php if (isset($loginError)) { echo $loginError; } ?></small>
                     <div class="form-group  m-t-20">
                         <div class="col-xs-12">
-                            <label>Email Address</label>
+                            <!-- <label>Email Address</label> -->
                             <input class="form-control" type="email" name="email" required="" placeholder="you@company.com">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <label>Password</label>
+                            <!-- <label>Password</label> -->
                             <input class="form-control" type="password" name="password" required="" placeholder="Password">
                         </div>
                     </div>
@@ -107,12 +123,6 @@
 
                 <form class="form-horizontal new-lg-form" id="signupform" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                   <small class="text-danger"><?php if (isset($signupError)) { echo $signupError; } ?></small>
-                    <div class="form-group  m-t-20">
-                        <div class="col-xs-12">
-                            <label>Name</label>
-                            <input class="form-control" type="text" name="name" required="" placeholder="Name">
-                        </div>
-                    </div>
                     <div class="form-group  m-t-20">
                         <div class="col-xs-12">
                             <label>Email</label>
