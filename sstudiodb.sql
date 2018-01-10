@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jan 09, 2018 at 10:49 AM
+-- Generation Time: Jan 10, 2018 at 07:59 PM
 -- Server version: 5.7.18-1
 -- PHP Version: 7.0.20-2
 
@@ -21,6 +21,21 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `thestart_upstudio` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `thestart_upstudio`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin_billing`
+--
+
+CREATE TABLE `admin_billing` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `plan` varchar(8) NOT NULL,
+  `status` char(1) NOT NULL DEFAULT '0',
+  `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `expires` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -67,6 +82,13 @@ CREATE TABLE `tss_package_subscription` (
 --
 
 --
+-- Indexes for table `admin_billing`
+--
+ALTER TABLE `admin_billing`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- Indexes for table `admin_task`
 --
 ALTER TABLE `admin_task`
@@ -84,6 +106,11 @@ ALTER TABLE `tss_package_subscription`
 --
 
 --
+-- AUTO_INCREMENT for table `admin_billing`
+--
+ALTER TABLE `admin_billing`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `admin_task`
 --
 ALTER TABLE `admin_task`
@@ -96,6 +123,12 @@ ALTER TABLE `tss_package_subscription`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `admin_billing`
+--
+ALTER TABLE `admin_billing`
+  ADD CONSTRAINT `admin_billing_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `tss_package_subscription` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `admin_task`

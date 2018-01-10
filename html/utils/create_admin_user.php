@@ -1,5 +1,6 @@
 <?php
   session_start();
+  ob_start();
   /**
    **This script accepts a post request from anywhere to sign up or create a
    * user and it goes through some validation and returns the appropriate
@@ -23,7 +24,7 @@
             //so we set the necessary SESSION variables and send them to the
             //dashboard
             $_SESSION['user_id'] = $adminUser->getAdminUserInfo('company_email', $_POST['email'], 'id');
-            header('Location: dashboard.php');
+            header('Location: dashboard.php');//send them to dashboard
               }else {
               # user account could not be created
               //most likely, server problem or badly formatted inputs

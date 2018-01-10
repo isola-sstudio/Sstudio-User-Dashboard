@@ -57,7 +57,7 @@ ini_set( "display_errors", 0);
         <div class="cssload-speeding-wheel"></div>
     </div>
     <section id="wrapper" class="new-login-register" style="background: linear-gradient(45deg, #3f1caa 0%, #3c56e1 100%);">
-        <div class="inner-panel">
+        <div class="inner-panel" style="text-align:center;">
           <a href="javascript:void(0)" class="p-20 di"><img src="../plugins/images/admin-logo.png" style="width:40%;"></a>
         </div>
         <div class="new-login-box">
@@ -91,15 +91,15 @@ ini_set( "display_errors", 0);
                             <button class="btn btn-lg btn-block text-uppercase ui-gradient-green" type="submit" name="login">Log In</button>
                         </div>
                     </div>
-                    <div class="row">
-                      Login with Facebook
+                    <div class="row" style="text-align:center;">
+                      Log in with Facebook
                         <div class="col-xs-12 col-sm-12 col-md-12 m-t-10 text-center">
                             <div class="social">
-                                <a href="<?php echo htmlspecialchars($loginUrl); ?>" class="btn  btn-facebook" data-toggle="tooltip" title="Login with Facebook"> <i aria-hidden="true" class="fa fa-facebook"></i> </a>
+                                <a href="<?php echo htmlspecialchars($loginUrl); ?>" class="btn  btn-facebook" data-toggle="tooltip" title="Log in with Facebook" style="border-radius:3px;"> <i aria-hidden="true" class="fa fa-facebook"></i> </a>
                             </div>
                         </div>
                         <div style="text-align:center;">
-                          <a href="javascript:void(0)" id="to-signup" class="text-dark"><i class="fa fa-paper-plane m-r-5"></i>Create an Account</a> </div>
+                          <a href="javascript:void(0)" id="to-signup" class="text-dark">Create an Account</a> </div>
                         </div>
 
                 </form>
@@ -143,7 +143,7 @@ ini_set( "display_errors", 0);
                         </div>
                     </div><br><br><br>
                     <small>Join with Facebook</small>
-                    <a href="<?php echo htmlspecialchars($loginUrl); ?>" class="btn  btn-facebook" data-toggle="tooltip" title="Signup with Facebook"> <i aria-hidden="true" class="fa fa-facebook"></i> </a>
+                    <a href="<?php echo htmlspecialchars($loginUrl); ?>" class="btn  btn-facebook" data-toggle="tooltip" title="Signup with Facebook" style="border-radius:3px;"> <i aria-hidden="true" class="fa fa-facebook"></i> </a>
                 </form>
 
               </div>
