@@ -102,7 +102,7 @@
      **To retrieve all columns, just pass in * for $taskInfo
      **$constraint should be passed in, in the form of an series of associative
      * arrays inside an index array
-     **@param string $reference, $referenceValue, $userInfo
+     **@param string $userId, $taskInfo, $limit, Array $constraint, $order, Bool $distinct
      **@return Array $rowContent, Bool FALSE if there was nothing to fetch or if
      * there was server issues and the query was not successful
      */

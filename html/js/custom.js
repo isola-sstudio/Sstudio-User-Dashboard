@@ -143,7 +143,7 @@ $(document).ready(function () {
         $("#signupform").slideUp();
         $("#recoverform").slideUp();
         $("#loginform").fadeIn();
-        $("#forms-head-title").text('SIGN IN TO STARTUP STUDIO');
+        $("#forms-head-title").text('Sign into your Account');
     });
 
 
@@ -156,6 +156,14 @@ $(document).ready(function () {
       $("#signupform").fadeIn();
       $("#forms-head-title").text('SIGN UP');
     });
+
+    if(window.location.hash == '#signup'){
+      $("#loginform").slideUp();
+      $("#recoverform").slideUp();
+      $("#signupform").fadeIn();
+      $("#forms-head-title").text('SIGN UP');
+    }
+
 
     // also if there is a signup error
     if (signupError) {

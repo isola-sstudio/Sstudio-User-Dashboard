@@ -25,10 +25,9 @@
 
 
 
-.range-slider {
-  /*margin: 60px 0 0 0%;*/
-}
-
+/*
+ *range-slider
+ */
 .range-slider {
   /*width: 100%;*/
   display: inline-block;
@@ -113,37 +112,6 @@ input::-moz-focus-outer {
   border: 0;
 }
 
-
-
-/*sstudioish*/
-.btn.shadow-xl {
-  box-shadow: 0 7px 15px rgba(0, 9, 128, 0.05), 0 12px 28px rgba(0, 9, 128, 0.075), inset 0 1px 1px rgba(255, 255, 255, 0.1), inset 0 -1px 1px rgba(0, 0, 0, 0.075);
-}
-.shadow-xl {
-  box-shadow: 0 7px 15px rgba(0, 9, 128, 0.05), 0 12px 28px rgba(0, 9, 128, 0.075);
-}
-.ui-gradient-peach {
-  background: -moz-linear-gradient(45deg, #fe60a1 0%, #ff8765 100%);
-  background: linear-gradient(45deg, #fe60a1 0%, #ff8765 100%);
-}
-.ui-gradient-green {
-  background: -moz-linear-gradient(45deg, #19d9b4 0%, #92d275 100%);
-  background: linear-gradient(45deg, #19d9b4 0%, #92d275 100%);
-}
-ul#side-menu li a {
-  color: #000;
-}
-ul#side-menu>li>a.active{
-  font-weight: bold;
-  color: #000;
-}
-
-
-
-/**
- * Housekeeping
- */
-
 .whitespace:before {
   content: "...some content here...";
   color: #ccc;
@@ -163,3 +131,126 @@ ul#side-menu>li>a.active{
 
 
 .picker__box{padding:0 1em}.picker__header{text-align:center;position:relative;margin-top:.75em}.picker__month,.picker__year{font-weight:500;display:inline-block;margin-left:.25em;margin-right:.25em}.picker__year{color:#999;font-size:.8em;font-style:italic}.picker__select--month,.picker__select--year{font-size:.8em;border:1px solid #b7b7b7;height:2.5em;padding:.66em .25em;margin-left:.25em;margin-right:.25em;margin-top:-.5em}.picker__select--month{width:35%}.picker__select--year{width:22.5%}.picker__select--month:focus,.picker__select--year:focus{border-color:#0089ec}.picker__nav--prev,.picker__nav--next{position:absolute;top:-.33em;padding:.5em 1.33em;width:1em;height:1em}.picker__nav--prev{left:-1em;padding-right:1.5em}.picker__nav--next{right:-1em;padding-left:1.5em}.picker__nav--prev:before,.picker__nav--next:before{content:" ";border-top:.5em solid transparent;border-bottom:.5em solid transparent;border-right:.75em solid #000;width:0;height:0;display:block;margin:0 auto}.picker__nav--next:before{border-right:0;border-left:.75em solid #000}.picker__nav--prev:hover,.picker__nav--next:hover{cursor:pointer;color:#000;background:#b1dcfb}.picker__nav--disabled,.picker__nav--disabled:hover,.picker__nav--disabled:before,.picker__nav--disabled:before:hover{cursor:default;background:0;border-right-color:whitesmoke;border-left-color:whitesmoke}.picker__table{text-align:center;border-collapse:collapse;border-spacing:0;table-layout:fixed;font-size:inherit;width:100%;margin-top:.75em;margin-bottom:.5em}@media (min-height:26.5em){.picker__table{margin-bottom:.75em}}.picker__table td{margin:0;padding:0}.picker__weekday{width:14.285714286%;font-size:.75em;padding-bottom:.25em;color:#999;font-weight:500}@media (min-height:26.5em){.picker__weekday{padding-bottom:.5em}}.picker__day{padding:.3125em 0;font-weight:200;border:1px solid transparent}.picker__day--today{color:#0089ec;position:relative}.picker__day--today:before{content:" ";position:absolute;top:2px;right:2px;width:0;height:0;border-top:.5em solid #0059bc;border-left:.5em solid transparent}.picker__day--selected,.picker__day--selected:hover{border-color:#0089ec}.picker__day--highlighted{background:#b1dcfb}.picker__day--disabled:before{border-top-color:#aaa}.picker__day--outfocus{color:#ddd;-ms-filter:"alpha(Opacity=66)";filter:alpha(opacity=66);-moz-opacity:.66;opacity:.66}.picker__day--infocus:hover,.picker__day--outfocus:hover{cursor:pointer;color:#000;background:#b1dcfb}.picker__day--highlighted:hover,.picker--focused .picker__day--highlighted{background:#0089ec;color:#fff}.picker__day--disabled,.picker__day--disabled:hover{background:whitesmoke;border-color:whitesmoke;color:#ddd;cursor:default}.picker__footer{text-align:center}.picker__button--today,.picker__button--clear{border:1px solid #fff;background:#fff;font-size:.8em;padding:.66em 0;font-weight:700;width:50%;display:inline-block;vertical-align:bottom}.picker__button--today:hover,.picker__button--clear:hover{cursor:pointer;color:#000;background:#b1dcfb;border-bottom-color:#b1dcfb}.picker__button--today:focus,.picker__button--clear:focus{background:#b1dcfb;border-color:#0089ec;outline:0}.picker__button--today:before,.picker__button--clear:before{position:relative;display:inline-block;height:0}.picker__button--today:before{content:" ";margin-right:.45em;top:-.05em;width:0;border-top:.66em solid #0059bc;border-left:.66em solid transparent}.picker__button--clear:before{content:"\D7";margin-right:.35em;top:-.1em;color:#e20;vertical-align:top;font-size:1.1em}
+
+
+/*sstudioish*/
+.btn.shadow-xl {
+  box-shadow: 0 7px 15px rgba(0, 9, 128, 0.05), 0 12px 28px rgba(0, 9, 128, 0.075), inset 0 1px 1px rgba(255, 255, 255, 0.1), inset 0 -1px 1px rgba(0, 0, 0, 0.075);
+}
+.shadow-xl {
+  box-shadow: 0 7px 15px rgba(0, 9, 128, 0.05), 0 12px 28px rgba(0, 9, 128, 0.075);
+}
+.ui-gradient-peach {
+  background: -moz-linear-gradient(45deg, #fe60a1 0%, #ff8765 100%);
+  background: linear-gradient(45deg, #fe60a1 0%, #ff8765 100%);
+}
+.ui-gradient-green {
+  background: -moz-linear-gradient(45deg, #19d9b4 0%, #92d275 100%);
+  background: linear-gradient(45deg, #19d9b4 0%, #92d275 100%);
+}
+.ui-gradient-purple {
+  background: -webkit-linear-gradient(45deg, #fd81b5 0%, #c961f7 50%, #8089ff 100%);
+  background: linear-gradient(45deg, #fd81b5 0%, #c961f7 50%, #8089ff 100%);
+}
+ul#side-menu li a {
+  color: #000;
+}
+ul#side-menu>li>a.active{
+  font-weight: bold;
+  color: #000;
+}
+
+
+/*Pricing Cards*/
+
+/* 33 :: PRICING CARDS */
+.ui-pricing-cards {
+  /*max-width: 1000px;*/
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* 33.1 :: Card */
+.ui-pricing-card{
+  display: inline-block;
+  width: 32%;
+  vertical-align: middle;
+}
+.ui-pricing-card .btn:hover{
+  font-weight: bold;
+  color: #fff;
+}
+.ui-pricing-card .ui-card .card-header .heading {
+  margin-bottom: .75rem;
+}
+.ui-pricing-card .ui-card .card-header .price {
+  font-family: "Source Sans Pro", sans-serif;
+  margin-bottom: 1rem; }
+  .ui-pricing-card .ui-card .card-header .price .curency, .ui-pricing-card .ui-card .card-header .price .period {
+    font-size: 1.1rem;
+    font-weight: 600; }
+  .ui-pricing-card .ui-card .card-header .price .price {
+    font-size: 3.6rem;
+    line-height: 1;
+    font-weight: 700; }
+    #lets-talk{
+        font-size:2.0rem;
+    }
+    .custom-flag{
+        padding-bottom: .5rem;
+    }
+.ui-pricing-card .ui-card ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: .75rem;
+  margin-bottom: 1.5rem; }
+  .ui-pricing-card .ui-card ul li {
+    line-height: 2;
+    font-weight: 600; }
+
+/* 33.2 :: Pricing Footer */
+.ui-pricing-footer {
+  text-align: center;
+  margin-top: 6rem; }
+  .ui-pricing-footer .paragraph {
+    display: inline-block;
+    max-width: 800px; }
+
+/* 33.3 :: Pricing Cards Carousel */
+.ui-pricing-cards.owl-carousel {
+  /*width: 250px;*/
+  margin: 0 auto; }
+  .ui-pricing-cards.owl-carousel .owl-stage-outer {
+    overflow: visible; }
+  .ui-pricing-cards.owl-carousel .owl-stage > div:nth-child(1), .ui-pricing-cards.owl-carousel .owl-stage > div:nth-child(3) {
+    z-index: 1; }
+  .ui-pricing-cards.owl-carousel .owl-stage > div:nth-child(2) {
+    z-index: 2; }
+  .ui-pricing-cards.owl-carousel .owl-stage > div:nth-child(1) .ui-card {
+    margin-right: -3rem;
+    margin-left: 3rem; }
+  .ui-pricing-cards.owl-carousel .owl-stage > div:nth-child(3) .ui-card {
+    margin-right: 3rem;
+    margin-left: -3rem; }
+  .ui-pricing-cards.owl-carousel .owl-stage > div:nth-child(2) .ui-card {
+    margin-top: -1rem; }
+    .ui-pricing-cards.owl-carousel .owl-stage > div:nth-child(2) .ui-card .card-header {
+      padding-top: 3rem; }
+    .ui-pricing-cards.owl-carousel .owl-stage > div:nth-child(2) .ui-card .card-body {
+      padding-bottom: 3rem; }
+  .ui-pricing-cards.owl-carousel .owl-dots {
+    margin-top: 3rem; }
+  @media (min-width: 481px) {
+    .ui-pricing-cards.owl-carousel {
+      /*width: 333.3333333px;*/
+      } }
+  @media (min-width: 740px) {
+    .ui-pricing-cards.owl-carousel {
+      margin: 0 -5%;
+      /*width: 110%; */
+      } }
+  @media (min-width: 1200px) {
+    .ui-pricing-cards.owl-carousel {
+      margin: 0 auto;
+      /*width: 1000px; */
+      } }

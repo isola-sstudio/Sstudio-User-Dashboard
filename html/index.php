@@ -62,7 +62,7 @@ ini_set( "display_errors", 0);
         </div>
         <div class="new-login-box">
             <div class="white-box">
-                <h3 class="box-title m-b-0" id="forms-head-title">Sign In to Statup Studio</h3>
+                <h3 class="box-title m-b-0" id="forms-head-title">Sign into your Account</h3>
                 <small>Let's get you started</small>
                 <form class="form-horizontal new-lg-form" id="loginform" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                   <small class="text-danger"><?php if (isset($loginError)) { echo $loginError; } ?></small>
@@ -84,7 +84,7 @@ ini_set( "display_errors", 0);
                                 <input id="checkbox-signup" type="checkbox">
                                 <label for="checkbox-signup"> Remember me </label>
                             </div>
-                            <a href="javascript:void(0)" id="to-recover" class="text-dark pull-right"><i class="fa fa-lock m-r-5"></i> Forgot pwd?</a> </div>
+                            <a href="javascript:void(0)" id="to-recover" class="text-dark pull-right"><i class="fa fa-lock m-r-5"></i> Forgot Password?</a> </div>
                     </div>
                     <div class="form-group text-center m-t-20">
                         <div class="col-xs-12">
@@ -92,13 +92,15 @@ ini_set( "display_errors", 0);
                         </div>
                     </div>
                     <div class="row">
+                      Login with Facebook
                         <div class="col-xs-12 col-sm-12 col-md-12 m-t-10 text-center">
                             <div class="social">
                                 <a href="<?php echo htmlspecialchars($loginUrl); ?>" class="btn  btn-facebook" data-toggle="tooltip" title="Login with Facebook"> <i aria-hidden="true" class="fa fa-facebook"></i> </a>
-                                <a href="javascript:void(0)" class="btn btn-googleplus" data-toggle="tooltip" title="Login with Google"> <i aria-hidden="true" class="fa fa-google"></i> </a>
                             </div>
                         </div>
-                         <a href="javascript:void(0)" id="to-signup" class="text-dark pull-right"><i class="fa fa-paper-plane m-r-5"></i> Don't have an account? Signup Now!</a> </div>
+                        <div style="text-align:center;">
+                          <a href="javascript:void(0)" id="to-signup" class="text-dark"><i class="fa fa-paper-plane m-r-5"></i>Create an Account</a> </div>
+                        </div>
 
                 </form>
                 <form class="form-horizontal" id="recoverform" action="index.html">
@@ -140,9 +142,8 @@ ini_set( "display_errors", 0);
                             <button class="btn btn-lg btn-block text-uppercase ui-gradient-peach" type="submit" name="signup">Signup</button>
                         </div>
                     </div><br><br><br>
-                    <small>Sign up using</small>
+                    <small>Join with Facebook</small>
                     <a href="<?php echo htmlspecialchars($loginUrl); ?>" class="btn  btn-facebook" data-toggle="tooltip" title="Signup with Facebook"> <i aria-hidden="true" class="fa fa-facebook"></i> </a>
-                    <a href="javascript:void(0)" class="btn btn-googleplus" data-toggle="tooltip" title="Signup with Google"> <i aria-hidden="true" class="fa fa-google"></i> </a>
                 </form>
 
               </div>
