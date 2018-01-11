@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
+    'Stripe\\' => array($vendorDir . '/stripe/stripe-php/lib'),
     'Respect\\Validation\\' => array($vendorDir . '/respect/validation/library'),
     'Libs\\' => array($baseDir . '/Libs'),
     'Facebook\\' => array($vendorDir . '/facebook/graph-sdk/src/Facebook'),

@@ -28,7 +28,7 @@ if (tasksGraphTimeline) {
   }
 
   // now create total ongoing tasks line
-  console.log(totalTasksGraph);
+  // console.log(totalTasksGraph);
   var totalTasksGraphSeries = [0];
   var totalCountHere = 0;
   var i = 0;
@@ -36,7 +36,7 @@ if (tasksGraphTimeline) {
     totalCountHere = parseInt(totalTasksGraph[tasksGraphTimeline[i]]) + totalCountHere;
      totalTasksGraphSeries.push({meta:totalCountHere +' Tasks in Total', value: totalCountHere});
      i++;
-     console.log(totalCountHere);
+     // console.log(totalCountHere);
   }
 
 }else {

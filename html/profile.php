@@ -22,6 +22,11 @@ ini_set( "display_errors", 0);
   require_once __DIR__ . '/utils/task_controller.php';
   //bring in the billing controller
   require_once __DIR__ . '/utils/billing_controller.php';
+
+  //the file containing the stripe keys
+  require_once __DIR__ . '/../../config/stripe/stripe_config.php';
+  //the utility to do the stripe charge
+  // require_once __DIR__ . '/utils/stripe_charge.php';
 ?>
 
 <!DOCTYPE html>
@@ -562,6 +567,9 @@ ini_set( "display_errors", 0);
         <!-- /#page-wrapper -->
     </div>
     <!-- /#wrapper -->
+    <!-- pricing card payment script -->
+    <?php require_once __DIR__ . '/includes/pricing_card_payment.pjs'; ?>
+    <!-- End of pricing card payment script -->
     <!-- jQuery -->
     <script src="../plugins/bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap Core JavaScript -->

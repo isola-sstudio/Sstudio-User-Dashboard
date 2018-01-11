@@ -15,6 +15,7 @@ class ComposerStaticInit101aeb376adf6f01536653cea082f646
         'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Stripe\\' => 7,
         ),
         'R' => 
         array (
@@ -34,6 +35,10 @@ class ComposerStaticInit101aeb376adf6f01536653cea082f646
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Stripe\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/stripe/stripe-php/lib',
         ),
         'Respect\\Validation\\' => 
         array (

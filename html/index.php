@@ -69,7 +69,7 @@ ini_set( "display_errors", 0);
                     <div class="form-group  m-t-20">
                         <div class="col-xs-12">
                             <!-- <label>Email Address</label> -->
-                            <input class="form-control" type="email" name="email" required="" placeholder="you@company.com">
+                            <input class="form-control" type="email" name="email" required="" placeholder="you@company.com" autofocus>
                         </div>
                     </div>
                     <div class="form-group">
