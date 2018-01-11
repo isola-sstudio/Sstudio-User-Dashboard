@@ -157,7 +157,7 @@ $(document).ready(function () {
       $("#forms-head-title").text('SIGN UP');
     });
 
-    if(window.location.hash == '#signup?subscribe=basic' || window.location.hash == '#signup?subscribe=standard' || window.location.hash == '#signup?subscribe=custom'){
+    if(window.location.hash == '#signup'){
       $("#loginform").slideUp();
       $("#recoverform").slideUp();
       $("#signupform").fadeIn();

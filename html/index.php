@@ -26,7 +26,6 @@ ini_set( "display_errors", 0);
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -135,6 +134,7 @@ ini_set( "display_errors", 0);
                         <div class="col-xs-12">
                             <!-- <label>Password</label> -->
                             <input class="form-control" type="password" name="password" required="" placeholder="Password">
+                            <input type="hidden" name="subscribe" value="<?php if(isset($_GET['subscribe'])){echo $_GET['subscribe']; }?>">
                         </div>
                     </div>
                     <div class="form-group text-center m-t-20">
