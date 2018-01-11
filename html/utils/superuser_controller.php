@@ -25,13 +25,43 @@
     // details about all ongoing tasks
     $ongoingTasksInfo = $superUserOperations->getTasksInfo('*', '', array(array('key' => 'status','operator'=>'=', 'value'=>'1')), array('column' => 'created', 'type'=>'DESC'));
 
+    // task to update
+    if ($_GET['task-id']) {
+      # there is a get task-id
+      $singleTaskRow = $superUserOperations->getTasksInfo('*', '', array(array('key' => 'id','operator'=>'=', 'value'=>$_GET['task-id'])));
+      foreach ($singleTaskRow as $singleKey => $singleValue) {
+        foreach ($singleValue as $key => $value) {
+          # code...
+          $singleTask[$key] = $value;
+        }
+      }
+    }else {
+      # there is none
+      $singleTask = '';
+      }
     $superUserAdmin = new AdminUser();
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
       # there is a request to update a task
-      if (isset($_GET['task-id'])) {
-        # check if there is a task id set in the get variable
-        
+      if (isset($_GET['task-id']) && $superUserOperations->getTasksInfo('id', '', array(array('key' => 'id','operator'=>'=', 'value'=>$_GET['task-id'])))) {
+        # check if there is a task id set in the get variable and the id exists
+        //set the $info array
+        foreach ($_POST as $key => $value) {
+          # for each one of these post variables
+          if (!empty($_POST["$key"])) {
+            //check that each field to be updated is not empty
+            # dynamically add up to the $updates array
+            $updates["$key"] = $value;
+          }
+        }
+        if ($superUserOperations->updateTask($singleTask['user_id'], $singleTask['id'], $updates)) {
+          # code...
+          $updateResponse = 'success';
+          header('Location: task_backend.php');;
+        }else {
+            # code...
+            $updateResponse = 'failure';
+          }
       }
     }
   }

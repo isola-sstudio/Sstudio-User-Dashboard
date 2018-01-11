@@ -1,0 +1,35 @@
+<script type="text/javascript">
+function launch_toast(toastMessage, toastColor = '') {
+  var messageDiv = document.getElementById("toast_message");
+  messageDiv.innerText = toastMessage;//set the appropriate passed message
+
+  var x = document.getElementById("toast");//pick the whole toast div
+  if (toastColor != '') {
+    //means we have an error response, so change the color
+    x.setAttribute('style', 'background-color: '+toastColor);
+    messageDiv.setAttribute('style', 'color: #a94442;');
+  }
+  x.className = "show";
+  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
+}
+</script>
+
+<?php
+if (isset($updateResponse)) {
+  if ($updateResponse == 'success') {
+    ?>
+      <script type="text/javascript">
+        var toastMessage = 'Update Successful';
+        launch_toast(toastMessage);
+      </script>
+    <?php
+  }else {
+    ?>
+      <script type="text/javascript">
+        var toastMessage = 'Update Error';
+        launch_toast(toastMessage, '#F06C83;');
+      </script>
+    <?php
+  }
+}
+?>

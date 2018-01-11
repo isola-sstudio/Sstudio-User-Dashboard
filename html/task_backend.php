@@ -50,8 +50,14 @@ ini_set( "display_errors", 0);
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-
+<style media="screen">
+  #toast{visibility:hidden;max-width:100%;margin:auto;background-color:#32D6A7;color:#fff;border-radius:2px;z-index:9;top:60px;font-size:17px}#toast #toast_message{color:#fff;padding:16px;overflow:hidden;font-weight:700}#toast.show{visibility:visible;-webkit-animation:fadein .5s,expand .5s .5s,stay 3s 1s,shrink .5s 2s,fadeout .5s 2.5s;animation:fadein .5s,expand .5s .5s,stay 3s 1s,shrink .5s 4s,fadeout .5s 4.5s}@-webkit-keyframes fadein{from{top:0;opacity:0}to{top:60px;opacity:1}}@keyframes fadein{from{top:0;opacity:0}to{top:60px;opacity:1}}@-webkit-keyframes expand{from{min-width:50px}to{min-width:350px}}@keyframes expand{from{min-width:50px}to{min-width:350px}}@-webkit-keyframes stay{from,to{min-width:350px}}@keyframes stay{from,to{min-width:350px}}@-webkit-keyframes shrink{from{min-width:350px}to{min-width:50px}}@keyframes shrink{from{min-width:350px}to{min-width:50px}}@-webkit-keyframes fadeout{from{top:0;opacity:1}to{top:-60px;opacity:0}}@keyframes fadeout{from{top:0;opacity:1}to{top:-60px;opacity:0}}
+</style>
 <body class="fix-header">
+  <div id="toast">
+    <div id="toast_message"></div>
+  </div>
+	<?php require_once __DIR__ . '/includes/toast_message.pjs'; ?>
     <!-- ============================================================== -->
     <!-- Preloader -->
     <!-- ============================================================== -->
@@ -248,40 +254,58 @@ ini_set( "display_errors", 0);
                 </div>
             </div>
             <!-- /.container-fluid -->
+            <?php if ($singleTask): ?>
+
             <div id="update-form">
 
               <div class="col-md-6">
                 <div class="white-box">
                     <h3 class="box-title m-b-0">Update Task</h3>
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" action="" method="post">
                         <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-3 control-label">Username*</label>
+                            <label for="inputEmail3" class="col-sm-3 control-label">Created By:</label>
                             <div class="col-sm-9">
-                                <input type="email" class="form-control" id="inputEmail3" placeholder="Username"> </div>
+                              <?php echo $singleTask['user_id']; ?>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-3 control-label">Email*</label>
+                            <label class="col-sm-3 control-label">Task Name:</label>
                             <div class="col-sm-9">
-                                <input type="email" class="form-control" id="inputEmail3" placeholder="Email"> </div>
+                              <?php echo $singleTask['task_name']; ?>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-3 control-label">Website</label>
+                            <label class="col-sm-3 control-label">Description:</label>
                             <div class="col-sm-9">
-                                <input type="email" class="form-control" id="inputEmail3" placeholder="Website"> </div>
+                              <p>
+                                <?php echo $singleTask['task_description']; ?>
+                              </p>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-3 control-label">Password*</label>
+                            <label class="col-sm-3 control-label">Status:</label>
                             <div class="col-sm-9">
-                                <input type="password" class="form-control" id="inputPassword3" placeholder="Password"> </div>
+                              <select class="" name="status">
+                                <option value="1">Ongoing</option>
+                                <option value="3">Completed</option>
+                              </select>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputPassword4" class="col-sm-3 control-label">Re Password*</label>
+                            <label class="col-sm-3 control-label">Priority:</label>
                             <div class="col-sm-9">
-                                <input type="password" class="form-control" id="inputPassword4" placeholder="Retype Password"> </div>
+                              <?php echo $singleTask['task_priority'].'%'; ?>
+                            </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Progress:</label>
+                            <div class="col-sm-9">
+                              <input type="number" name="task_progress" min="10" max="100" class="form-control" placeholder="<?php echo $singleTask['task_progress'].'%'; ?>"> </div>
+                        </div>
+
                         <div class="form-group m-b-0">
                             <div class="col-sm-offset-3 col-sm-9">
-                                <button type="submit" class="btn btn-info waves-effect waves-light m-t-10">Update</button>
+                                <button type="submit" class="btn btn-info waves-effect waves-light m-t-10" name="update">Update</button>
                             </div>
                         </div>
                     </form>
@@ -289,6 +313,7 @@ ini_set( "display_errors", 0);
             </div>
 
             </div>
+          <?php endif; ?>
 
             <!-- Edit Form -->
 

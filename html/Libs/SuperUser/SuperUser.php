@@ -43,7 +43,7 @@
       foreach ($updates as $key => $value) {
         # add key and value pair of info to $query
         //adding each key value pair to $query
-        if (array_keys($info)[count($info) - 1] == $key) {
+        if (array_keys($updates)[count($updates) - 1] == $key) {
           # we have the last one of the set of info passed in so no comma
           $query .= " `$key` = '$value'";
         }else {
