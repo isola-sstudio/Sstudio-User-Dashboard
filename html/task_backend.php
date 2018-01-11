@@ -4,24 +4,21 @@ ini_set( "display_errors", 0);
 
   require_once __DIR__ .'/vendor/autoload.php';
 
-  use Libs\SuperUser\SuperUser;
+  use Libs\AdminUser\AdminUser;
 
   if (!isset($adminUser)) {
     # let's create an admin user object
     $adminUser = new AdminUser();
   }
-  if (!$adminUser->loggedIn()) {
-    # this admin user is not logged in, so, redirect
-    header('Location: index.php');
+  if (!$adminUser->loggedIn() || $adminUser->getAdminUserInfo('id', $_SESSION['user_id'], 'privilege') == 0) {
+    # this admin user is not logged in, and does not have privileged access
+    $adminUser->logAdminUserOut();//logout
+    header('Location: index.php');//then send home
   }
 ?>
 <?php
-  //bring in the admin user controller
-  require_once __DIR__ . '/utils/admin_user_controller.php';
-  //bring in the request controller
-  require_once __DIR__ . '/utils/request_controller.php';
-  //bring in the task controller
-  require_once __DIR__ . '/utils/task_controller.php';
+  //bring in the super user controller
+  require_once __DIR__ . '/utils/superuser_controller.php';
 ?>
 
 
@@ -177,59 +174,36 @@ ini_set( "display_errors", 0);
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="white-box">
-                            <h3 class="box-title m-b-0">New Task Form</h3>
-                            <p class="text-muted <?php if(isset($requestResponse)){echo 'text-success';} ?> m-b-30 font-13">
-                              <?php
-                                if (isset($requestResponse)) {
-                                  echo $requestResponse;
-                                  # if we have a response.. i.e user has already submitted a form
-                                }else {
-                                  // user has not submitted a form.. but we need to change this to JS
-                                    echo "Please supply the following information about the new task you are about to create";
-                                  }
-                                ?>
-                            </p>
-                            <form class="form-horizontal" action="" method="post">
-                                <div class="form-group">
-                                    <label for="task_name" class="col-sm-3 control-label">Task Name*</label>
-                                    <div class="col-sm-9">
-                                    <input type="text" name="task_name" class="form-control" id="task_name" placeholder="Task Name" required> </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="task_priority" class="col-sm-3 control-label">Task Priority*</label>
-                                    <div class="range-slider">
-                                      <input class="range-slider__range" name="task_priority" type="range" value="50" min="10" max="100" style="display:inline-block;width:auto;">
-                                      <span class="range-slider__value">0</span>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="due_date" class="col-sm-3 control-label">Due Date*</label>
-                                    <div class="col-sm-9">
-                                    <input type="date" name="due_date" class="form-control" id="due_date" required>
-                                  </div>
-
-                                </div>
-
-
-
-
-
-                                <div class="form-group">
-                                    <label for="task_desc" class="col-sm-3 control-label">Description*</label>
-                                    <div class="col-sm-9">
-                                        <textarea name="task_desc" class="form-control" id="task_desc" rows="5" placeholder="Task Description" required></textarea>
-                                </div>
-
-                                <div class="form-group m-b-0">
-                                    <div class="col-sm-offset-3 col-sm-9">
-                                        <button type="submit" name="create_request" class="btn ui-gradient-green m-t-10">Submit</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                  <div class="col-md-12">
+                    <div class="white-box">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Created By</th>
+                                    <th>Created On</th>
+                                    <th>Task Name</th>
+                                    <th>Task Description</th>
+                                    <th>Priority</th>
+                                    <th>Progress</th>
+                                    <th>Due Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              <?php foreach ($newTasksInfo as $key => $value): ?>
+                                <tr>
+                                  <td><a href="?task-id=<?php echo $value['id']; ?>"><?php echo $superUserAdmin->getAdminUserInfo('id', $value['user_id'], 'company_name'); ?></a></td>
+                                  <td><?php echo date('M d, Y @ g:ia',strtotime($value['created'])); ?></td>
+                                  <td><a href="?task-id=<?php echo $value['id']; ?>"><?php echo $value['task_name']; ?></a></td>
+                                  <td><a href="?task-id=<?php echo $value['id']; ?>"><?php echo $value['task_description']; ?></a></td>
+                                  <td><?php echo $value['task_priority'].'%'; ?></td>
+                                  <td><?php echo $value['task_progress'].'%'; ?></td>
+                                  <td><?php echo date('M d, Y',strtotime($value['due_date'])); ?></td>
+                                </tr>
+                              <?php endforeach; ?>
+                            </tbody>
+                        </table>
                     </div>
+                  </div>
                 </div>
                 <div class="row" id="ongoing">
                     <div class="col-md-12">
@@ -240,47 +214,85 @@ ini_set( "display_errors", 0);
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="white-box">
-                            <div class="table-responsive">
-                              <?php if ($ongoingTasksInfo): ?>
+                          <table class="table table-striped">
+                              <thead>
+                                  <tr>
+                                      <th>Created By</th>
+                                      <th>Created On</th>
+                                      <th>Task Name</th>
+                                      <th>Task Description</th>
+                                      <th>Priority</th>
+                                      <th>Progress</th>
+                                      <th>Due Date</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                <?php foreach ($ongoingTasksInfo as $key => $value): ?>
+                                    <tr>
 
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Task</th>
-                                            <th>Progress</th>
-                                            <th>Date Created</th>
-                                            <th class="text-nowrap">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                      <?php foreach ($ongoingTasksInfo as $key => $value): ?>
-                                        <tr>
-                                          <td><?php echo $value['task_name']; ?></td>
-                                          <td>
-                                            <div class="progress progress-xs margin-vertical-10 ">
-                                              <div class="progress-bar progress-bar-danger" style="width: 35%"></div>
-                                            </div>
-                                          </td>
-                                          <td><?php echo date('M d, Y', strtotime($value['created'])); ?></td>
-                                          <td class="text-nowrap">
-                                            <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i></a>
-                                            <a href="#" data-toggle="tooltip" data-original-title="Suspend"> <i class="fa fa-pause text-warning"></i></a>
-                                          </td>
-                                        </tr>
-                                      <?php endforeach; ?>
-                                    </tbody>
-                                </table>
-                              <?php else: ?>
-                                  <h3>
-                                    No task here! Just a click away to your next task.
-                                  </h3>
-                              <?php endif; ?>
+                                      <td><a href="?task-id=<?php echo $value['id']; ?>"><?php echo $superUserAdmin->getAdminUserInfo('id', $value['user_id'], 'company_name'); ?></a></td>
+                                      <td><?php echo date('M d, Y @ g:ia',strtotime($value['created'])); ?></td>
+                                      <td><a href="?task-id=<?php echo $value['id']; ?>"><?php echo $value['task_name']; ?></a></td>
+                                      <td><a href="?task-id=<?php echo $value['id']; ?>"><?php echo $value['task_description']; ?></a></td>
+                                      <td><?php echo $value['task_priority'].'%'; ?></td>
+                                      <td><?php echo $value['task_progress'].'%'; ?></td>
+                                      <td><?php echo date('M d, Y',strtotime($value['due_date'])); ?></td>
+
+                                    </tr>
+                                <?php endforeach; ?>
+                              </tbody>
+                          </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- /.container-fluid -->
+            <div id="update-form">
+
+              <div class="col-md-6">
+                <div class="white-box">
+                    <h3 class="box-title m-b-0">Update Task</h3>
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-3 control-label">Username*</label>
+                            <div class="col-sm-9">
+                                <input type="email" class="form-control" id="inputEmail3" placeholder="Username"> </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-3 control-label">Email*</label>
+                            <div class="col-sm-9">
+                                <input type="email" class="form-control" id="inputEmail3" placeholder="Email"> </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-3 control-label">Website</label>
+                            <div class="col-sm-9">
+                                <input type="email" class="form-control" id="inputEmail3" placeholder="Website"> </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-3 control-label">Password*</label>
+                            <div class="col-sm-9">
+                                <input type="password" class="form-control" id="inputPassword3" placeholder="Password"> </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword4" class="col-sm-3 control-label">Re Password*</label>
+                            <div class="col-sm-9">
+                                <input type="password" class="form-control" id="inputPassword4" placeholder="Retype Password"> </div>
+                        </div>
+                        <div class="form-group m-b-0">
+                            <div class="col-sm-offset-3 col-sm-9">
+                                <button type="submit" class="btn btn-info waves-effect waves-light m-t-10">Update</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            </div>
+
+            <!-- Edit Form -->
+
+            <!-- End Edit Form -->
             <footer class="footer text-center" style="z-index:9999"> 2017 &copy; The Startup Studio </footer>
         </div>
         <!-- ============================================================== -->

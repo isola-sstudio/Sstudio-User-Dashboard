@@ -220,6 +220,7 @@ ini_set( "display_errors", 0);
                                     <label for="task_desc" class="col-sm-3 control-label">Description*</label>
                                     <div class="col-sm-9">
                                         <textarea name="task_desc" class="form-control" id="task_desc" rows="5" placeholder="Task Description" required></textarea>
+                                    </div>
                                 </div>
 
                                 <div class="form-group m-b-0">
@@ -228,7 +229,6 @@ ini_set( "display_errors", 0);
                                     </div>
                                 </div>
                             </form>
-                        </div>
                     </div>
                 </div>
                 <div class="row" id="ongoing">
