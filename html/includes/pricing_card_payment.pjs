@@ -1,20 +1,5 @@
 <script type="text/javascript">
 // ?subscribe=basic
-  <?php
-    if (isset($_GET['subscribe']) && !empty($_GET['subscribe'])) {
-    // there is a subscribe variable in the url
-      if ($adminUserDetails['subscription_status'] != 1) {
-        // check that the user is not subscribed already
-        if ($_GET['subscribe'] == 'basic' || $_GET['subscribe'] == 'standard' ||
-        $_GET['subscribe'] == 'custom') {
-          // check that the subscription string is either basic or standard or custom
-          ?>
-          document.onload = initStripe();
-          <?php
-        }
-      }
-    }
-  ?>
   // document.getElementById('cta1').addEventListener('click', initStripe);
 
   var handler = StripeCheckout.configure({
@@ -29,10 +14,10 @@
   });
 
 
-  function initStripe(e) {
+  function initStripe(plan) {
     //switch price based on package name
     // packageType = document.getElementById('sub_plan').value;
-    packageType = 'basic';
+    packageType = plan;
     switch (packageType) {
       case 'basic':
         packagePrice = 15300;
@@ -61,3 +46,21 @@
     handler.close();
   });
 </script>
+
+<?php
+if (isset($_GET['subscribe']) && !empty($_GET['subscribe'])) {
+  // there is a subscribe variable in the url
+  if ($adminUserDetails['subscription_status'] != 1) {
+    // check that the user is not subscribed already
+    if ($_GET['subscribe'] == 'basic' || $_GET['subscribe'] == 'standard' ||
+    $_GET['subscribe'] == 'custom') {
+      // check that the subscription string is either basic or standard or custom
+      ?>
+      <script type="text/javascript">
+      initStripe("<?php echo $_GET['subscribe']; ?>");
+      </script>
+      <?php
+    }
+  }
+}
+?>
