@@ -92,21 +92,27 @@ ini_set( "display_errors", 0);
                 </div>
                 <!-- /Logo -->
                 <ul class="nav navbar-top-links navbar-right pull-right">
-                    <li class="dropdown">
-                        <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#">
+                    <li class="dropdown" style="padding-top:10px;">
+                        <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" style="display:inline-block;">
+
                           <?php if ($adminUserDetails['picture']): ?>
                             <img src="<?php echo $adminUserDetails['picture']; ?>" alt="user-img" width="36" class="img-circle">
+                          <?php else: ?>
+                            <img src="../plugins/images/blank-profile-picture.png" alt="user-img" width="36" class="img-circle">
                           <?php endif; ?>
                           <b class="hidden-xs"><?php echo $adminUserDetails['company_name']; ?></b>
-                          <span class="caret"></span>
-                          <span class="caret" style="visibility:hidden;"></span>
                         </a>
+                        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12" style="width:50%;display:inline-block;float:none;">
+                            <a href="request.php#new" target="_blank" class="btn m-l-20 shadow-xl ui-gradient-peach">Create a Task</a>
+                        </div>
                         <ul class="dropdown-menu dropdown-user animated flipInY">
                             <li>
                                 <div class="dw-user-box">
                                     <div class="u-img">
                                       <?php if ($adminUserDetails['picture']): ?>
                                         <img src="<?php echo $adminUserDetails['picture']; ?>" alt="user" />
+                                      <?php else: ?>
+                                        <img src="../plugins/images/blank-profile-picture.png" alt="user" />
                                       <?php endif; ?>
                                     </div>
                                     <div class="u-text">
@@ -140,24 +146,23 @@ ini_set( "display_errors", 0);
                 <div class="sidebar-head">
                     <h3><span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span class="hide-menu">Navigation</span></h3>
                 </div>
+
                 <ul class="nav" id="side-menu">
                     <li style="padding: 70px 0 0;"><a href="dashboard.php" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Dashboard</a> </li>
                     <li class="devider"></li>
-                    <li><a href="#" class="waves-effect"><i class="fa fa-clone fa-fw" aria-hidden="true"></i> Request<span class="fa arrow"></span><span class="label label-rouded label-success pull-right"><?php echo $justCreatedTasks; ?></span></a>
-                        <ul class="nav nav-second-level">
-                            <li><a href="request.php#new"><i class="fa fa-sticky-note-o fa-fw" aria-hidden="true"></i>New Task</a></li>
-                            <li><a href="request.php#ongoing"><i class="fa fa-tasks fa-fw" aria-hidden="true"></i>Ongoing Tasks</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="history.php"><i class="fa fa-calendar-o fa-fw" aria-hidden="true"></i>Task History</a></li>
                     <li class="devider"></li>
                     <li><a href="#"><i class="fa fa-comment-o fa-fw" aria-hidden="true"></i>Chat</a></li>
                     <li class="devider"></li>
-                    <li><a href="history.php"><i class="fa fa-calendar-o fa-fw" aria-hidden="true"></i>History</a></li>
+                    <li><a href="profile.php" class="waves-effect"><i class="fa fa-cogs fa-fw" aria-hidden="true"></i>Settings<span class="fa arrow"></span></a>
+                      <ul class="nav nav-second-level">
+                        <li><a href="profile.php"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Profile</a></li>
+                      </ul>
+                    </li>
                     <li class="devider"></li>
-                    <li><a href="profile.php"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Profile</a></li>
-                    <li class="devider"></li>
-                    <li><a href="#" class="waves-effect"><i class="fa fa fa-user-circle fa-fw"></i>Customer Support</a></li>
+                    <li><a href="#" class="waves-effect"><i class="fa fa fa-question-circle fa-fw"></i>Support</a></li>
                 </ul>
+
             </div>
         </div>
         <!-- ============================================================== -->
@@ -171,12 +176,6 @@ ini_set( "display_errors", 0);
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
                         <h4 class="page-title">Dashboard</h4> </div>
-                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-                        <a href="request.php#new" target="_blank" class="btn pull-right m-l-20 shadow-xl ui-gradient-peach">Create a Task</a>
-                        <ol class="breadcrumb">
-                            <li><a href="#">Dashboard</a></li>
-                        </ol>
-                    </div>
                     <!-- /.col-lg-12 -->
                 </div>
                 <!-- /.row -->
@@ -187,7 +186,7 @@ ini_set( "display_errors", 0);
                 <div class="row">
                     <div class="col-lg-4 col-sm-6 col-xs-12">
                         <div class="white-box analytics-info">
-                            <h3 class="box-title">Total Task Created</h3>
+                            <h3 class="box-title">Total Tasks Created</h3>
                             <ul class="list-inline two-part">
                                 <li>
                                     <div id="sparklinedash"></div>
@@ -501,6 +500,10 @@ ini_set( "display_errors", 0);
     <!-- All Jquery -->
     <!-- ============================================================== -->
     <!-- pricing card payment script -->
+    <form id="payForm" action="" method="post">
+      <input type="hidden" id="stripe_token" name="stripe_token" value="">
+      <input type="hidden" id="package" name="package" value="">
+    </form>
     <script src="https://checkout.stripe.com/checkout.js"></script>
     <?php require_once __DIR__ . '/includes/pricing_card_payment.pjs'; ?>
     <!-- End of pricing card payment script -->

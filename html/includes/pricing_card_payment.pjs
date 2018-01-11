@@ -1,5 +1,4 @@
 <script type="text/javascript">
-// ?subscribe=basic
   // document.getElementById('cta1').addEventListener('click', initStripe);
 
   var handler = StripeCheckout.configure({
@@ -8,7 +7,7 @@
     locale: 'auto',
     token: function(token, args) {
       // Getting the token ID to server-side code.
-        document.getElementById('strip_token').value = token.id;//set the value of token id
+        document.getElementById('stripe_token').value = token.id;//set the value of token id
         document.getElementById('payForm').submit();
     }
   });
@@ -35,7 +34,7 @@
     handler.open({
       name: 'Startup Studio',
       description: planDescription,
-      email: "<?php echo $_SESSION['user_id'] ?>",//document.getElementById('pay_email').value,
+      email: "<?php echo $adminUserDetails['company_email'] ?>",//document.getElementById('pay_email').value,
       amount: packagePrice
     });
     // e.preventDefault();
@@ -57,6 +56,7 @@ if (isset($_GET['subscribe']) && !empty($_GET['subscribe'])) {
       // check that the subscription string is either basic or standard or custom
       ?>
       <script type="text/javascript">
+      document.getElementById('package').value = "<?php echo $_GET['subscribe']; ?>";
       initStripe("<?php echo $_GET['subscribe']; ?>");
       </script>
       <?php

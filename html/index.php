@@ -1,6 +1,7 @@
 <?php
 ini_set( "display_errors", 0);
   session_start();
+  ob_start(null, 4096);
 
   require_once __DIR__ .'/vendor/autoload.php';
 

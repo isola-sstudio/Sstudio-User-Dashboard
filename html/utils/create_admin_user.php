@@ -1,6 +1,5 @@
 <?php
   session_start();
-  ob_start();
   /**
    **This script accepts a post request from anywhere to sign up or create a
    * user and it goes through some validation and returns the appropriate
@@ -33,7 +32,7 @@
               if ($_POST['subscribe'] == 'basic' || $_POST['subscribe'] == 'standard' ||
               $_POST['subscribe'] == 'custom') {
                 $subscribe = $_POST['subscribe'];
-                header("Location: dashboard.php?subscribe=$subscribe");
+                header("Location: dashboard.php?subscribe=".$subscribe);
               }else {
                 # just send them to dashboard
                 header('Location: dashboard.php');//send them to dashboard
