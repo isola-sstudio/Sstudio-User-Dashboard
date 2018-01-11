@@ -103,20 +103,28 @@ $(document).ready(function () {
     var options = {
         showPoint: true,
         lineSmooth: Chartist.Interpolation.simple({
-            divisor: 2
+            divisor: 10
         }),
         fullWidth: true,
         stretch: false,
         axisY: {
             offset: 60,
             labelInterpolationFnc: function(value) {
-                return value;
-            }
+                // return value;
+                return Math.floor(value);
+            },
+             high: 100,
+             scaleMinSpace: 20,
+             onlyInteger: true
         },
         axisX: {
             offset: 40,
             labelInterpolationFnc: function(value) {
                 return value;
+            },
+            labelOffset: {
+              x: -56,
+              y: 0
             }
         },
         showArea: true,

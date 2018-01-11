@@ -274,3 +274,8 @@ ul#side-menu>li>a.active{
       margin: 0 auto;
       /*width: 1000px; */
       } }
+
+
+  .ct-label.ct-horizontal {
+  white-space: nowrap;
+  }

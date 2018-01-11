@@ -270,7 +270,7 @@ ini_set( "display_errors", 0);
 
                             <?php if ($lastFiveMonths): ?>
                              <div class="row sales-report">
-                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                <div class="col-md-6 col-sm-6 col-xs-6" style="float:none;">
                                   <!-- JS to pick the selected month from the dropdown box -->
                                     <h2>January 2018</h2>
                                     <p>TASKS REPORT</p>
@@ -279,7 +279,6 @@ ini_set( "display_errors", 0);
                                     <h1 class="text-right text-info m-t-20">$3,690</h1> </div>-->
 
                             <div class="table-responsive">
-                            </div>
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -346,6 +345,7 @@ ini_set( "display_errors", 0);
                                         <?php endif; ?>
                                     </tbody>
                                 </table>
+                              </div>
                           </div>
                           <?php else: ?>
                             <h3 >Just a click away from building FASTER!</h3>
