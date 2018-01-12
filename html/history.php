@@ -32,7 +32,6 @@ ini_set( "display_errors", 0);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" type="image/png" sizes="16x16" href="../plugins/images/favicon.png">
     <title>History - The Startup Studio</title>
     <!-- Bootstrap Core CSS -->
     <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -44,6 +43,7 @@ ini_set( "display_errors", 0);
     <link href="css/style.css" rel="stylesheet">
     <!-- color CSS -->
     <link href="css/colors/default.css" id="theme" rel="stylesheet">
+    <link rel="shortcut icon" href="https://sstudio.io/favicon.png">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
