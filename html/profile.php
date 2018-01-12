@@ -56,6 +56,7 @@ ini_set( "display_errors", 0);
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+    <script src="js/support.js"></script>
 </head>
 
 <body class="fix-header">
@@ -151,7 +152,7 @@ ini_set( "display_errors", 0);
                       </ul>
                     </li>
                     <li class="devider"></li>
-                    <li><a href="#" class="waves-effect"><i class="fa fa fa-question-circle fa-fw"></i>Support</a></li>
+                    <li><a href="#" class="waves-effect drift-open-chat"><i class="fa fa fa-question-circle fa-fw"></i>Support</a></li>
                 </ul>
             </div>
         </div>
