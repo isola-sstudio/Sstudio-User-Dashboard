@@ -199,6 +199,12 @@ ini_set( "display_errors", 0);
                             <div class="tab-pane active" id="profile">
                                   <form class="form-horizontal form-material" action="" method="post">
                                       <div class="form-group">
+                                        <?php if ($updateError): ?>
+                                          <span class="small text-danger"><?php echo $updateError; ?></span>
+                                        <?php endif; ?>
+                                        <?php if ($updateResponse): ?>
+                                          <span class="small text-success"><?php echo $updateResponse; ?></span>
+                                        <?php endif; ?>
                                           <label class="col-md-12">Full Name</label>
                                           <div class="col-md-12">
                                             <input type="text" name="company_name" placeholder="<?php echo $adminUserDetails['company_name']; ?>" class="form-control form-control-line"> </div>
@@ -207,6 +213,11 @@ ini_set( "display_errors", 0);
                                           <label for="example-email" class="col-md-12">Email</label>
                                           <div class="col-md-12">
                                               <input type="email" name="company_email" placeholder="<?php echo $adminUserDetails['company_email']; ?>" class="form-control form-control-line" name="example-email" id="example-email"> </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="name_of_company" class="col-md-12">Company Name</label>
+                                          <div class="col-md-12">
+                                              <input type="text" name="name_of_company" placeholder="<?php echo $adminUserDetails['name_of_company']; ?>" class="form-control form-control-line" name="name_of_company" id="name_of_company"> </div>
                                       </div>
                                       <div class="form-group">
                                           <label class="col-md-12">Password</label>
@@ -220,7 +231,7 @@ ini_set( "display_errors", 0);
                                       </div>
                                       <div class="form-group">
                                           <div class="col-sm-12">
-                                              <button class="btn btn-success">Update Profile</button>
+                                              <button class="btn btn-success" name="update_profile">Update Profile</button>
                                           </div>
                                       </div>
                                   </form>
@@ -274,8 +285,8 @@ ini_set( "display_errors", 0);
                                       </thead>
                                       <tbody>
                                         <tr>
-                                          <td><?php if (strtoupper($userDetails['subscription_plan'])): ?>
-                                            <?php echo $userDetails['subscription_plan']; ?>
+                                          <td><?php if ($userDetails['subscription_plan']): ?>
+                                            <?php echo strtoupper($userDetails['subscription_plan']); ?>
                                             <?php else: ?>
                                               None
                                             <?php endif; ?>
@@ -304,174 +315,13 @@ ini_set( "display_errors", 0);
                                         </tr>
                                       </tbody>
                                     </table>
+                                    <?php if ($userDetails['subscription_status'] == 1): ?>
+                                      <button class="btn btn-success">Renew</button>
+                                      <a href="payment.php" target="_blank" class="btn m-l-20 shadow-xl ui-gradient-green">Renew</a>
+                                    <?php else: ?>
+                                      <a href="payment.php" target="_blank" class="btn m-l-20 shadow-xl ui-gradient-peach">Get Started</a>
+                                    <?php endif; ?>
                                   </div>
-
-
-
-
-
-
-                                   <!-- Pricing Cards Section -->
-                                   <div id="pricing" class="section">
-                                      <div class="">
-                                         <!-- Section Heading -->
-                                         <div class="section-heading">
-                                            <h2 class="">
-                                               Pricing Cards
-                                            </h2>
-                                         </div><!-- .section-heading -->
-
-                                         <!-- UI Pricing Cards / Owl Carousel On Mobile -->
-                                         <div class="ui-pricing-cards owl-carousel owl-theme">
-                                            <!-- Card 1 -->
-                                            <div class="ui-pricing-card animate" data-show="fade-in-left">
-                                            <div class="ui-card ui-curve shadow-lg">
-                                               <div class="card-header">
-                                                  <!-- Heading -->
-                                                  <h4 class="heading">Basic</h4>
-                                                  <!-- Price -->
-                                                  <div class="price">
-                                                     <span class="curency">&dollar;</span>
-                                                     <span class="price">153</span>
-                                                     <span class="period">/mo</span>
-                                                  </div>
-                                                  <h6 class="sub-heading">&#x20A6;55,000 /mo</h6>
-                                               </div>
-                                               <!-- Features -->
-                                               <div class="card-body">
-                                                  <ul>
-                                                     <li>
-                                                        Branding
-                                                     </li>
-                                                     <li>
-                                                       Website Development
-                                                     </li>
-                                                     <li>
-                                                        Digital Marketing
-                                                     </li>
-                                                     <li>
-                                                        Free Accounting Support
-                                                     </li>
-                                                  </ul>
-                          												<script src="https://checkout.stripe.com/checkout.js"></script>
-                                                  <?php if ($userDetails['subscription_plan'] && $userDetails['subscription_status'] == 1): ?>
-                                                    <?php if (strtolower($userDetails['subscription_plan']) != 'basic'): ?>
-                                                      <a class="btn ui-gradient-green shadow-md" id="basic">
-                                                        Switch
-                                                      </a>
-                                                      <?php endif; ?>
-                                                  <?php else: ?>
-                                                    <a class="btn ui-gradient-green shadow-md" id="basic">
-                                                      Get Started
-                                                    </a>
-                                                  <?php endif; ?>
-                                               </div>
-                                            </div>
-                                            </div>
-                                            <!-- Card 2 -->
-                                            <div class="ui-pricing-card active animate" data-show="fade-in">
-                                            <div class="ui-card ui-curve color-card shadow-xl">
-                                               <div class="card-header ui-gradient-purple" style="padding:10px 0;color:#fff;">
-                                                  <!-- Heading -->
-                                                  <h4 class="heading">Standard</h4>
-                                                  <!-- Price -->
-                                                  <div class="price">
-                                                     <span class="curency">&dollar;</span>
-                                                     <span class="price">278</span>
-                                                     <span class="period">/mo</span>
-                                                  </div>
-                                                  <h6 class="sub-heading">&#x20A6;100,000 /mo</h6>
-                                               </div>
-                                               <!-- Features -->
-                                               <div class="card-body" style="padding:10px 0">
-                                                  <ul>
-                                                     <li>
-                                                        Branding
-                                                     </li>
-                                                     <li>
-                                                       Website Development
-                                                     </li>
-                                                     <li>
-                                                       Mobile Apps Development
-                                                     </li>
-                                                     <li>
-                                                        Digital Marketing
-                                                     </li>
-                                                     <li>
-                                                        Free Accounting Support
-                                                     </li>
-                                                  </ul>
-                                                    <?php if ($userDetails['subscription_plan'] && $userDetails['subscription_status'] == 1): ?>
-                                                      <?php if (strtolower($userDetails['subscription_plan']) != 'standard'): ?>
-                                                        <a class="btn ui-gradient-purple shadow-md" id="standard">
-                                                          Switch
-                                                        </a>
-                                                      <?php endif; ?>
-                                                    <?php else: ?>
-                                                      <a class="btn ui-gradient-purple shadow-md" id="standard">
-                                                        Get Started
-                                                      </a>
-                                                    <?php endif; ?>
-                                                  </a>
-                                               </div>
-                                            </div>
-                                         </div>
-                                         <!-- Card 3 -->
-                                            <div class="ui-pricing-card animate" data-show="fade-in-right">
-                                            <div class="ui-card ui-curve shadow-lg">
-                                               <div class="card-header">
-                                                  <!-- Heading -->
-                                                  <h4 class="heading custom-flag">Custom</h4>
-                                                  <!-- Price -->
-                                                  <div class="price custom-flag">
-                                                     <span class="curency">  </span>
-                                                     <span class="price" id="lets-talk">Let's Talk</span>
-                                                  </div>
-                                                  <h6 class="sub-heading custom-flag">Per Project</h6>
-                                               </div>
-                                               <!-- Features -->
-                                               <div class="card-body">
-                                                  <ul>
-                                                     <li>
-                                                        Branding
-                                                     </li>
-                                                     <li>
-                                                       Website Development
-                                                     </li>
-                                                     <li>
-                                                       Mobile Apps Development
-                                                     </li>
-                                                     <li>
-                                                        Digital Marketing
-                                                     </li>
-                                                  </ul>
-                                                    <?php if ($userDetails['subscription_plan'] && $userDetails['subscription_status'] == 1): ?>
-                                                      <?php if (strtolower($userDetails['subscription_plan']) != 'custom'): ?>
-                                                        <a class="btn ui-gradient-green shadow-md" id="custom">
-                                                          Switch
-                                                        </a>
-                                                      <?php endif; ?>
-                                                    <?php else: ?>
-                                                      <a class="btn ui-gradient-green shadow-md" id="custom">
-                                                        Get Started
-                                                      </a>
-                                                    <?php endif; ?>
-                                                  </a>
-                                               </div>
-                                            </div>
-                                         </div>
-                                         </div><!-- .ui-pricing-cards -->
-
-                                      </div><!-- .container -->
-                                   </div><!-- .section -->
-
-
-
-
-
-
-
-
                                 <hr>
                                 <h4 class="font-bold m-t-30">Current Card Used</h4>
 

@@ -183,6 +183,7 @@ ini_set( "display_errors", 0);
                                             <th>Description</th>
                                             <th>Status</th>
                                             <th>Date Created</th>
+                                            <th>Due Date</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -223,6 +224,7 @@ ini_set( "display_errors", 0);
                                             <td><span class="<?php echo $textColorClass; ?>"><?php echo $value['task_description']; ?></span></td>
                                             <td><span class="label <?php echo $colorClass; ?> label-rouded"><?php echo $text; ?></span> </td>
                                             <td><?php echo date('M d, Y', strtotime($value['created'])); ?></td>
+                                            <td class="txt-oflo"><?php echo date('M d, Y', strtotime($value['due_date'])); ?></td>
                                           </tr>
                                           <?php $count++; ?>
                                         <?php endforeach; ?>

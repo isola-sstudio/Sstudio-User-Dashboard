@@ -181,101 +181,86 @@ ul#side-menu>li>a.active{
 }
 
 
-/*Pricing Cards*/
-
-/* 33 :: PRICING CARDS */
-.ui-pricing-cards {
-  /*max-width: 1000px;*/
-  margin: 0 auto;
-  text-align: center;
-}
-
-/* 33.1 :: Card */
-.ui-pricing-card{
-  display: inline-block;
-  width: 32%;
-  vertical-align: middle;
-}
-.ui-pricing-card .btn:hover{
-  font-weight: bold;
-  color: #fff;
-}
-.ui-pricing-card .ui-card .card-header .heading {
-  margin-bottom: .75rem;
-}
-.ui-pricing-card .ui-card .card-header .price {
-  font-family: "Roboto", sans-serif;
-  margin-bottom: 1rem; }
-  .ui-pricing-card .ui-card .card-header .price .curency, .ui-pricing-card .ui-card .card-header .price .period {
-    font-size: 1.1rem;
-    font-weight: 600; }
-  .ui-pricing-card .ui-card .card-header .price .price {
-    font-size: 3.6rem;
-    line-height: 1;
-    font-weight: 700; }
-    #lets-talk{
-        font-size:2.0rem;
-    }
-    .custom-flag{
-        padding-bottom: .5rem;
-    }
-.ui-pricing-card .ui-card ul {
-  list-style: none;
-  padding-left: 0;
-  margin-top: .75rem;
-  margin-bottom: 1.5rem; }
-  .ui-pricing-card .ui-card ul li {
-    line-height: 2;
-    font-weight: 600; }
-
-/* 33.2 :: Pricing Footer */
-.ui-pricing-footer {
-  text-align: center;
-  margin-top: 6rem; }
-  .ui-pricing-footer .paragraph {
-    display: inline-block;
-    max-width: 800px; }
-
-/* 33.3 :: Pricing Cards Carousel */
-.ui-pricing-cards.owl-carousel {
-  /*width: 250px;*/
-  margin: 0 auto; }
-  .ui-pricing-cards.owl-carousel .owl-stage-outer {
-    overflow: visible; }
-  .ui-pricing-cards.owl-carousel .owl-stage > div:nth-child(1), .ui-pricing-cards.owl-carousel .owl-stage > div:nth-child(3) {
-    z-index: 1; }
-  .ui-pricing-cards.owl-carousel .owl-stage > div:nth-child(2) {
-    z-index: 2; }
-  .ui-pricing-cards.owl-carousel .owl-stage > div:nth-child(1) .ui-card {
-    margin-right: -3rem;
-    margin-left: 3rem; }
-  .ui-pricing-cards.owl-carousel .owl-stage > div:nth-child(3) .ui-card {
-    margin-right: 3rem;
-    margin-left: -3rem; }
-  .ui-pricing-cards.owl-carousel .owl-stage > div:nth-child(2) .ui-card {
-    margin-top: -1rem; }
-    .ui-pricing-cards.owl-carousel .owl-stage > div:nth-child(2) .ui-card .card-header {
-      padding-top: 3rem; }
-    .ui-pricing-cards.owl-carousel .owl-stage > div:nth-child(2) .ui-card .card-body {
-      padding-bottom: 3rem; }
-  .ui-pricing-cards.owl-carousel .owl-dots {
-    margin-top: 3rem; }
-  @media (min-width: 481px) {
-    .ui-pricing-cards.owl-carousel {
-      /*width: 333.3333333px;*/
-      } }
-  @media (min-width: 740px) {
-    .ui-pricing-cards.owl-carousel {
-      margin: 0 -5%;
-      /*width: 110%; */
-      } }
-  @media (min-width: 1200px) {
-    .ui-pricing-cards.owl-carousel {
-      margin: 0 auto;
-      /*width: 1000px; */
-      } }
-
 
   .ct-label.ct-horizontal {
   white-space: nowrap;
   }
+  .pricing_plan {
+      width: 32%;
+      display: inline-block;
+      border: 2px solid #E9E8E9;
+      border-radius: 3px;
+      padding: 10px;
+      margin: 0;
+      vertical-align: middle;
+  }
+  .pricing_plan li{
+    list-style-type: none;
+    margin-bottom: 5px;
+  }
+  .pricing_plan h3{
+    line-height: 0;
+    font-weight: bold;
+  }
+  .pricing_plan label{
+    margin-bottom: 15px;
+  }
+  .pricing_plan > span{
+    display: block;
+    margin-left: auto;
+    text-align: center;
+    font-weight: bold;
+  }
+
+
+/*pricing card radio button*/
+.pricing_plans [type="radio"]:checked,
+.pricing_plans [type="radio"]:not(:checked) {
+  position: absolute;
+  left: -9999px;
+}
+.pricing_plans [type="radio"]:checked + label,
+.pricing_plans [type="radio"]:not(:checked) + label
+{
+    position: relative;
+    padding-left: 28px;
+    cursor: pointer;
+    line-height: 20px;
+    display: inline-block;
+    color: #666;
+}
+.pricing_plans [type="radio"]:checked + label:before,
+.pricing_plans [type="radio"]:not(:checked) + label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #ddd;
+    border-radius: 100%;
+    background: #fff;
+}
+.pricing_plans [type="radio"]:checked + label:after,
+.pricing_plans [type="radio"]:not(:checked) + label:after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: #28C69E;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    border-radius: 100%;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+.pricing_plans [type="radio"]:not(:checked) + label:after {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+}
+.pricing_plans [type="radio"]:checked + label:after {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
