@@ -123,7 +123,7 @@ $(document).ready(function () {
                 return value;
             },
             labelOffset: {
-              x: -56,
+              x: -70,
               y: 0
             }
         },

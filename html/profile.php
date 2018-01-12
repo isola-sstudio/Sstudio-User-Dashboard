@@ -198,7 +198,7 @@ ini_set( "display_errors", 0);
                           </ul>
                           <div class="tab-content">
                             <div class="tab-pane active" id="profile">
-                                  <form class="form-horizontal form-material" action="" method="post">
+                                  <form class="form-horizontal form-material" action="" method="post" enctype="multipart/form-data">
                                       <div class="form-group">
                                         <?php if ($updateError): ?>
                                           <span class="small text-danger" style="margin:10px 15px;"><?php echo $updateError; ?></span>
@@ -231,6 +231,8 @@ ini_set( "display_errors", 0);
                                             <?php else: ?>
                                               <img src="../plugins/images/blank-profile-picture.png" alt="user-img" width="36" class="img-circle">
                                             <?php endif; ?>
+                                            <input type="file" name="profile_pix" id="fileToUpload">
+                                          </div>
                                       </div>
 
 
