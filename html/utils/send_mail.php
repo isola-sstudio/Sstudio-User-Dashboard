@@ -1,6 +1,6 @@
 <?php
-  error_reporting(E_ALL);
-  ini_set("display_errors", 1);
+  // error_reporting(E_ALL);
+  // ini_set("display_errors", 1);
 
   require_once __DIR__ . '/../vendor/autoload.php';
   use PHPMailer\PHPMailer\PHPMailer;
@@ -32,7 +32,7 @@ function sendMail($subject, $companyName, $postEmail, $postMessageArray){
     $message = '';
     foreach ($postMessageArray as $key => $value) {
       # for each structured array for the message
-      $message .= '<p>'.$key.': '.$value.'</p>';
+      $message .= '<p><b>'.$key.':</b> '.$value.'</p>';
     }
 
     // CONFIG YOUR MAIL SERVER
@@ -40,7 +40,7 @@ function sendMail($subject, $companyName, $postEmail, $postMessageArray){
     $mail = new PHPMailer;
     $mail->isSMTP();                                    // Enable SMTP authentication
     $mail->SMTPAuth = true;                             // Set mailer to use SMTP
-          $mail->SMTPDebug = 4;
+          // $mail->SMTPDebug = 4;
     //Sign up with MAIL GUN
     $mail->Host = 'smtp.gmail.com';
 
