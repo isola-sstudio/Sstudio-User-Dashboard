@@ -7,6 +7,7 @@
    */
 
    require_once __DIR__ .'/../vendor/autoload.php';
+   require_once __DIR__ . '/send_mail.php';
 
    use Libs\AdminUser\AdminUser;
    use Libs\Validation\Validation;
@@ -24,8 +25,9 @@
             //dashboard
             $_SESSION['user_id'] = $adminUser->getAdminUserInfo('company_email', $_POST['email'], 'id');
 
-
-
+            // send mail to sstudio
+            $postMessageArray['Email'] = $_POST['email'];
+            sendMail('New Signup', '', $_POST['email'], $postMessageArray);
 
             if (isset($_POST['subscribe']) && !empty($_POST['subscribe'])) {
               // there is a subscribe variable in the post
@@ -41,10 +43,6 @@
               # just send them to dashboard
               header('Location: dashboard.php');//send them to dashboard
             }
-
-
-
-
 
               }else {
               # user account could not be created

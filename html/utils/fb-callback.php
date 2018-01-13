@@ -1,6 +1,7 @@
 <?php
   session_start();
   require_once __DIR__ .'/../vendor/autoload.php';
+  require_once __DIR__ . '/send_mail.php';
 
   require_once __DIR__ . '/../../../config/fb/fb_constants.php';
 
@@ -94,6 +95,8 @@ if (! $accessToken->isLongLived()) {
         # they are not a registered user, so, why not.. register them then!
         // create an account for the person
         if($adminUser->createAdminUserAccount($name, $email, $picture, '', '')){
+          $postMessageArray['Email'] = $email;
+          sendMail('New Signup', '', $email, $postMessageArray);
           $userId = $adminUser->getAdminUserInfo('company_email', $email, $userInfo = 'id');
           $_SESSION['user_id'] = $userId;
           header('Location: ../dashboard.php');//send them to dashboard

@@ -21,6 +21,10 @@ class ComposerStaticInit101aeb376adf6f01536653cea082f646
         array (
             'Respect\\Validation\\' => 19,
         ),
+        'P' => 
+        array (
+            'PHPMailer\\PHPMailer\\' => 20,
+        ),
         'L' => 
         array (
             'Libs\\' => 5,
@@ -43,6 +47,10 @@ class ComposerStaticInit101aeb376adf6f01536653cea082f646
         'Respect\\Validation\\' => 
         array (
             0 => __DIR__ . '/..' . '/respect/validation/library',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
         'Libs\\' => 
         array (
@@ -134,6 +142,11 @@ class ComposerStaticInit101aeb376adf6f01536653cea082f646
         'Libs\\AdminUser\\AdminUser' => __DIR__ . '/../..' . '/Libs/AdminUser/AdminUser.php',
         'Libs\\SuperUser\\SuperUserO' => __DIR__ . '/../..' . '/Libs/SuperUser/SuperUser.php',
         'Libs\\Validation\\Validation' => __DIR__ . '/../..' . '/Libs/Validation/Validation.php',
+        'PHPMailer\\PHPMailer\\Exception' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/Exception.php',
+        'PHPMailer\\PHPMailer\\OAuth' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/OAuth.php',
+        'PHPMailer\\PHPMailer\\PHPMailer' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/PHPMailer.php',
+        'PHPMailer\\PHPMailer\\POP3' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/POP3.php',
+        'PHPMailer\\PHPMailer\\SMTP' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/SMTP.php',
         'Respect\\Validation\\Exceptions\\AgeException' => __DIR__ . '/..' . '/respect/validation/library/Exceptions/AgeException.php',
         'Respect\\Validation\\Exceptions\\AllOfException' => __DIR__ . '/..' . '/respect/validation/library/Exceptions/AllOfException.php',
         'Respect\\Validation\\Exceptions\\AlnumException' => __DIR__ . '/..' . '/respect/validation/library/Exceptions/AlnumException.php',

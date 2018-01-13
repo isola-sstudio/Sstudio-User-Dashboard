@@ -334,12 +334,58 @@ ini_set( "display_errors", 0);
                                         </tr>
                                       </tbody>
                                     </table>
-                                    <?php if ($userDetails['subscription_status'] == 1): ?>
-                                      <button class="btn btn-success">Renew</button>
-                                      <a href="payment.php" target="_blank" class="btn m-l-20 shadow-xl ui-gradient-green">Renew</a>
-                                    <?php else: ?>
-                                      <a href="payment.php" target="_blank" class="btn m-l-20 shadow-xl ui-gradient-peach">Get Started</a>
-                                    <?php endif; ?>
+
+                                    <div class="pricing_plans">
+                                      <div class="pricing_plan">
+                                        <h3>Basic</h3>
+                                        <span>$153/mo</span>
+                                        <span>₦55,000/mo</span>
+                                        <ul>
+                                          <li>Branding</li>
+                                          <li>Website Development</li>
+                                          <li>Digital Marketing</li>
+                                          <li>Free Accounting Support</li>
+                                        </ul>
+                                        <?php if ($userDetails['subscription_status'] == 1 && strtolower($userDetails['subscription_plan']) == 'basic'): ?>
+                                          <a href="" class="btn m-l-20 shadow-xl ui-gradient-green">Renew</a>
+                                        <?php else: ?>
+                                          <a href="" class="btn m-l-20 shadow-xl ui-gradient-peach">Select Plan</a>
+                                        <?php endif; ?>
+                                      </div>
+                                      <div class="pricing_plan">
+                                        <h3>Standard</h3>
+                                        <span>$278/mo</span>
+                                        <span>₦100,000/mo</span>
+                                        <ul>
+                                          <li>Branding</li>
+                                          <li>Website Development</li>
+                                          <li>Mobile Apps Development</li>
+                                          <li>Digital Marketing</li>
+                                          <li>Free Accounting Support</li>
+                                        </ul>
+                                        <?php if ($userDetails['subscription_status'] == 1 && strtolower($userDetails['subscription_plan']) == 'standard'): ?>
+                                          <a href="" class="btn m-l-20 shadow-xl ui-gradient-green">Renew</a>
+                                        <?php else: ?>
+                                          <a href="" class="btn m-l-20 shadow-xl ui-gradient-peach">Select Plan</a>
+                                        <?php endif; ?>
+                                      </div>
+                                      <div class="pricing_plan">
+                                        <h3>Custom</h3>
+                                        <span>Let's Talk</span>
+                                        <span>Per Project</span>
+                                        <ul>
+                                          <li>Branding</li>
+                                          <li>Website Development</li>
+                                          <li>Mobile Apps Development</li>
+                                          <li>Digital Marketing</li>
+                                        </ul>
+                                        <?php if ($userDetails['subscription_status'] == 1 && strtolower($userDetails['subscription_plan']) == 'custom'): ?>
+                                          <a href="" class="btn m-l-20 shadow-xl ui-gradient-green">Renew</a>
+                                        <?php else: ?>
+                                          <a href="" class="btn m-l-20 shadow-xl ui-gradient-peach">Select Plan</a>
+                                        <?php endif; ?>
+                                      </div>
+                                    </div>
                                   </div>
                                 <hr>
                                 <h4 class="font-bold m-t-30">Current Card Used</h4>
@@ -352,10 +398,6 @@ ini_set( "display_errors", 0);
 
                           </div>
                       </div>
-
-
-
-
 
 
                     </div>
