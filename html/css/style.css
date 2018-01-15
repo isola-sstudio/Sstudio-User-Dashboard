@@ -186,36 +186,36 @@ ul#side-menu>li>a.active{
   white-space: nowrap;
   }
 
-
+.pricing_plans{
+  box-shadow: 0px 0px 12px 0 rgba(0,0,0,.35);
+  margin: 2%;
+}
   .pricing_plan {
-      width: 32%;
-      display: inline-block;
-      background: #fff;
-      box-shadow: 2px 2px 2px 0 rgba(0,0,0,.35);
-      /*border: 2px solid #E9E8E9;*/
+      display: block;
+      border-bottom: 1px solid #E9E8E9;
       border-radius: 3px;
-      padding: 10px 15px;
+      padding: 30px;
       margin: 0;
-      margin-bottom: 10px;
-      vertical-align: middle;
   }
-    .pricing_plan ul{
-      padding-left: 0;
-    }
-  .pricing_plan li{
-    list-style-type: none;
-    margin-bottom: 7px;
+  .pricing_plan .pricing{
+    display: inline-block;
+    width: 30%;
+    margin: auto;
+    text-align: center;
   }
   .pricing_plan h3{
+    display: inline-block;
+    width: 30%;
     margin-bottom: 25px;
     font-size: 18px;
     line-height: 0;
     /*font-weight: bold;*/
   }
-  .pricing_plan > span{
-    display: block;
-    margin: auto;
-    margin-bottom: 15px;
+  .pricing > span{
+    margin-right: 5px;
     text-align: center;
     font-weight: bold;
+  }
+  .pricing_plan > a{
+    float: right;
   }

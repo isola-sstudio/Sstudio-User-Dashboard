@@ -53,7 +53,7 @@ function sendMail($subject, $companyName, $postEmail, $postMessageArray){
 
     $mail->From = $postEmail;
     $mail->FromName = $name;
-    $mail->AddReplyTo($email, $name);
+    $mail->AddReplyTo($postEmail, $name);
     // $mail->addAddress('hello@thestartupstudio.org', $name);  // Add a recipient
         $mail->addAddress('isola@sstudio.io', $name);  // Add a recipient
 

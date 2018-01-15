@@ -1,4 +1,6 @@
 <?php namespace Libs\AdminTask;
+ error_reporting(E_ALL);
+ ini_set("display_errors", 1);
 
   //config constants for server connection
   require_once __DIR__ . '/../../../../config/db/db_constants.php';
@@ -398,86 +400,159 @@
         }
     }
 
+    /**
+     **This method is used by an Admin user to update a task
+     **@param string $userId, $taskId, $updates
+     **@return bool TRUE if the task was successfully updated
+     * without any error. FALSE otherwise.
+     */
+    public function updateTask($userId, $taskId, $updates){
+      //build up a query string and update task
+      $query = "UPDATE `thestart_upstudio`.`admin_task` SET";
+      foreach ($updates as $key => $value) {
+        # add key and value pair of info to $query
+        //adding each key value pair to $query
+        if (array_keys($updates)[count($updates) - 1] == $key) {
+          # we have the last one of the set of info passed in so no comma
+          $query .= " `$key` = '$value'";
+        }else {
+          # it is the first of a set or one of a set so add a comma
+          $query .= " `$key` = '$value',";
+        }
+      }
 
+      //add the final part to query
+      $query .= " WHERE  `admin_task`.`user_id` = '$userId' AND `admin_task`.`id` = '$taskId'";
 
-
-
-
-
-
-
-
-
-
-
-
-
+      //perform the update
+      if ($result = Self::$serverConn->query($query)) {
+        # query execution was successful
+        if (Self::$serverConn->affected_rows == 1) {
+          # user info has been successfully inserted into database so send
+          return TRUE;
+        }else {
+            # user info was not updated most likely due to wrong id or something else
+            return FALSE;
+          }
+      }else {
+          # user info could not be inserted at the moment due to server issue
+          return FALSE;
+        }
+    }
 
     /**
-     **This method is used to update info for an existing user in the database.
-     **It accepts an associative array corresponding to table column name and value
-     **It needs user id, passed in
-     **@param Assoc Array $info, Int $userId
-     **@return bool TRUE if all details passed in were successfully updated in
-     *database. FALSE otherwise.
+     **This method is used by an Admin user during chat on a task to retrieve all
+     * the previous content of the chat on that task
+     **@param string $userId, $taskId
+     **@return string $chatFileContent, bool FALSE if the task does not exist
      */
-     public function updateAdminUserInfo($info, $user_id){
-       //build up a query parts for query string from info
-       $query = "UPDATE `thestart_upstudio`.`tss_package_subscription` SET";
-       foreach ($info as $key => $value) {
-         # add key and value pair of info to $query
-         //adding each key value pair to $query
-         if (array_keys($info)[count($info) - 1] == $key) {
-           # we have the last one of the set of info passed in so no comma
-           $query .= " `$key` = '$value'";
-         }else {
-           # it is the first of a set or one of a set so add a comma
-           $query .= " `$key` = '$value',";
-         }
-       }
-       //add the final part to query
-       $query .= " WHERE `tss_package_subscription`.`id` = '$user_id'";
+    public function getTaskChatFile($userId, $taskId){
+      //check that the task exists
+      if ($this->getTasksInfo($userId, 'id', '', array(array('key' => 'id', 'operator'=>'=', 'value'=>$taskId)), '')) {
+        # check if a chat file has been created then open it
+        $chatFile = $this->getTasksInfo($userId, 'chat_file', '', array(array('key' => 'id', 'operator'=>'=', 'value'=>$taskId)), '');
+        if ($chatFile[0] != '') {
+          # a chat file has been created so open it for reading and read back
+          $handle = fopen('../task_chats/'.$chatFile[0].'.html', 'a+');
+          $chatFileContent = file_get_contents('../task_chats/'.$chatFile[0].'.html');
+          fclose($handle);
+          return $chatFileContent;
+        }else {
+          # create a chat file, opened for reading and read back
+          $chatFileName = rand(1000, 9999) . '_' . $taskId;
+          $this->updateTask($userId, $taskId, array('chat_file' => $chatFileName,));
 
-       //perform the update
-       if ($result = Self::$serverConn->query($query)) {
-         # query execution was successful
-         if (Self::$serverConn->affected_rows == 1) {
-           # user info has been successfully inserted into database so send
-           return TRUE;
-         }else {
-             # user info was not updated most likely due to wrong id or something else
-             return FALSE;
-           }
-       }else {
-           # user info could not be inserted at the moment due to server issue
-           return FALSE;
-         }
-     }
+          $handle = fopen('../task_chats/'.$chatFileName.'.html', 'a+');
+          // chmod('../task_chats/'.$chatFileName.'.html', 0733);  //change file permission
+          $chatFileContent = file_get_contents('../task_chats/'.$chatFileName.'.html');
+          fclose($handle);
+          return $chatFileContent;
+        }
+      }else {
+        # most likely, someone is messing with the request
+        return FALSE;
+      }
+    }
+
+    /**
+     **This method is used by an Admin user during chat on a task to post new
+     * chat message and also retrieve it on success
+     **@param string $userId, $taskId, $updateString
+     **@return string $updatedContent, bool FALSE if the task chat file does not
+     * exist
+     */
+    public function updateTaskChatFile($userId, $taskId, $updateString){
+      //check that the task exists
+      if ($this->getTasksInfo($userId, 'id', '', array(array('key' => 'id', 'operator'=>'=', 'value'=>$taskId)), '')) {
+        # check if a chat file has been created then open it
+        $chatFile = $this->getTasksInfo($userId, 'chat_file', '', array(array('key' => 'id', 'operator'=>'=', 'value'=>$taskId)), '');
+        if ($chatFile[0] != '') {
+          # a chat file has been created so open it for appending and read back
+          $handle = fopen('../task_chats/'.$chatFile[0].'.html', 'a+');
+          if (filesize('../task_chats/'.$chatFile[0].'.html') != 0) {
+            # the file is not empty
+            fread($handle, filesize('../task_chats/'.$chatFile[0].'.html'));
+          }
+          $currentPosition = ftell($handle);
+
+          fwrite($handle, $updateString.PHP_EOL);
+          fseek($handle, $currentPosition);
+          $updatedContent = fread($handle, strlen($updateString));
+          fclose($handle);
+          return $updatedContent;
+        }else {
+            # the task chat file does not exist... for now return FALSE
+            return FALSE;
+          }
+      }else {
+        # most likely, someone is messing with the request
+        return FALSE;
+      }
+    }
+
+    /**
+     **This method is used by an Admin user during chat on a task to get updated
+     * chat messages most likely from the other side
+     **@param string $userId, $taskId, $compareString
+     **@return string $updatedContent, bool FALSE if the task chat file does not
+     * exist
+     */
+    public function getUpdatedTaskChatMessages($userId, $taskId, $compareString){
+      //check that the task exists
+      if ($this->getTasksInfo($userId, 'id', '', array(array('key' => 'id', 'operator'=>'=', 'value'=>$taskId)), '')) {
+
+        # check if a chat file has been created then open it
+        $chatFile = $this->getTasksInfo($userId, 'chat_file', '', array(array('key' => 'id', 'operator'=>'=', 'value'=>$taskId)), '');
+        if ($chatFile[0] != '') {
+          # a chat file has been created so open it for comparing and read back
+          $handle = fopen($chatFile[0].'.html', 'r');
+          fread($handle, strlen($compareString));
+          $updatedContent = fread($handle, filesize($chatFile[0].'.html'));
+          fclose($handle);
+          return $updatedContent;
+        }else {
+            # the task chat file does not exist... for now return FALSE
+            return FALSE;
+          }
+
+      }else {
+        # most likely, someone is messing with the request
+        return FALSE;
+      }
+    }
+
+
+
+
+
+
   }
 
 ?>
 <?php
 
   $test = new TaskO();
-  // echo "bring in tasks without any additional stuffs<br>";
-  // echo "<br>bring in tasks with a constraint<br>";
-         // var_dump($test->getTasksInfo(1, 'created', 5, '', array('column' => 'created', 'type'=>'DESC' ), TRUE));
-  // echo "<br>bring in tasks with an order<br>";
-      // var_dump($test->getTasksInfo(1, 'task_name', '', array(array('key' => 'status', 'operator'=>'=', 'value'=>'0')), array('column' => 'created', 'type'=>'DESC')));
-  // echo "<br>bring in tasks with an order and a limit<br>";
-       // var_dump($test->getTasksInfo(1, 'task_name', '3', array(array('key' => 'status','operator'=>'=', 'value'=>'0')), array('column' => 'created', 'type'=>'DESC')));
-  // echo "<br><br><br>bring in tasks with an order and a limit<br>";
-        // var_dump($test->getTasksInfo(1, 'task_name', '3', array(array('key' => 'status','operator'=>'=', 'value'=>'0')), array('column' => 'created', 'type'=>'DESC')));
-//  var_dump($variable = $test->getReccentTasks(1, 'December', 1));
-// echo "<br>";
-// echo "<br>";echo "<br>";
-// foreach ($variable as $k => $v) {
-// //  foreach ($v as $key) {
-//     # code...
-//     echo "<br><br><br><br><br><br>";
-//     echo $v['task_name'];
-//     var_dump($v);
-//   // }
-// }
-// var_dump($test->getTasksInfo(1, 'id', '', array(array('key' => 'task_name','operator'=>'=', 'value'=>"It's your boy Whizzy"),array('key' => 'task_description','operator'=>'=', 'value'=>"No problem"))));
+  // var_dump($test -> getTaskChatFile(1, 1));
+  // var_dump($test -> updateTaskChatFile(1, 1, 'project'));
+  // var_dump($test -> getUpdatedTaskChatMessages(1, 1, 'it is going alrightit is going alrightit is going alrightNa so ooooo! Na so ooooo! Na so ooooo! Na so ooooo! N'));
 ?>

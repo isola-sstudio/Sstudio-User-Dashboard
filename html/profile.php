@@ -200,10 +200,10 @@ ini_set( "display_errors", 0);
                             <div class="tab-pane active" id="profile">
                                   <form class="form-horizontal form-material" action="" method="post" enctype="multipart/form-data">
                                       <div class="form-group">
-                                        <?php if ($updateError): ?>
+                                        <?php if (isset($updateError)): ?>
                                           <span class="small text-danger" style="margin:10px 15px;"><?php echo $updateError; ?></span>
                                         <?php endif; ?>
-                                        <?php if ($updateResponse): ?>
+                                        <?php if (isset($updateResponse)): ?>
                                           <span class="small text-success" style="margin:10px 15px;"><?php echo $updateResponse; ?></span>
                                         <?php endif; ?>
                                           <label class="col-md-12">Full Name</label>
@@ -338,14 +338,10 @@ ini_set( "display_errors", 0);
                                     <div class="pricing_plans">
                                       <div class="pricing_plan">
                                         <h3>Basic</h3>
-                                        <span>$153/mo</span>
-                                        <span>₦55,000/mo</span>
-                                        <ul>
-                                          <li>Branding</li>
-                                          <li>Website Development</li>
-                                          <li>Digital Marketing</li>
-                                          <li>Free Accounting Support</li>
-                                        </ul>
+                                        <div class="pricing">
+                                          <span>$153/mo</span>
+                                          <span>₦55,000/mo</span>
+                                        </div>
                                         <?php if ($userDetails['subscription_status'] == 1 && strtolower($userDetails['subscription_plan']) == 'basic'): ?>
                                           <a href="" class="btn m-l-20 shadow-xl ui-gradient-green">Renew</a>
                                         <?php else: ?>
@@ -354,15 +350,10 @@ ini_set( "display_errors", 0);
                                       </div>
                                       <div class="pricing_plan">
                                         <h3>Standard</h3>
-                                        <span>$278/mo</span>
-                                        <span>₦100,000/mo</span>
-                                        <ul>
-                                          <li>Branding</li>
-                                          <li>Website Development</li>
-                                          <li>Mobile Apps Development</li>
-                                          <li>Digital Marketing</li>
-                                          <li>Free Accounting Support</li>
-                                        </ul>
+                                        <div class="pricing">
+                                          <span>$278/mo</span>
+                                          <span>₦100,000/mo</span>
+                                        </div>
                                         <?php if ($userDetails['subscription_status'] == 1 && strtolower($userDetails['subscription_plan']) == 'standard'): ?>
                                           <a href="" class="btn m-l-20 shadow-xl ui-gradient-green">Renew</a>
                                         <?php else: ?>
@@ -371,15 +362,11 @@ ini_set( "display_errors", 0);
                                       </div>
                                       <div class="pricing_plan">
                                         <h3>Custom</h3>
-                                        <span>Let's Talk</span>
-                                        <span>Per Project</span>
-                                        <ul>
-                                          <li>Branding</li>
-                                          <li>Website Development</li>
-                                          <li>Mobile Apps Development</li>
-                                          <li>Digital Marketing</li>
-                                        </ul>
-                                        <?php if ($userDetails['subscription_status'] == 1 && strtolower($userDetails['subscription_plan']) == 'custom'): ?>
+                                        <div class="pricing">
+                                          <span>Let's Talk</span>
+                                        </div>
+                                          <?php if ($userDetails['subscription_status'] == 1 && strtolower($userDetails['subscription_plan']) == 'custom'): ?>
+                                        </div>
                                           <a href="" class="btn m-l-20 shadow-xl ui-gradient-green">Renew</a>
                                         <?php else: ?>
                                           <a href="" class="btn m-l-20 shadow-xl ui-gradient-peach">Select Plan</a>
